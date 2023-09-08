@@ -1,0 +1,25 @@
+.tab {
+    display: flex;
+    padding: 20px 70px;
+    font-weight: normal;
+    justify-content: center;
+    color: var(--text-gray, #B6C1CE);
+    align-items: center;
+    border-color: var(--background-light-blue, #EEF5F9);
+    background: none;
+}
+
+.tab:hover {
+    font-weight: bold;
+    border: none;
+    color: var(--text-black, #181818);
+    background: var(--background-light-blue, #EEF5F9);
+}
+
+.leftTab {
+    border-radius: 10px 0 0 10px;
+}
+
+.rightTab {
+    border-radius: 0 10px 10px 0;
+}

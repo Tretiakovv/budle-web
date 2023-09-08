@@ -1,0 +1,14 @@
+.outer-layout {
+    display: flex;
+    max-width: 1920px;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-layout {
+    display: flex;
+    width: 590px;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}

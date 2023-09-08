@@ -1,0 +1,10 @@
+.textInput {
+    display: flex;
+    margin-top: 5px;
+    width: 510px;
+    padding: 18px 20px 16px 20px;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: 10px;
+    background: var(--fill-white, #FFF);
+}
