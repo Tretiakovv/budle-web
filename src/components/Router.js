@@ -6,7 +6,7 @@ const Router = () => {
     return <BrowserRouter>
         <Routes>
             <Route element={<App/>} path='/'/>
-            <Route element={<SignIn/>} path={'/signIn'} />
+            <Route element={<SignIn/>} path={'/sign_in'} />
             <Route path='*' element={
                 <div> Not found </div>
             }></Route>

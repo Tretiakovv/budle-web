@@ -5,8 +5,15 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    outline: none;
     align-self: stretch;
     border-radius: 10px;
     color : #FFFFFF;
+    border: 0;
     background: var(--text-black, #181818);
+}
+
+.button:hover {
+    background: var(--text-black, #252525);
+    cursor: pointer;
 }

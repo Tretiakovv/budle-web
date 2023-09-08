@@ -5,19 +5,23 @@
     justify-content: center;
     color: var(--text-gray, #B6C1CE);
     align-items: center;
-    border-color: var(--background-light-blue, #EEF5F9);
+    border: 2px solid #EEF5F9;
     background: none;
 }
 
-.tab:hover {
+.selected {
     font-weight: bold;
-    border: none;
     color: var(--text-black, #181818);
     background: var(--background-light-blue, #EEF5F9);
 }
 
+.tab:hover {
+    cursor: pointer;
+}
+
 .leftTab {
     border-radius: 10px 0 0 10px;
+    border-right: none;
 }
 
 .rightTab {

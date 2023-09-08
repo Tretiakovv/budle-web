@@ -1,13 +1,14 @@
 import styles from "./Tab.module.css"
 
-const Tab = (props) => {
+const Tab = ({type, message, onClick, activeTab}) => {
 
-    const secondStyle = props.type === "left" ? styles.leftTab : styles.rightTab;
+    const secondStyle = type === "left" ? styles.leftTab : styles.rightTab;
     const classNames = `${styles.tab} ${secondStyle}`
+    const selectedClassNames = activeTab === type ? `${styles.selected} ${classNames}` : classNames
 
     return (
-        <button className={classNames}>
-            {props.message}
+        <button className={selectedClassNames} onClick={onClick}>
+            {message}
         </button>
     );
 }

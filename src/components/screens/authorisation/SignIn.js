@@ -1,21 +1,25 @@
-import TabRow from "../../../ui/moleculas/tab-row/TabRow";
+import TabSwitch from "../../../ui/moleculas/tab-switch/TabSwitch";
 import TextInput from "../../../ui/atoms/text-input/TextInput";
 import Button from "../../../ui/atoms/button/Button";
-import Card from "../../../ui/templates/card/Card";
-import AuthSurface from "../../../ui/templates/auth-surface/AuthSurface";
-
-const innerComponents = [
-    () => <TextInput labelText={"Логин"} placeholder={"Введите логин"}/>,
-    () => <TextInput labelText={"Пароль"} placeholder={"Введите пароль"}/>,
-    () => <Button buttonText={"Войти"}/>,
-];
+import Card from "../../../ui/wrappers/card/Card";
+import Form from "../../../ui/wrappers/form/Form"
+import style from "./SignIn.module.css"
 
 const SignIn = () => {
     return (
-        <AuthSurface
-            card={<Card components={innerComponents}/>}
-            tabRow={<TabRow left={"Войти"} right={"Зарегистрироваться"}/>}
-        />
+        <div className={style.outer}>
+            <div className={style.inner}>
+                <img src={"business-budle-logo.svg"} alt={"Budle logo"}/>
+                <TabSwitch left={"Войти"} right={"Зарегистрироваться"}/>
+                <Card>
+                    <Form>
+                        <TextInput labelText={"Логин"} placeholder={"Введите логин"} type={"text"}/>
+                        <TextInput labelText={"Пароль"} placeholder={"Введите пароль"} type={"password"}/>
+                        <Button buttonText={"Войти"}/>
+                    </Form>
+                </Card>
+            </div>
+        </div>
     );
 }
 

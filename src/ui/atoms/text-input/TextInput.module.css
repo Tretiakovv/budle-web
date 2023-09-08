@@ -1,10 +1,24 @@
-.textInput {
+.layout {
     display: flex;
-    margin-top: 5px;
+    margin-top: 10px;
     width: 510px;
     padding: 18px 20px 16px 20px;
     align-items: flex-start;
     align-self: stretch;
     border-radius: 10px;
+    border: none;
     background: var(--fill-white, #FFF);
+}
+
+.style {
+    font-family: Gilroy, sans-serif;
+    font-size: 18px;
+}
+
+.layout:focus {
+    outline: none;
+}
+
+.layout::placeholder {
+    color: var(--text-gray, #B6C1CE);
 }

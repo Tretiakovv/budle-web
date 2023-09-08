@@ -1,15 +1,15 @@
 import style from "./TextInput.module.css"
 
-const TextInput = ({labelText, placeholder}) => {
+const classNames = `${style.style} ${style.layout}`;
+
+const TextInput = ({labelText, type, placeholder}) => {
     return (
         <div>
-            <label>
-                {labelText}
-            </label>
+            <label> {labelText} </label>
             <input
-                type="text"
+                type={type}
                 placeholder={placeholder}
-                className={style.textInput}
+                className={classNames}
             />
         </div>
     );

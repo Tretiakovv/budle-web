@@ -1,5 +1,6 @@
-body {
-    font-family: 'Montserrat', sans-serif;
+body, html {
+    max-height: 100vh;
+    max-width: 100vw;
 }
 
 label {
@@ -9,4 +10,9 @@ label {
     font-style: normal;
     font-weight: 500;
     line-height: 120%;
+}
+
+button {
+    font-family: Gilroy, sans-serif;
+    font-size: 18px;
 }
