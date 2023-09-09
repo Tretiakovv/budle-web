@@ -4,20 +4,20 @@ import {useState} from "react";
 
 const TabSwitch = (props) => {
 
-    const [activeTab, setActiveTab] = useState('left')
+    const [activeTab, setActiveTab] = useState(props.defaultState)
 
     return (
         <div className={styles.tabRow}>
             <Tab
                 type={"left"}
-                message={props.left}
-                onClick={() => setActiveTab("left")}
+                message={props.leftMessage}
+                onClick={props.leftClick}
                 activeTab = {activeTab}
             />
             <Tab
                 type={"right"}
-                message={props.right}
-                onClick={() => setActiveTab("right")}
+                message={props.rightMessage}
+                onClick={props.rightClick}
                 activeTab = {activeTab}
             />
         </div>

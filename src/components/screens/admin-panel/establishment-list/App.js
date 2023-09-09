@@ -1,5 +1,5 @@
-import '../../../App.css';
-import Tab from "../../../ui/atoms/tab/Tab";
+import '../../../../App.css';
+import Tab from "../../../../ui/atoms/tab/Tab";
 
 function App() {
   return (

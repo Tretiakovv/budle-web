@@ -1,7 +1,5 @@
 import style from "./TextInput.module.css"
 
-const classNames = `${style.style} ${style.layout}`;
-
 const TextInput = ({labelText, type, placeholder}) => {
     return (
         <div>
@@ -9,7 +7,7 @@ const TextInput = ({labelText, type, placeholder}) => {
             <input
                 type={type}
                 placeholder={placeholder}
-                className={classNames}
+                className={`${style.style} ${style.layout}`}
             />
         </div>
     );

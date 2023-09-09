@@ -8,7 +8,7 @@ const Form = (props) => {
     })
 
     return (
-        <form>
+        <form style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             {childrenWithDiv}
         </form>
     )
