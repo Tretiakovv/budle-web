@@ -1,4 +1,4 @@
-import Button from "../../../../ui/atoms/button/Button";
+import Button from "../../../../ui/atoms/buttons/button/Button";
 import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 

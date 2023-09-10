@@ -1,16 +1,16 @@
-import styles from "./Tab.module.css"
+import style from "./Tab.module.css"
 
-const Tab = ({type, message, onClick, activeTab}) => {
+const Tab = ({activeTab = -1, textColor = "#B6C1CE", ...props}) => {
 
-    const secondStyle = type === "left" ? styles.leftTab : styles.rightTab;
-    const classNames = `${styles.tab} ${secondStyle}`
-    const selectedClassNames = activeTab === type ? `${styles.selected} ${classNames}` : classNames
+    const color = textColor
+    const tabStyle = activeTab === props.tabId ? `${style.layout} ${style.selected}` : `${style.layout}`
 
     return (
-        <button className={selectedClassNames} onClick={onClick}>
-            {message}
-        </button>
-    );
+        <div className={tabStyle}>
+            <img src={props.icon} alt={"Tab icon"}/>
+            <h4 style={{color: `${color}`}}>{props.text}</h4>
+        </div>
+    )
 }
 
-export default Tab;
+export default Tab

@@ -1,4 +1,4 @@
-import TabSwitch from "../../moleculas/tab-switch/TabSwitch";
+import SwitchButton from "../../moleculas/switch-button/SwitchButton";
 import Card from "../card/Card";
 import Form from "../form/Form";
 import style from "./Authorisation.module.css";
@@ -11,7 +11,7 @@ const Authorisation = (props) => {
     return (
         <div className={`${style.outer} ${style.inner}`}>
             <img src={"business-budle-logo.svg"} alt={"Budle logo"}/>
-            <TabSwitch
+            <SwitchButton
                 leftMessage={"Войти"}
                 leftClick={() => navigate('/log-in')}
                 rightMessage={"Зарегистрироваться"}

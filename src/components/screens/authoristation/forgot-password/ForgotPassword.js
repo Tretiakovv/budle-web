@@ -2,7 +2,7 @@ import Card from "../../../../ui/wrappers/card/Card";
 import Form from "../../../../ui/wrappers/form/Form";
 import style from "../../../../ui/wrappers/authorisation/Authorisation.module.css";
 import NumberInput from "../../../../ui/atoms/inputs/number-input/NumberInput";
-import Button from "../../../../ui/atoms/button/Button";
+import Button from "../../../../ui/atoms/buttons/button/Button";
 import labelStyle from "./ForgotPassword.module.css"
 import {useNavigate} from "react-router-dom";
 
