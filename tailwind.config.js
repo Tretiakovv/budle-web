@@ -11,6 +11,7 @@ module.exports = {
         'background-light-blue' : '#EEF5F9',
         'text-gray' : '#B6C1CE',
         'text-black' : '#181818',
+        'message-wrong' : '#FF406E'
       },
       fontFamily : {
         sans : ['Gilroy', 'sans-serif']

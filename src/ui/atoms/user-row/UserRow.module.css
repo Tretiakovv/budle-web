@@ -1,0 +1,33 @@
+.layout {
+
+    @apply w-full flex flex-row items-center justify-start gap-5;
+
+    .box {
+
+        @apply w-[50px] h-[50px] flex justify-center items-center;
+
+        .icon {
+            @apply absolute;
+        }
+
+        .circle {
+            @apply w-full h-full bg-background-blue rounded-full;
+        }
+
+    }
+
+    .userRow {
+
+        @apply flex flex-col items-start;
+
+        .firstText {
+            @apply text-lg font-semibold;
+        }
+
+        .secondText {
+            @apply text-base text-text-gray;
+        }
+
+    }
+
+}

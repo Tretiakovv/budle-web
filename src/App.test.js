@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './components/screens/admin-panel/establishment-list/App';
+import EstablishmentListScreen from './components/screens/admin-panel/establishment-list/EstablishmentListScreen';
 
 test('renders learn react link', () => {
-  render(<App />);
+  render(<EstablishmentListScreen />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

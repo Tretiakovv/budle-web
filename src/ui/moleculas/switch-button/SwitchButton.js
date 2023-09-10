@@ -1,19 +1,19 @@
-import Tab from "../../atoms/tab/Tab";
+import SwitchOption from "../../atoms/buttons/switch-option/SwitchOption";
 import {useState} from "react";
 
-const TabSwitch = (props) => {
+const SwitchButton = (props) => {
 
     const [activeTab, setActiveTab] = useState(props.defaultState)
 
     return (
         <div className={"flex"}>
-            <Tab
+            <SwitchOption
                 type={"left"}
                 message={props.leftMessage}
                 onClick={props.leftClick}
                 activeTab = {activeTab}
             />
-            <Tab
+            <SwitchOption
                 type={"right"}
                 message={props.rightMessage}
                 onClick={props.rightClick}
@@ -23,4 +23,4 @@ const TabSwitch = (props) => {
     );
 }
 
-export default TabSwitch;
+export default SwitchButton;

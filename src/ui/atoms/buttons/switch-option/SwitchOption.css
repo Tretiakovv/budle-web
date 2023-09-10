@@ -1,0 +1,21 @@
+.tab {
+
+    @apply flex px-20 py-5 font-normal text-lg justify-center text-text-gray;
+    @apply items-center border-2 border-background-blue bg-opacity-0;
+
+    &:hover {
+        @apply cursor-pointer
+    }
+}
+
+.selected {
+    @apply font-bold text-black bg-background-light-blue
+}
+
+.leftTab {
+    @apply rounded-l-xl
+}
+
+.rightTab {
+    @apply rounded-r-xl
+}
