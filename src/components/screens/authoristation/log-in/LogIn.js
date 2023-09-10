@@ -8,7 +8,7 @@ const LogIn = () => {
             <TextInput labelText={"Логин"} placeholder={"Введите логин"} type={"text"}/>
             <TextInput labelText={"Пароль"} placeholder={"Введите пароль"} type={"password"}/>
             <Button buttonText={"Войти"}/>
-            <a href={'/forgot_password'}>Забыли пароль?</a>
+            <a href={'/forgot-password'}>Забыли пароль?</a>
         </Authorisation>
     );
 }

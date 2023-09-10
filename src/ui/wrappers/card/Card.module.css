@@ -1,12 +1,4 @@
 .layout {
-    display: flex;
-    padding: 40px;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-.style {
-    border-radius: 20px;
-    background: var(--background-light-blue, #EEF5F9);
+    @apply flex w-[590px] p-10 flex-col gap-5 items-center align-middle
+    rounded-3xl bg-background-light-blue;
 }

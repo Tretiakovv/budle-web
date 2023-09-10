@@ -13,9 +13,9 @@ const Authorisation = (props) => {
             <img src={"business-budle-logo.svg"} alt={"Budle logo"}/>
             <TabSwitch
                 leftMessage={"Войти"}
-                leftClick={() => navigate('/log_in')}
+                leftClick={() => navigate('/log-in')}
                 rightMessage={"Зарегистрироваться"}
-                rightClick={() => navigate('/sign_in')}
+                rightClick={() => navigate('/sign-in')}
                 defaultState={props.defaultState}
             />
             <Card>

@@ -1,29 +1,21 @@
 .tab {
-    display: flex;
-    padding: 20px 70px;
-    font-weight: normal;
-    justify-content: center;
-    color: var(--text-gray, #B6C1CE);
-    align-items: center;
-    border: 2px solid #EEF5F9;
-    background: none;
+
+    @apply flex px-20 py-5 font-normal text-lg justify-center text-text-gray;
+    @apply items-center border-2 border-background-blue bg-opacity-0;
+
+    &:hover {
+        @apply cursor-pointer
+    }
 }
 
 .selected {
-    font-weight: bold;
-    color: var(--text-black, #181818);
-    background: var(--background-light-blue, #EEF5F9);
-}
-
-.tab:hover {
-    cursor: pointer;
+    @apply font-bold text-black bg-background-light-blue
 }
 
 .leftTab {
-    border-radius: 10px 0 0 10px;
-    border-right: none;
+    @apply rounded-l-xl
 }
 
 .rightTab {
-    border-radius: 0 10px 10px 0;
+    @apply rounded-r-xl
 }

@@ -1,13 +1,7 @@
 .outer {
-    display: flex;
-    min-height: 100vh;
-    justify-content: start;
-    align-items: center;
+    @apply flex py-10 min-h-screen justify-start items-center;
 }
 
 .inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
+    @apply flex w-auto flex-col items-center gap-10;
 }

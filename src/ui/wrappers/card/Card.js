@@ -1,10 +1,8 @@
 import style from './Card.module.css'
 
-const className = `${style.layout} ${style.style}`
-
 const Card = (props) => {
     return (
-        <div className={className}>
+        <div className={style.layout}>
             {props.children}
         </div>
     )

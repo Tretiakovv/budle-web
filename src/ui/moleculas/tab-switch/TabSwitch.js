@@ -1,4 +1,3 @@
-import styles from './TabSwitch.module.css'
 import Tab from "../../atoms/tab/Tab";
 import {useState} from "react";
 
@@ -7,7 +6,7 @@ const TabSwitch = (props) => {
     const [activeTab, setActiveTab] = useState(props.defaultState)
 
     return (
-        <div className={styles.tabRow}>
+        <div className={"flex"}>
             <Tab
                 type={"left"}
                 message={props.leftMessage}

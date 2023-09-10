@@ -1,19 +1,9 @@
 .button {
-    display: flex;
-    padding: 20px 70px;
-    width: 560px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    outline: none;
-    align-self: stretch;
-    border-radius: 10px;
-    color : #FFFFFF;
-    border: 0;
-    background: var(--text-black, #181818);
-}
 
-.button:hover {
-    background: var(--text-black, #252525);
-    cursor: pointer;
+    @apply w-full px-2 py-5 rounded-xl text-white text-lg bg-black border-0;
+
+    &:hover {
+        @apply bg-text-black;
+    }
+
 }

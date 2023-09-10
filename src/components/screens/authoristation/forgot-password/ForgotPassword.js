@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     return (
         <div
             className={`${style.outer} ${style.inner}`}
-            style={{gap: "20px", justifyContent: "center"}}
+            style={{gap: "40px", justifyContent: "center"}}
         >
             <span className={labelStyle.layout}>
                 <a href={"#"} onClick={() => navigate(-1)}>
@@ -26,6 +26,7 @@ const ForgotPassword = () => {
                 На Вашу почту пришёл код подтверждения
                 номера телефона. Введите его в поле ниже
             </p>
+
             <Card>
                 <Form>
                     <NumberInput

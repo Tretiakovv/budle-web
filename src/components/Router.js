@@ -8,9 +8,9 @@ const Router = () => {
     return <BrowserRouter>
         <Routes>
             <Route element={<App/>} path={'/'}/>
-            <Route element={<SignIn/>} path={'/sign_in'} />
-            <Route element={<LogIn/>} path={'/log_in'} />
-            <Route element={<ForgotPassword/>} path={'/forgot_password'} />
+            <Route element={<SignIn/>} path={'/sign-in'} />
+            <Route element={<LogIn/>} path={'/log-in'} />
+            <Route element={<ForgotPassword/>} path={'/forgot-password'} />
             <Route path='*' element={
                 <div> Not found </div>
             }></Route>

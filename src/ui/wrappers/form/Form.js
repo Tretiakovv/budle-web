@@ -1,15 +1,9 @@
-import {Children} from "react";
+import style from "./Form.module.css"
 
 const Form = (props) => {
-
-    const childrenWithDiv = Children.map(props.children, (child, key) => {
-        const padding = key !== Children.count(props.children) - 1 ? "30px" : "0px"
-        return <div style={{marginBottom: padding}}>{child}</div>
-    })
-
     return (
-        <form style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            {childrenWithDiv}
+        <form className={style.layout}>
+            {props.children}
         </form>
     )
 }

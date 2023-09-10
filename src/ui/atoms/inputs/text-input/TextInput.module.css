@@ -1,24 +1,14 @@
 .layout {
-    display: flex;
-    margin-top: 10px;
-    width: 510px;
-    padding: 18px 20px 16px 20px;
-    align-items: flex-start;
-    align-self: stretch;
-    border-radius: 10px;
-    border: none;
-    background: var(--fill-white, #FFF);
-}
 
-.style {
-    font-family: Gilroy, sans-serif;
-    font-size: 18px;
-}
+  @apply flex mt-2 w-[510px] px-5 py-4 text-lg items-start text-text-black
+  self-stretch rounded-xl border-0 bg-white;
 
-.layout:focus {
-    outline: none;
-}
+  &:focus {
+    @apply outline-0
+  }
 
-.layout::placeholder {
-    color: var(--text-gray, #B6C1CE);
+  &::placeholder {
+    @apply text-text-gray
+  }
+
 }

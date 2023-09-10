@@ -8,7 +8,7 @@ const NumberInput = (props) => {
             <InputMask
                 mask={props.mask}
                 placeholder={props.placeholder}
-                className={`${style.style} ${style.layout}`}
+                className={`${style.layout}`}
             />
         </div>
     )

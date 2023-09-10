@@ -1,0 +1,3 @@
+.layout {
+    @apply flex gap-8 w-full flex-col items-center
+}
