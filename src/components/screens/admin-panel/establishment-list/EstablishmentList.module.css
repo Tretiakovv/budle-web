@@ -1,9 +1,13 @@
 .layout {
 
-    @apply flex flex-row gap-0;
+    @apply h-screen flex flex-row gap-0;
 
     .content {
-        @apply w-full bg-orange-600;
+        @apply h-fit w-full px-10 grid grid-cols-12 gap-5;
+    }
+
+    .bg {
+        @apply w-full h-screen bg-background-light-blue;
     }
 
 }

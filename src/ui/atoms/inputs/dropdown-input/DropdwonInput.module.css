@@ -1,0 +1,14 @@
+.layout {
+
+    @apply flex h-full w-[510px] px-5 py-5 text-lg items-center justify-between
+    text-text-black rounded-xl border-0 bg-white;
+
+    &:focus {
+        @apply outline-0
+    }
+
+    &::placeholder {
+        @apply text-text-gray
+    }
+
+}

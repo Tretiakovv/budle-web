@@ -1,0 +1,13 @@
+.layout {
+
+    @apply flex flex-col gap-[30px] p-10;
+
+    & h1 {
+        @apply text-3xl font-semibold text-text-black;
+    }
+
+    .row {
+        @apply h-full flex flex-row items-center gap-5;
+    }
+
+}

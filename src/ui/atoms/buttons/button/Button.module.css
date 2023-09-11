@@ -1,9 +1,13 @@
 .button {
 
-    @apply w-full px-2 py-5 rounded-xl text-white text-lg bg-black border-0;
+    @apply px-2 py-5 rounded-xl text-white text-lg bg-black border-0;
 
     &:hover {
         @apply bg-text-black;
+    }
+
+    .row {
+        @apply px-10 items-center justify-center flex flex-row w-fit gap-[10px];
     }
 
 }

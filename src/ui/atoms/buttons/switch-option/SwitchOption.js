@@ -1,4 +1,4 @@
-import styles from "./SwitchOption.css"
+import styles from "./SwitchOption.module.css"
 
 const SwitchOption = ({type, message, onClick, activeTab}) => {
 

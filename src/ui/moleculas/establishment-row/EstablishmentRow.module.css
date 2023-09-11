@@ -1,0 +1,23 @@
+.layout {
+
+    @apply h-fit p-5 flex flex-row justify-between items-center;
+    @apply border-2 border-background-blue rounded-[10px];
+
+    .leftRow {
+        @apply w-fit flex flex-row items-baseline justify-start gap-[20px];
+
+        & h4 {
+            @apply w-fit text-text-black text-xl font-normal;
+        }
+
+        & h5 {
+            @apply w-fit text-text-gray text-lg font-normal;
+        }
+    }
+
+    .rightRow {
+        @apply w-fit flex items-end justify-center gap-5;
+    }
+
+}
+
