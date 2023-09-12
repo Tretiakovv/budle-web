@@ -1,5 +1,5 @@
 .layout {
-  @apply w-full;
+  @apply flex flex-col w-full;
 }
 
 .input {

@@ -1,9 +1,9 @@
 .layout {
 
-    @apply col-span-8 grid grid-cols-8 gap-[20px] pt-10 py-5;
+    @apply col-span-8 grid grid-cols-8 gap-[20px] pt-10;
 
     & h1 {
-        @apply text-[28px] font-semibold text-text-black col-span-8 self-center;
+        @apply text-[28px] leading-none font-semibold text-text-black col-span-8 self-center;
     }
 
     .row {

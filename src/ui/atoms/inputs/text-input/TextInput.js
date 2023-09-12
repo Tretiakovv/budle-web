@@ -1,13 +1,11 @@
 import style from "../TextInput.module.css"
 
-const TextInput = ({labelText = "", type = "text", placeholder, className = ""}) => {
-
-    const divStyle = `${style.layout} ${className}`
-
+const TextInput = ({labelText = "", type = "text", placeholder, color = "white"}) => {
     return (
-        <div className={divStyle}>
-            <label> {labelText} </label>
+        <div className={style.layout}>
+            <label className={"mb-[10px]"}> {labelText} </label>
             <input
+                style={{backgroundColor: `${color}`}}
                 type={type}
                 placeholder={placeholder}
                 className={style.input}

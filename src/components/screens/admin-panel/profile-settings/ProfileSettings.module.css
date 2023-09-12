@@ -1,0 +1,14 @@
+
+.settings {
+
+    @apply grid grid-cols-3 p-[30px] gap-5 rounded-[20px] bg-white;
+
+    .settingsInput {
+        @apply flex flex-row gap-5 col-span-3;
+    }
+
+    .settingsButtons {
+        @apply flex flex-row gap-5 col-span-2;
+    }
+
+}
