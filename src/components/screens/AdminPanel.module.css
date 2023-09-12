@@ -1,0 +1,7 @@
+.layout {
+    @apply grid grid-cols-10 gap-[20px] bg-background-blue;
+}
+
+.content {
+    @apply mr-5 flex flex-col gap-5 col-span-8;
+}

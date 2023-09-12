@@ -1,13 +1,14 @@
 .layout {
 
-    @apply flex flex-col gap-[30px] p-10;
+    @apply col-span-8 grid grid-cols-8 gap-[20px] pt-10 py-5;
 
     & h1 {
-        @apply text-3xl font-semibold text-text-black;
+        @apply text-[28px] font-semibold text-text-black col-span-8 self-center;
     }
 
     .row {
-        @apply h-full flex flex-row items-center gap-5;
+        @apply col-span-5 flex flex-row gap-5 items-center;
     }
 
 }
+

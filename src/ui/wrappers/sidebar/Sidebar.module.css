@@ -1,9 +1,9 @@
 .layout {
 
-    @apply w-[356px] flex flex-col justify-between items-center h-full py-[50px] px-[40px];
+    @apply col-span-2 flex flex-col justify-between items-center h-full py-[50px] px-[20px] bg-white;
 
     .group {
-        @apply w-full flex flex-col items-center gap-10
+        @apply w-full flex flex-col items-center gap-10;
     }
 
     .bottomGroup {

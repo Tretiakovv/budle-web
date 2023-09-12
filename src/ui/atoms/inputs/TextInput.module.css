@@ -1,0 +1,17 @@
+.layout {
+  @apply w-full;
+}
+
+.input {
+
+  @apply flex w-full px-5 py-5 text-lg text-text-black rounded-xl border-0 bg-white;
+
+  &:focus {
+    @apply outline-0
+  }
+
+  &::placeholder {
+    @apply text-text-gray
+  }
+
+}
