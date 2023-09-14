@@ -1,7 +1,7 @@
 import IconButton from "../../atoms/buttons/icon-button/IconButton";
-import style from "./EstablishmentRow.module.css"
+import style from "./FilialCard.module.css"
 
-const EstablishmentRow = ({filial, address = ""}) => {
+const FilialCard = ({filial, address = ""}) => {
     return (
         <div className = {style.layout}>
             <div className = {style.leftRow}>
@@ -16,4 +16,4 @@ const EstablishmentRow = ({filial, address = ""}) => {
     )
 }
 
-export default EstablishmentRow
+export default FilialCard

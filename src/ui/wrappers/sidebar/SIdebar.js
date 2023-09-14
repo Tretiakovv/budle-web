@@ -3,12 +3,12 @@ import Tab from "../../atoms/tab/Tab";
 import TabColumn from "../../moleculas/tab-column/tab-column/TabColumn";
 import UserRow from "../../atoms/user-row/UserRow";
 
-const Sidebar = () => {
+const Sidebar = ({activeTab}) => {
     return (
         <div className={style.layout}>
             <div className={style.group}>
                 <img className={style.logo} src={"business-budle-logo.svg"} alt={"Budle logo"}/>
-                <TabColumn ativeTab={1}/>
+                <TabColumn activeTab={activeTab}/>
             </div>
             <div className={`${style.group} ${style.bottomGroup}`}>
                 <UserRow username={"Артём"} userGrade={"Создатель"}/>

@@ -13,7 +13,7 @@ const ProfileSettingsScreen = () => {
     return (
         <div className={mainStyle.layout}>
 
-            <Sidebar/>
+            <Sidebar activeTab={2} />
 
             <div className={mainStyle.content}>
 
