@@ -1,6 +1,11 @@
 import style from "../TextInput.module.css"
 
-const TextInput = ({labelText = "", type = "text", placeholder, color = "white"}) => {
+const TextInput = ({
+                       labelText = "",
+                       type = "text",
+                       placeholder = "",
+                       color = "white",
+                       icon = ""}) => {
     return (
         <div className={style.layout}>
             <label className={"mb-[10px]"}> {labelText} </label>
@@ -10,6 +15,7 @@ const TextInput = ({labelText = "", type = "text", placeholder, color = "white"}
                 placeholder={placeholder}
                 className={style.input}
             />
+            <img src={icon} alt={"Input Icon"}/>
         </div>
     );
 }
