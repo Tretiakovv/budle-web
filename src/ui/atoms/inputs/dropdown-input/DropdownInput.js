@@ -1,12 +1,25 @@
-import style from "./DropdwonInput.module.css"
+import "./DropdwonInput.module.css"
+import {Children, useState} from "react";
 
 const DropdownInput = (props) => {
+
+    const [color, changeColor] = useState("text-text-gray")
+
     return (
-        <div className={style.layout}>
-            <h5>{props.defaultText}</h5>
-            <img src={"chevron-down.svg"} alt={"Chevron down"}/>
-        </div>
+        <select
+            onChange={() => {changeColor("text-black")}}
+            className={color}
+        >
+            {
+                Children.map(props.children, (child) => (
+                    <option>
+                        {child}
+                    </option>
+                ))
+            }
+        </select>
     )
+
 }
 
 export default DropdownInput

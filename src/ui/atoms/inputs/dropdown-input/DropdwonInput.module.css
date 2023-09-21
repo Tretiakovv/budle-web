@@ -1,14 +1,22 @@
-.layout {
+select, option {
 
     @apply flex h-full w-[510px] px-5 py-5 text-lg items-center justify-between
     text-text-black rounded-xl border-0 bg-white;
 
+    &:active {
+        @apply outline-0;
+    }
+
     &:focus {
-        @apply outline-0
+        @apply outline-0;
     }
 
-    &::placeholder {
-        @apply text-text-gray
-    }
+}
 
+.selected  {
+    @apply text-black;
+}
+
+.unselected {
+    @apply text-text-gray;
 }

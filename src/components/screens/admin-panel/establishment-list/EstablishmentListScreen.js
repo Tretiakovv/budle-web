@@ -1,12 +1,13 @@
 import mainStyle from "../../AdminPanel.module.css"
+import style from "./EstablishmentList.module.css"
 
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import EstablishmentGroup from "../../../../ui/wrappers/establishment-group/EstablishmentGroup";
 import FilialCard from "../../../../ui/moleculas/filial-card/FilialCard";
 import Button from "../../../../ui/atoms/buttons/button/Button.js";
-import DropdownInput from "../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
+import {FiSearch} from "react-icons/fi";
 
 const EstablishmentListScreen = () => {
     return (
@@ -17,8 +18,26 @@ const EstablishmentListScreen = () => {
             <div className={mainStyle.content}>
 
                 <HeaderColumn header={"Список заведений"}>
-                    <Button buttonText={"Добавить заведение"} icon={"plus.svg"}/>
-                    <TextInput placeholder={"Все заведения"}/>
+
+                    <div className={style.headerButton}>
+                        <Button
+                            buttonText={"Добавить заведение"}
+                            icon={"plus.svg"}
+                        />
+                    </div>
+
+                    <div className={style.headerInput}>
+                        <TextInput
+                            placeholder={"Все заведения"}
+                            icon={
+                                <FiSearch
+                                    size={"22px"}
+                                    className={"stroke-text-gray"}
+                                />
+                            }
+                        />
+                    </div>
+
                 </HeaderColumn>
 
                 <EstablishmentGroup header={"Аджикинежаль"}>

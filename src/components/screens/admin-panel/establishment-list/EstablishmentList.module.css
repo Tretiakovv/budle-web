@@ -1,0 +1,7 @@
+.headerButton {
+    @apply col-span-3;
+}
+
+.headerInput {
+    @apply col-span-3;
+}

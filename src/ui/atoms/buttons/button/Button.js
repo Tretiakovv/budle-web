@@ -1,6 +1,10 @@
 import style from "./Button.module.css"
 
-const Button = ({buttonText, type = "primary", icon = ""}) => {
+const Button = ({
+                    buttonText,
+                    type = "primary",
+                    icon = "",
+                }) => {
 
     const bgColor = type === "primary" ? "#000000" : "#EEF5F9"
     const textColor = type === "primary" ? "#FFFFFF" : "#181818"

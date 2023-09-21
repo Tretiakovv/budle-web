@@ -3,15 +3,47 @@ import style from "./EstablishmentMenu.module.css"
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
+import {FiSearch} from "react-icons/fi";
+import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 
 const EstablishmentMenuScreen = () => {
-    return(
+    return (
         <div className={mainStyle.layout}>
-            <HeaderColumn header={"Меню заведения"}>
-                <Button buttonText={`Редактировать меню`} />
-                <TextInput placeholder={"Аджикинежаль"} icon={""}/>
-                <TextInput placeholder={"ул. Советская 32"} icon={""}/>
-            </HeaderColumn>
+
+            <Sidebar activeTab={4}/>
+
+            <div className={mainStyle.content}>
+
+                <HeaderColumn header={"Меню заведения"}>
+
+                    <div className={style.headerButton}>
+                        <Button buttonText={`Редактировать меню`}/>
+                    </div>
+
+                    <div className={style.headerInputRow}>
+                        <TextInput
+                            placeholder={"Аджикинежаль"}
+                            icon={
+                                <FiSearch
+                                    size={"22px"}
+                                    className={"stroke-text-gray"}
+                                />
+                            }
+                        />
+                    <TextInput
+                        placeholder={"ул. Советская 32"}
+                        icon={
+                            <FiSearch
+                                size={"22px"}
+                                className={"stroke-text-gray"}
+                            />
+                        }
+                    />
+                    </div>
+
+                </HeaderColumn>
+
+            </div>
 
         </div>
     )
