@@ -5,8 +5,12 @@ import Button from "../../../../ui/atoms/buttons/button/Button";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 import {FiSearch} from "react-icons/fi";
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
+import FilterRow from "../../../../ui/atoms/rows/filter-row/FilterRow";
+import MenuList from "../../../../ui/moleculas/menu-list/MenuList";
+import data from "../../../../data/MenuData";
 
 const EstablishmentMenuScreen = () => {
+
     return (
         <div className={mainStyle.layout}>
 
@@ -42,6 +46,10 @@ const EstablishmentMenuScreen = () => {
                     </div>
 
                 </HeaderColumn>
+
+                <FilterRow />
+
+                <MenuList data={data}/>
 
             </div>
 

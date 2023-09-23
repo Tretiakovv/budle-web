@@ -1,0 +1,15 @@
+.subgroup {
+    @apply w-full;
+}
+
+.header {
+    @apply text-text-black text-xl font-medium;
+}
+
+.headerRow {
+    @apply w-full flex flex-row justify-between items-center pb-5 border-b-2 border-background-blue;
+}
+
+.icon {
+    @apply cursor-pointer stroke-text-gray;
+}

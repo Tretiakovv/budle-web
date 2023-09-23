@@ -1,0 +1,11 @@
+.filter {
+    @apply w-fit flex flex-row gap-3 items-center;
+}
+
+h4 {
+    @apply text-text-gray text-lg;
+}
+
+.icon {
+    @apply cursor-pointer stroke-text-gray;
+}
