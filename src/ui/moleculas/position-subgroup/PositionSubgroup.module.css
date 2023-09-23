@@ -1,15 +1,17 @@
 .subgroup {
-    @apply w-full;
-}
-
-.header {
-    @apply text-text-black text-xl font-medium;
+    @apply col-span-full;
 }
 
 .headerRow {
-    @apply w-full flex flex-row justify-between items-center pb-5 border-b-2 border-background-blue;
-}
 
-.icon {
-    @apply cursor-pointer stroke-text-gray;
+    @apply col-span-full flex flex-row justify-between items-center pb-5 border-b-2 border-background-blue;
+
+    .header {
+        @apply text-text-black text-xl font-medium;
+    }
+
+    .icon {
+        @apply cursor-pointer stroke-text-gray;
+    }
+
 }

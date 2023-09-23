@@ -1,3 +1,15 @@
 .filterRow {
-    @apply px-10 col-span-full flex flex-row justify-between items-center;
+
+    @apply px-10 col-span-full grid grid-cols-11 items-center;
+
+    .child {
+
+        @apply col-span-2;
+
+        &:first-child {
+            @apply col-span-3;
+        }
+
+    }
+
 }

@@ -1,10 +1,19 @@
 .row {
-    @apply w-full flex flex-row justify-between py-[30px] border-b-2 border-background-blue;
+
+    @apply col-span-full grid grid-cols-11 py-[30px] border-b-2 border-background-blue;
+
     &:hover {
         @apply bg-background-light-blue font-medium;
     }
+
 }
 
 .child {
-    @apply text-text-black text-lg;
+
+    @apply col-span-2 text-text-black text-lg;
+
+    &:first-child {
+        @apply col-span-3;
+    }
+
 }
