@@ -10,7 +10,12 @@ const EstablishmentGroup = (props) => {
                     props.branches.map(branch => {
                         return <BranchCard
                             address={branch.address}
-                            additional={branch.additional}
+                            additional={
+                            props.isManager ? branch.address : branch.additional
+                        }
+                            manager={
+                                props.isManager ? branch.manager : null
+                            }
                         />
                     })
                 }

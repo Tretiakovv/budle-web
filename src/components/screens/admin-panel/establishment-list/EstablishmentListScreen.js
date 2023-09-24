@@ -2,8 +2,6 @@ import mainStyle from "../../AdminPanel.module.css"
 import style from "./EstablishmentList.module.css"
 
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
-import EstablishmentGroup from "../../../../ui/wrappers/establishment-group/EstablishmentGroup";
-import BranchCard from "../../../../ui/moleculas/branch-card/BranchCard";
 import Button from "../../../../ui/atoms/buttons/button/Button.js";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
@@ -42,7 +40,7 @@ const EstablishmentListScreen = () => {
 
                 </HeaderColumn>
 
-                <EstablishmentList data={establishmentData} />
+                <EstablishmentList data={establishmentData} isManager={false}/>
 
             </div>
 

@@ -5,8 +5,15 @@ const BranchCard = (props) => {
     return (
         <div className = {style.layout}>
             <div className = {style.leftRow}>
-                <h4>{props.address}</h4>
+
+                {
+                    props.manager === null ?
+                        <h4>{props.address}</h4>
+                        : <h4>{props.manager}</h4>
+                }
+
                 <h5>{props.additional}</h5>
+
             </div>
             <div className={style.rightRow}>
                 <IconButton image={"edit.svg"} />

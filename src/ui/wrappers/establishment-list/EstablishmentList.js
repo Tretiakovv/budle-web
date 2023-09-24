@@ -9,6 +9,7 @@ const EstablishmentList = (props) => {
                     return <EstablishmentGroup
                         establishmentName={establishment.establishmentName}
                         branches={establishment.branches}
+                        isManager={props.isManager}
                     />
                 })
             }

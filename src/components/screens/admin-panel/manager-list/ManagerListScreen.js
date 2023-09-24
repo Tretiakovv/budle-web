@@ -3,12 +3,12 @@ import style from "./ManagerList.module.css"
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../ui/atoms/buttons/button/Button";
-import EstablishmentGroup from "../../../../ui/wrappers/establishment-group/EstablishmentGroup";
-import BranchCard from "../../../../ui/moleculas/branch-card/BranchCard";
 import DropdownInput from "../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
+import EstablishmentList from "../../../../ui/wrappers/establishment-list/EstablishmentList";
+import establishmentData from "../../../../data/EstablishmentData";
 
 const ManagerListScreen = () => {
-    return(
+    return (
         <div className={mainStyle.layout}>
 
             <Sidebar activeTab={3}/>
@@ -33,15 +33,7 @@ const ManagerListScreen = () => {
 
                 </HeaderColumn>
 
-                <EstablishmentGroup header={"Аджикинежаль"}>
-                    <BranchCard filial={"Третьяков Артём"} address={"ул. Военная, д. 136"}/>
-                    <BranchCard filial={"Константинов Никита"} address={"ул. Советская, д. 32"}/>
-                </EstablishmentGroup>
-
-                <EstablishmentGroup header={"Горячий Цех"}>
-                    <BranchCard filial={"Катешов Илья"} address={"ул. Советская, д. 32"}/>
-                    <BranchCard filial={"Миронова Ксения"} address={"ул. Ляпунова, д. 12/1"}/>
-                </EstablishmentGroup>
+                <EstablishmentList data={establishmentData} isManager={true}/>
 
             </div>
 
