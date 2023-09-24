@@ -4,7 +4,7 @@ import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import EstablishmentGroup from "../../../../ui/wrappers/establishment-group/EstablishmentGroup";
-import FilialCard from "../../../../ui/moleculas/filial-card/FilialCard";
+import BranchCard from "../../../../ui/moleculas/branch-card/BranchCard";
 import DropdownInput from "../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 
 const ManagerListScreen = () => {
@@ -34,13 +34,13 @@ const ManagerListScreen = () => {
                 </HeaderColumn>
 
                 <EstablishmentGroup header={"Аджикинежаль"}>
-                    <FilialCard filial={"Третьяков Артём"} address={"ул. Военная, д. 136"}/>
-                    <FilialCard filial={"Константинов Никита"} address={"ул. Советская, д. 32"}/>
+                    <BranchCard filial={"Третьяков Артём"} address={"ул. Военная, д. 136"}/>
+                    <BranchCard filial={"Константинов Никита"} address={"ул. Советская, д. 32"}/>
                 </EstablishmentGroup>
 
                 <EstablishmentGroup header={"Горячий Цех"}>
-                    <FilialCard filial={"Катешов Илья"} address={"ул. Советская, д. 32"}/>
-                    <FilialCard filial={"Миронова Ксения"} address={"ул. Ляпунова, д. 12/1"}/>
+                    <BranchCard filial={"Катешов Илья"} address={"ул. Советская, д. 32"}/>
+                    <BranchCard filial={"Миронова Ксения"} address={"ул. Ляпунова, д. 12/1"}/>
                 </EstablishmentGroup>
 
             </div>

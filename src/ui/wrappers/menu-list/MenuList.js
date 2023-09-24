@@ -1,6 +1,6 @@
 import style from "./MenuList.module.css"
 
-import PositionGroup from "../../wrappers/posititon-group/PositionGroup";
+import PositionGroup from "../posititon-group/PositionGroup";
 const MenuList = (props) => {
     return (
         <div className={style.list}>

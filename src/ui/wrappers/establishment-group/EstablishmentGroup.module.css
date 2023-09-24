@@ -1,7 +1,7 @@
 
 .layout {
 
-    @apply h-fit p-[30px] grid col-span-8 grid-cols-2 gap-5 rounded-[20px] bg-white;
+    @apply w-full h-fit p-[30px] grid col-span-8 grid-cols-2 gap-5 rounded-[20px] bg-white;
 
     & h2 {
         @apply col-span-8 text-text-black text-2xl font-semibold;

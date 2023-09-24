@@ -1,12 +1,12 @@
 import IconButton from "../../atoms/buttons/icon-button/IconButton";
-import style from "./FilialCard.module.css"
+import style from "./BranchCard.module.css"
 
-const FilialCard = ({filial, address = ""}) => {
+const BranchCard = (props) => {
     return (
         <div className = {style.layout}>
             <div className = {style.leftRow}>
-                <h4>{filial}</h4>
-                <h5>{address}</h5>
+                <h4>{props.address}</h4>
+                <h5>{props.additional}</h5>
             </div>
             <div className={style.rightRow}>
                 <IconButton image={"edit.svg"} />
@@ -16,4 +16,4 @@ const FilialCard = ({filial, address = ""}) => {
     )
 }
 
-export default FilialCard
+export default BranchCard

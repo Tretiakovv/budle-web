@@ -21,7 +21,7 @@
         @apply flex flex-col items-start;
 
         .firstText {
-            @apply text-lg font-semibold;
+            @apply text-lg font-medium;
         }
 
         .secondText {
