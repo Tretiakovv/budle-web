@@ -1,0 +1,32 @@
+.headerRow {
+
+    @apply w-full flex flex-row justify-between items-center;
+
+    .headerData {
+
+        @apply flex flex-row gap-7 items-baseline;
+
+        .header {
+            @apply text-2xl text-text-black font-semibold;
+        }
+
+        .additional {
+            @apply flex flex-row gap-3 text-text-gray;
+        }
+
+    }
+
+    .icon {
+        @apply cursor-pointer stroke-text-black sticky m-0;
+    }
+
+    .circleRow {
+
+        @apply flex flex-row items-center gap-3;
+
+        .circle {
+            @apply w-1 h-1 rounded-full bg-text-gray;
+        }
+    }
+
+}

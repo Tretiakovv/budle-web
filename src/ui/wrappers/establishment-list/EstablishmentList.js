@@ -10,6 +10,7 @@ const EstablishmentList = (props) => {
                         establishmentName={establishment.establishmentName}
                         branches={establishment.branches}
                         isManager={props.isManager}
+                        onClick={props.onClick}
                     />
                 })
             }

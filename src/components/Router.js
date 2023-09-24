@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import EstablishmentListScreen from "./screens/admin-panel/establishment-list/EstablishmentListScreen";
+import EstablishmentListScreen from "./screens/admin-panel/establishment-list/screen/EstablishmentListScreen";
 import ForgotPassword from "./screens/authoristation/forgot-password/ForgotPassword";
 import SignIn from "./screens/authoristation/sign-in/SignIn";
 import LogIn from "./screens/authoristation/log-in/LogIn";

@@ -1,23 +1,34 @@
-import IconButton from "../../atoms/buttons/icon-button/IconButton";
 import style from "./BranchCard.module.css"
+import {FiEdit, FiTrash2} from "react-icons/fi";
 
 const BranchCard = (props) => {
+
+    const branch = props.branch
+    const managerAdditional = props.isManager ? branch.address : branch.additional
+    const managerName = props.isManager ? branch.manager : null
+
     return (
         <div className = {style.layout}>
             <div className = {style.leftRow}>
 
                 {
-                    props.manager === null ?
-                        <h4>{props.address}</h4>
-                        : <h4>{props.manager}</h4>
+                    managerName === null ?
+                        <h4>{branch.address}</h4>
+                        : <h4>{managerName}</h4>
                 }
 
-                <h5>{props.additional}</h5>
+                <h5>{managerAdditional}</h5>
 
             </div>
             <div className={style.rightRow}>
-                <IconButton image={"edit.svg"} />
-                <IconButton image={"trash-2.svg"} />
+                <FiEdit className={style.editIcon} />
+                <FiTrash2
+                    className={style.deleteIcon}
+                    onClick={() => props.onClick({
+                        establishmentName: props.establishmentName,
+                        branch : props.branch
+                    })}
+                />
             </div>
         </div>
     )

@@ -19,5 +19,13 @@
         @apply w-fit flex items-end justify-center gap-5;
     }
 
+    .editIcon {
+        @apply w-[20px] cursor-pointer stroke-text-black;
+    }
+
+    .deleteIcon {
+        @apply w-[20px] cursor-pointer stroke-message-wrong;
+    }
+
 }
 
