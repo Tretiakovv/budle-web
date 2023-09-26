@@ -1,22 +1,21 @@
-select, option {
+.wrapper {
 
-    @apply flex h-full w-[510px] px-5 py-5 text-lg items-center justify-between
-    text-text-black rounded-xl border-0 bg-white;
+    @apply flex flex-col w-full;
 
-    &:active {
-        @apply outline-0;
+    .labelText {
+        @apply text-black font-medium text-lg;
     }
 
-    &:focus {
-        @apply outline-0;
+    .dropdown {
+        @apply p-5 rounded-2xl bg-white flex flex-row justify-between items-center;
     }
 
-}
+    .placeholder {
+        @apply text-text-gray font-medium text-lg;
+    }
 
-.selected  {
-    @apply text-black;
-}
+    .test {
+        @apply w-full bg-orange-500;
+    }
 
-.unselected {
-    @apply text-text-gray;
 }

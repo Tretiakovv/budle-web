@@ -7,7 +7,7 @@
     }
 
     .row {
-        @apply grid grid-cols-8 col-span-full gap-5 items-center;
+        @apply grid grid-cols-8 col-span-full gap-5 items-start;
     }
 
 }

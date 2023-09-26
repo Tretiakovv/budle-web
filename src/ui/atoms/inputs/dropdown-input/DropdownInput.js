@@ -1,23 +1,49 @@
-import "./DropdwonInput.module.css"
-import {Children, useState} from "react";
+import style from "./DropdwonInput.module.css"
+import {useLayoutEffect, useRef, useState} from "react";
+import ChevronIcon from "../../icons/chevron-icon/ChevronIcon";
+import DropdownOptionList from "../../../moleculas/option-list/DropdownOptionList";
+import optionData from "../../../../data/OptionData";
 
-const DropdownInput = (props) => {
+const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
 
-    const [color, changeColor] = useState("text-text-gray")
+    const divRef = useRef(null)
+
+    const [width, setWidth] = useState(0)
+    const [height, setHeight] = useState(0)
+
+    useLayoutEffect(() => {
+        setWidth(divRef.current.offsetWidth)
+        setHeight(divRef.current.offsetHeight)
+    })
+
+    const [selectedOption, selectOption] = useState({name: "", id: 0})
+    const [isOpen, setOpen] = useState(false)
+
+    console.log(selectedOption)
+
+    const color = selectedOption.id !== 0 ? "#181818" : "#B6C1CE"
+    const message = selectedOption.id !== 0 ? selectedOption.name : "Выберите заведение"
 
     return (
-        <select
-            onChange={() => {changeColor("text-black")}}
-            className={color}
-        >
+        <div className={style.wrapper}>
+            <div className={style.labelText}>{props.labelText}</div>
+            <div style={{backgroundColor: backgroundColor}} className={style.dropdown} ref={divRef}>
+                <div style={{color: color}} className={style.placeholder}>{message}</div>
+                <ChevronIcon
+                    iconState={isOpen}
+                    setState={() => setOpen(!isOpen)}
+                />
+            </div>
             {
-                Children.map(props.children, (child) => (
-                    <option>
-                        {child}
-                    </option>
-                ))
+                isOpen ? <DropdownOptionList
+                    options={optionData}
+                    onClick={(id) => selectOption(id)}
+                    selectedOption={selectedOption}
+                    width={width}
+                    height={height}
+                /> : null
             }
-        </select>
+        </div>
     )
 
 }

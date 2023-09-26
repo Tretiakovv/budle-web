@@ -1,0 +1,13 @@
+.wrapper {
+
+    @apply p-5 flex flex-row justify-between items-center;
+
+    .option {
+        @apply font-normal text-lg text-black;
+    }
+
+    &:hover {
+        @apply bg-background-light-blue cursor-pointer;
+    }
+
+}

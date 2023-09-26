@@ -6,6 +6,7 @@ import Button from "../../../../ui/atoms/buttons/button/Button";
 import DropdownInput from "../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import EstablishmentList from "../../../../ui/wrappers/establishment-list/EstablishmentList";
 import establishmentData from "../../../../data/EstablishmentData";
+import options from "../../../../data/OptionData";
 
 const ManagerListScreen = () => {
     return (
@@ -24,11 +25,10 @@ const ManagerListScreen = () => {
                         />
                     </div>
                     <div className={style.headerDropdown}>
-                        <DropdownInput>
-                            <h5>Hello</h5>
-                            <h5>My</h5>
-                            <h5>Name</h5>
-                        </DropdownInput>
+                        <DropdownInput
+                            placeholder={"Выберите заведение"}
+                            options={options}
+                        />
                     </div>
 
                 </HeaderColumn>
