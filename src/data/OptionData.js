@@ -9,7 +9,7 @@ const optionList = [
         id: 2
     },
     {
-        name: "Никитина попка",
+        name: "FRANK by Баста",
         id: 3
     },
 ]

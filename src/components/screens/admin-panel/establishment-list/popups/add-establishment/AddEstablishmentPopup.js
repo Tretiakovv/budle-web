@@ -1,62 +1,59 @@
 import style from "./AddEstablishemnt.module.css"
 import Popup from "../../../../../../ui/wrappers/popup/Popup";
-import {FiChevronDown, FiSearch, FiX} from "react-icons/fi";
+import {FiX} from "react-icons/fi";
 import TextInput from "../../../../../../ui/atoms/inputs/text-input/TextInput";
+import DropdownInput from "../../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
+import optionList from "../../../../../../data/OptionData";
+import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
+import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 
 const AddEstablishmentPopup = (props) => {
     return (
-        <Popup>
-            <div className={style.headerRow}>
-                <h2>Добавить заведение</h2>
+        <Popup width={980}>
+            <div className={style.dataRow}>
+                <h2 className={style.header}>Добавить заведение</h2>
                 <FiX
                     size={"20px"}
                     className={style.xIcon}
                     onClick={props.onClick}
                 />
             </div>
-            <div className={style.inputRow}>
+            <div className={style.dataRow}>
                 <TextInput
                     labelText={"Название"}
                     placeholder={"Введите название заведения"}
-                    color={"#B6C1CE"}
+                    color={"#EEF5F9"}
                 />
-                <TextInput
+                <DropdownInput
+                    backgroundColor={"#EEF5F9"}
                     labelText={"Категория"}
-                    placeholder={"Введите категорию заведения"}
-                    color={"#B6C1CE"}
-                    icon={
-                        <FiChevronDown
-                            size={"22px"}
-                            className={"stroke-text-gray"}
-                        />
-                    }
+                    placeholder={"Выберите категорию заведения"}
+                    options={optionList}
                 />
             </div>
-            <div className={style.inputRow}>
-                <TextInput
+            <div className={style.dataRow}>
+                <DropdownInput
+                    backgroundColor={"#EEF5F9"}
                     labelText={"Вид кухни"}
                     placeholder={"Выберите вид кухни заведения"}
-                    color={"#B6C1CE"}
-                    icon={
-                        <FiChevronDown
-                            size={"22px"}
-                            className={"stroke-text-gray"}
-                        />
-                    }
+                    options={optionList}
                 />
-                <TextInput
+                <DropdownInput
+                    backgroundColor={"#EEF5F9"}
                     labelText={"Теги"}
                     placeholder={"Выберите теги заведения"}
-                    color={"#B6C1CE"}
-                    icon={
-                        <FiChevronDown
-                            size={"22px"}
-                            className={"stroke-text-gray"}
-                        />
-                    }
+                    options={optionList}
                 />
-
             </div>
+            <FileInput
+                labelText={"Фотография"}
+                placeholder={"Выберите фотографию с диска или перетащите её в данное поле"}
+            />
+            <TextArea
+                placeholder={"" +
+                    "Придумайте завлекающее описание заведения.\n" +
+                    "Идеальная длина описания — 500 символов."}
+            />
         </Popup>
     )
 }

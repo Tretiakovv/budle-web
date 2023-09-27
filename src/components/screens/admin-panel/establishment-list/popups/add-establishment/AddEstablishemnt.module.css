@@ -1,15 +1,11 @@
-.wrapper {
+.dataRow {
+    @apply w-full flex flex-row justify-between gap-5 items-center;
+}
 
-    @apply w-full h-full flex items-center justify-center fixed z-10;
+.header {
+    @apply font-semibold text-2xl text-text-black;
+}
 
-    .card {
-
-        @apply w-[760px] flex flex-col gap-7 p-10 rounded-2xl bg-white absolute z-20;
-
-    }
-
-    .background {
-        @apply w-full h-screen bg-text-black opacity-80;
-    }
-
+.xIcon {
+    @apply stroke-text-black cursor-pointer;
 }

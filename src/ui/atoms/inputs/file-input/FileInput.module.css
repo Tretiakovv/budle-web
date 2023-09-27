@@ -1,0 +1,26 @@
+.wrapper {
+
+    @apply w-full flex flex-col gap-3;
+
+    .labelText {
+        @apply text-lg text-text-black;
+    }
+
+    .fileInput {
+
+        @apply w-full flex justify-center py-[50px] bg-background-light-blue
+        rounded-2xl border-2 border-main-blue border-dashed;
+
+        .paragraph {
+
+            @apply font-normal text-text-gray text-lg;
+
+            .highlight {
+                @apply text-main-blue cursor-pointer;
+            }
+
+        }
+
+    }
+
+}

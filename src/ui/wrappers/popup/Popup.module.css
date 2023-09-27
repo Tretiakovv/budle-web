@@ -3,9 +3,7 @@
     @apply w-full h-full flex items-center justify-center fixed z-10;
 
     .card {
-
-        @apply w-[760px] flex flex-col gap-7 p-10 rounded-2xl bg-white absolute z-20;
-
+        @apply w-[735px] flex flex-col gap-7 p-10 rounded-2xl bg-white absolute z-20;
     }
 
     .background {

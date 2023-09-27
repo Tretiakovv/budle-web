@@ -1,4 +1,5 @@
 import style from "../TextInput.module.css"
+import {useState} from "react";
 
 const TextInput = ({
                        labelText = "",
@@ -8,6 +9,7 @@ const TextInput = ({
                        icon = null,
                    }) => {
 
+    const [text, setText] = useState("")
     const labelStyle = labelText === "" ? "" : "mb-[10px]"
 
     return (
@@ -19,6 +21,9 @@ const TextInput = ({
                     type={type}
                     placeholder={placeholder}
                     className={style.input}
+                    onChange={(event) => {
+                        setText(event.target.value)
+                    }}
                 />
                 <div className={style.icon}>
                     {icon}

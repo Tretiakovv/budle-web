@@ -1,17 +1,17 @@
 .wrapper {
 
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full gap-3;
 
     .labelText {
-        @apply text-black font-medium text-lg;
+        @apply text-black text-lg;
     }
 
     .dropdown {
-        @apply p-5 rounded-2xl bg-white flex flex-row justify-between items-center;
+        @apply p-5 rounded-xl bg-white flex flex-row justify-between items-center;
     }
 
     .placeholder {
-        @apply text-text-gray font-medium text-lg;
+        @apply text-text-gray text-lg;
     }
 
     .test {

@@ -1,9 +1,9 @@
 import style from "./Popup.module.css"
 
-const Popup = (props) => {
+const Popup = ({width = 735, ...props}) => {
     return (
         <div className={style.wrapper}>
-            <div className={style.card}>{props.children}</div>
+            <div style={{width: width}} className={style.card}>{props.children}</div>
             <div className={style.background}/>
         </div>
     )

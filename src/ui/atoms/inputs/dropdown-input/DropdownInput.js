@@ -22,12 +22,12 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
     console.log(selectedOption)
 
     const color = selectedOption.id !== 0 ? "#181818" : "#B6C1CE"
-    const message = selectedOption.id !== 0 ? selectedOption.name : "Выберите заведение"
+    const message = selectedOption.id !== 0 ? selectedOption.name : props.placeholder
 
     return (
-        <div className={style.wrapper}>
+        <div className={style.wrapper} ref={divRef}>
             <div className={style.labelText}>{props.labelText}</div>
-            <div style={{backgroundColor: backgroundColor}} className={style.dropdown} ref={divRef}>
+            <div style={{backgroundColor: backgroundColor}} className={style.dropdown}>
                 <div style={{color: color}} className={style.placeholder}>{message}</div>
                 <ChevronIcon
                     iconState={isOpen}

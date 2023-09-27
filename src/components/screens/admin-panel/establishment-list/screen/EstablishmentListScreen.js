@@ -10,8 +10,11 @@ import EstablishmentList from "../../../../../ui/wrappers/establishment-list/Est
 import establishmentData from "../../../../../data/EstablishmentData";
 import DeleteBranchPopup from "../popups/delete-branch/DeleteBranchPopup";
 import {useState} from "react";
+import AddEstablishmentPopup from "../popups/add-establishment/AddEstablishmentPopup";
 
 const EstablishmentListScreen = () => {
+
+    const [addEstablishmentVisible, setVisible] = useState(false);
 
     const [branchToDelete, selectBranch] = useState(null)
     const [establishmentCollection, setCollection] = useState(establishmentData)
@@ -38,6 +41,13 @@ const EstablishmentListScreen = () => {
         <div className={popupLayout}>
 
             {
+                addEstablishmentVisible ?
+                    <AddEstablishmentPopup
+                        onClick={() => setVisible(false)}
+                    /> : null
+            }
+
+            {
                 branchToDelete === null ? null :
                     <DeleteBranchPopup
                         establishmentName={branchToDelete.establishmentName}
@@ -59,6 +69,7 @@ const EstablishmentListScreen = () => {
                         <div className={style.headerButton}>
                             <Button
                                 buttonText={"Добавить заведение"}
+                                onClick={() => setVisible(true)}
                                 icon={"plus.svg"}
                             />
                         </div>

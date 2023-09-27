@@ -8,9 +8,11 @@ module.exports = {
       colors: {
         'white' : '#FFFFFF',
         'background-blue': '#EEF5F9',
+        'main-blue': '#35A1F4',
         'background-light-blue' : '#EEF5F9',
         'text-gray' : '#B6C1CE',
         'text-black' : '#181818',
+        'shadow-black' : 'rgba(24,24,24,0.05)',
         'message-wrong' : '#FF406E'
       },
       fontFamily : {

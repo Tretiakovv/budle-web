@@ -1,0 +1,19 @@
+.wrapper {
+
+    @apply w-full h-[140px] relative;
+
+    .hint {
+        @apply text-text-gray text-base absolute top-5 right-5;
+    }
+
+    .textarea {
+
+        @apply w-full h-full p-5 text-lg bg-background-light-blue rounded-xl resize-none;
+
+        &:focus {
+            @apply outline-0;
+        }
+
+    }
+
+}
