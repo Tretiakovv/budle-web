@@ -16,13 +16,10 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
         setHeight(divRef.current.offsetHeight)
     })
 
-    const [selectedOption, selectOption] = useState({name: "", id: 0})
     const [isOpen, setOpen] = useState(false)
 
-    console.log(selectedOption)
-
-    const color = selectedOption.id !== 0 ? "#181818" : "#B6C1CE"
-    const message = selectedOption.id !== 0 ? selectedOption.name : props.placeholder
+    const color = props.selectedOption.id !== 0 ? "#181818" : "#B6C1CE"
+    const message = props.selectedOption.id !== 0 ? props.selectedOption.name : props.placeholder
 
     const gapStyle = props.labelText == null ? 0 : 12
 
@@ -39,8 +36,8 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
             {
                 isOpen ? <DropdownOptionList
                     options={optionData}
-                    onClick={(id) => selectOption(id)}
-                    selectedOption={selectedOption}
+                    onClick={props.selectOption}
+                    selectedOption={props.selectedOption}
                     width={width}
                     height={height}
                 /> : null

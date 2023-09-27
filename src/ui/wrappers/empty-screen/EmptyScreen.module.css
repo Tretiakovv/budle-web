@@ -1,0 +1,17 @@
+.wrapper {
+
+    @apply h-full w-full flex flex-col justify-center items-center;
+
+    .textCol {
+
+        @apply flex flex-col gap-5 items-center;
+
+        .header {
+            @apply text-text-black text-2xl font-semibold;
+        }
+
+        .message {
+            @apply text-text-gray text-xl font-medium;
+        }
+    }
+}

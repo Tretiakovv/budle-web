@@ -10,8 +10,11 @@ import options from "../../../../../data/OptionData";
 import {useState} from "react";
 import AddManagerPopup from "../popups/AddManagerPopup";
 import SuccessPopup from "../../../../../ui/moleculas/popups/SuccessPopup";
+import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
 
 const ManagerListScreen = () => {
+
+    const [selectedOption, selectOption] = useState({name: "", id: 0})
 
     const [managerPopupVisible, setManagerPopupVisible] = useState(false)
     const [successPopupVisible, setSuccessPopupVisible] = useState(false)
@@ -56,6 +59,8 @@ const ManagerListScreen = () => {
                     </div>
                     <div className={style.headerDropdown}>
                         <DropdownInput
+                            selectedOption={selectedOption}
+                            selectOption={(option) => selectOption(option)}
                             placeholder={"Выберите заведение"}
                             options={options}
                         />
@@ -63,7 +68,12 @@ const ManagerListScreen = () => {
 
                 </HeaderColumn>
 
-                <EstablishmentList data={establishmentData} isManager={true}/>
+                {
+                    selectedOption.id === 0 ? <EmptyScreen
+                        header={"Вы не выбрали организацию"}
+                        message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
+                    /> : <EstablishmentList data={establishmentData} isManager={true}/>
+                }
 
             </div>
 
