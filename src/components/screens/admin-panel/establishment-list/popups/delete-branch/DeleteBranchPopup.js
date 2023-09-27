@@ -7,7 +7,7 @@ import Popup from "../../../../../../ui/wrappers/popup/Popup";
 
 const DeleteBranchPopup = (props) => {
     return (
-        <Popup>
+        <Popup onClick={props.onClose}>
             <DeletePopupHeader
                 establishmentName={props.establishmentName}
                 address={props.branch.address}

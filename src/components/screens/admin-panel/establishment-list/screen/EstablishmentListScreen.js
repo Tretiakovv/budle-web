@@ -19,8 +19,6 @@ const EstablishmentListScreen = () => {
     const [branchToDelete, selectBranch] = useState(null)
     const [establishmentCollection, setCollection] = useState(establishmentData)
 
-    const popupLayout = branchToDelete === null ? mainStyle.baseLayout : mainStyle.fixedLayout
-
     const updateCollection = () => {
 
         const filteredCollection = establishmentCollection.map(establishment => {
@@ -38,7 +36,9 @@ const EstablishmentListScreen = () => {
     }
 
     return (
-        <div className={popupLayout}>
+        <div className={mainStyle.layout}>
+
+            <Sidebar activeTab={1}/>
 
             {
                 addEstablishmentVisible ?
@@ -58,47 +58,42 @@ const EstablishmentListScreen = () => {
 
             }
 
-            <div className={mainStyle.layout}>
+            <div className={mainStyle.content}>
 
-                <Sidebar activeTab={1}/>
+                <HeaderColumn header={"Список заведений"}>
 
-                <div className={mainStyle.content}>
+                    <div className={style.headerButton}>
+                        <Button
+                            buttonText={"Добавить заведение"}
+                            onClick={() => setVisible(true)}
+                            icon={"plus.svg"}
+                        />
+                    </div>
 
-                    <HeaderColumn header={"Список заведений"}>
+                    <div className={style.headerInput}>
+                        <TextInput
+                            placeholder={"Все заведения"}
+                            icon={
+                                <FiSearch
+                                    size={"22px"}
+                                    className={"stroke-text-gray"}
+                                />
+                            }
+                        />
+                    </div>
 
-                        <div className={style.headerButton}>
-                            <Button
-                                buttonText={"Добавить заведение"}
-                                onClick={() => setVisible(true)}
-                                icon={"plus.svg"}
-                            />
-                        </div>
+                </HeaderColumn>
 
-                        <div className={style.headerInput}>
-                            <TextInput
-                                placeholder={"Все заведения"}
-                                icon={
-                                    <FiSearch
-                                        size={"22px"}
-                                        className={"stroke-text-gray"}
-                                    />
-                                }
-                            />
-                        </div>
-
-                    </HeaderColumn>
-
-                    <EstablishmentList
-                        data={establishmentCollection}
-                        isManager={false}
-                        onClick={(selectedBranch) => {
-                            selectBranch(selectedBranch)
-                        }}
-                    />
-
-                </div>
+                <EstablishmentList
+                    data={establishmentCollection}
+                    isManager={false}
+                    onClick={(selectedBranch) => {
+                        selectBranch(selectedBranch)
+                    }}
+                />
 
             </div>
+
         </div>
     );
 }

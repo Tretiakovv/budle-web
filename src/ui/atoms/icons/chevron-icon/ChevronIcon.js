@@ -6,12 +6,12 @@ const ChevronIcon = (props) => {
         <div>
             {
                 props.iconState ?
-                    <FiChevronDown
+                    <FiChevronUp
                         size={"18px"}
                         className={style.icon}
                         onClick={props.setState}
                     />
-                    : <FiChevronUp
+                    : <FiChevronDown
                         size={"18px"}
                         className={style.icon}
                         onClick={props.setState}

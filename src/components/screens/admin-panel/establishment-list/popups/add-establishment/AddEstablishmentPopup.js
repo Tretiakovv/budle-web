@@ -9,7 +9,10 @@ import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 
 const AddEstablishmentPopup = (props) => {
     return (
-        <Popup width={980}>
+        <Popup
+            onClick={props.onClick}
+            cardWidth={980}
+        >
             <div className={style.dataRow}>
                 <h2 className={style.header}>Добавить заведение</h2>
                 <FiX
@@ -54,6 +57,25 @@ const AddEstablishmentPopup = (props) => {
                     "Придумайте завлекающее описание заведения.\n" +
                     "Идеальная длина описания — 500 символов."}
             />
+            <TextInput
+                labelText={"Адрес заведения"}
+                placeholder={"Введите адрес заведения"}
+                color={"#EEF5F9"}
+            />
+            <div className={style.dataRow}>
+                <DropdownInput
+                    backgroundColor={"#EEF5F9"}
+                    labelText={"Метро"}
+                    placeholder={"Выберите ближайшее метро"}
+                    options={optionList}
+                />
+                <DropdownInput
+                    backgroundColor={"#EEF5F9"}
+                    labelText={"Часовой пояс"}
+                    placeholder={"Выберите часовой пояс"}
+                    options={optionList}
+                />
+            </div>
         </Popup>
     )
 }

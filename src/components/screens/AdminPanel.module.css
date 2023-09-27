@@ -1,11 +1,3 @@
-.baseLayout {
-    @apply w-full h-screen;
-}
-
-.fixedLayout {
-    @apply w-full h-screen fixed;
-}
-
 .layout {
     @apply grid grid-cols-10 gap-[20px] bg-background-blue;
 }

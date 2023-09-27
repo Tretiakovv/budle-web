@@ -1,13 +1,24 @@
 .wrapper {
 
-    @apply w-full h-full flex items-center justify-center fixed z-10;
+    @apply h-full grid grid-cols-10 fixed w-screen z-10;
 
-    .card {
-        @apply w-[735px] flex flex-col gap-7 p-10 rounded-2xl bg-white absolute z-20;
-    }
+    .content {
 
-    .background {
-        @apply w-full h-screen bg-text-black opacity-80;
+        @apply ml-[-20px] col-start-3 flex flex-col justify-center items-center col-span-full;
+
+        .card {
+            @apply fixed flex flex-col gap-7 p-10 rounded-2xl bg-white z-20;
+        }
+
+        .background {
+
+            @apply w-full h-full bg-text-black bg-opacity-80;
+
+            &:hover {
+                @apply cursor-pointer;
+            }
+
+        }
     }
 
 }

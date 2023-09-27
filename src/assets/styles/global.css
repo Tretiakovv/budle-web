@@ -18,3 +18,7 @@ p {
 a {
     @apply text-text-gray text-lg font-normal
 }
+
+.modalOpen {
+    @apply overflow-hidden;
+}

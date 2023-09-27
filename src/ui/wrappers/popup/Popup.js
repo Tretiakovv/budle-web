@@ -1,10 +1,17 @@
 import style from "./Popup.module.css"
 
-const Popup = ({width = 735, ...props}) => {
+const Popup = ({cardWidth = 735, ...props}) => {
     return (
         <div className={style.wrapper}>
-            <div style={{width: width}} className={style.card}>{props.children}</div>
-            <div className={style.background}/>
+            <div className={style.content}>
+                <div
+                    style={{width: cardWidth}}
+                    className={style.card}
+                >
+                    {props.children}
+                </div>
+                <div className={style.background} onClick={props.onClick}></div>
+            </div>
         </div>
     )
 }
