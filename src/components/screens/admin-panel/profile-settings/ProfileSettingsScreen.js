@@ -5,15 +5,29 @@ import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 import Button from "../../../../ui/atoms/buttons/button/Button";
+import {useState} from "react";
+import SuccessPopup from "../../../../ui/moleculas/popups/SuccessPopup";
 
 const ProfileSettingsScreen = () => {
 
     const color = "#EEF5F9"
 
+    const [popupVisible, setPopupVisible] = useState(false)
+
     return (
         <div className={mainStyle.layout}>
 
-            <Sidebar activeTab={2} />
+            <Sidebar activeTab={2}/>
+
+            {
+                popupVisible ? <SuccessPopup
+                    image={"rocket.png"}
+                    header={"Данные успешно сохранены!"}
+                    message={"Мы отправили Вам на почту письмо с новым паролем"}
+                    buttonText={"Прекрасно!"}
+                    onClose={() => setPopupVisible(false)}
+                /> : null
+            }
 
             <div className={mainStyle.content}>
 
@@ -37,7 +51,10 @@ const ProfileSettingsScreen = () => {
                     </div>
 
                     <div className={style.settingsButtons}>
-                        <Button buttonText={"Сохранить изменения"}/>
+                        <Button
+                            buttonText={"Сохранить изменения"}
+                            onClick={() => setPopupVisible(true)}
+                        />
                         <Button buttonText={"Подтвердить номер телефона"} type={"secondary"}/>
                     </div>
 

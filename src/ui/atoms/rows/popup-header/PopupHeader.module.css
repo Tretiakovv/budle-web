@@ -1,0 +1,13 @@
+.wrapper {
+
+    @apply flex flex-row justify-between items-center;
+
+    .header {
+        @apply text-text-black text-2xl font-semibold;
+    }
+
+    .icon {
+        @apply cursor-pointer stroke-text-black;
+    }
+
+}

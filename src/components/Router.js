@@ -4,7 +4,7 @@ import ForgotPassword from "./screens/authoristation/forgot-password/ForgotPassw
 import SignIn from "./screens/authoristation/sign-in/SignIn";
 import LogIn from "./screens/authoristation/log-in/LogIn";
 import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/EstablishmentMenuScreen";
-import ManagerListScreen from "./screens/admin-panel/manager-list/ManagerListScreen";
+import ManagerListScreen from "./screens/admin-panel/manager-list/screen/ManagerListScreen";
 import OrderListScreen from "./screens/admin-panel/order-list/OrderListScreen";
 import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/ProfileSettingsScreen";
 

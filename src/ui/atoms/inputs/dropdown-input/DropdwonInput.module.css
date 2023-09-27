@@ -14,8 +14,4 @@
         @apply text-text-gray text-lg;
     }
 
-    .test {
-        @apply w-full bg-orange-500;
-    }
-
 }
