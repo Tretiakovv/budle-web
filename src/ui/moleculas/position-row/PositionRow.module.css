@@ -1,11 +1,15 @@
-.row {
+.mainRow {
 
-    @apply col-span-full grid grid-cols-11 py-[30px] border-b-2 border-background-blue;
+    @apply px-10 flex flex-row justify-between items-center;
 
     &:hover {
         @apply bg-background-light-blue font-medium;
     }
 
+}
+
+.contentRow {
+    @apply w-full grid grid-cols-11 py-[30px] border-b-2 border-background-blue;
 }
 
 .child {
@@ -16,4 +20,8 @@
         @apply col-span-3;
     }
 
+}
+
+.icon {
+    @apply stroke-text-gray cursor-pointer;
 }

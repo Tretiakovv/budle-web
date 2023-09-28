@@ -1,6 +1,6 @@
 import style from "./SuccessPopup.module.css"
-import Popup from "../../wrappers/popup/Popup";
-import Button from "../../atoms/buttons/button/Button";
+import Popup from "../../../wrappers/popup/Popup";
+import Button from "../../../atoms/buttons/button/Button";
 
 const SuccessPopup = (props) => {
     return (

@@ -10,6 +10,9 @@ const PositionGroup = (props) => {
                     return <PositionSubgroup
                         subgroupName={subgroup.subgroupName}
                         positions={subgroup.positions}
+                        onEditPosition={props.onEditPosition}
+                        onEditSubgroup={props.onEditSubgroup}
+                        isEdit={props.isEdit}
                     />
                 })
             }

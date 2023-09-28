@@ -4,14 +4,20 @@
 
 .headerRow {
 
-    @apply col-span-full flex flex-row justify-between items-center pb-5 border-b-2 border-background-blue;
+    @apply px-10 col-span-full flex flex-row justify-between items-center pb-5 border-b-2 border-background-blue;
 
     .header {
         @apply text-text-black text-xl font-medium;
     }
 
-    .icon {
-        @apply cursor-pointer stroke-text-gray;
+    .iconRow {
+
+        @apply flex flex-row gap-5;
+
+        .icon {
+            @apply cursor-pointer stroke-text-gray;
+        }
+
     }
 
 }

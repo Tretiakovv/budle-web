@@ -6,7 +6,7 @@ import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import {useState} from "react";
-import SuccessPopup from "../../../../ui/moleculas/popups/SuccessPopup";
+import SuccessPopup from "../../../../ui/moleculas/popups/success-popup/SuccessPopup";
 
 const ProfileSettingsScreen = () => {
 

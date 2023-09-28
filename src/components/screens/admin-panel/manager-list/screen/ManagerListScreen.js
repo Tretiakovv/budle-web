@@ -9,7 +9,7 @@ import establishmentData from "../../../../../data/EstablishmentData";
 import options from "../../../../../data/OptionData";
 import {useState} from "react";
 import AddManagerPopup from "../popups/AddManagerPopup";
-import SuccessPopup from "../../../../../ui/moleculas/popups/SuccessPopup";
+import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";
 import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
 
 const ManagerListScreen = () => {

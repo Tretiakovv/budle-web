@@ -9,4 +9,3 @@ button:hover {
 .row {
     @apply flex flex-row px-8 items-center justify-center gap-[10px];
 }
-

@@ -1,0 +1,23 @@
+.test {
+    @apply absolute bg-orange-500;
+}
+
+.wrapper {
+
+    @apply py-[10px] flex flex-col justify-center items-start bg-white rounded-xl
+    shadow-shadow-black shadow-lg absolute right-[50px];
+
+    .tabRow {
+
+        @apply w-full p-5 flex flex-row gap-5 items-center cursor-pointer bg-white;
+
+        &:hover {
+            @apply bg-background-light-blue;
+        }
+    }
+
+}
+
+h4 {
+    @apply font-medium text-lg text-text-black;
+}

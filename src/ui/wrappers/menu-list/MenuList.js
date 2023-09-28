@@ -9,6 +9,9 @@ const MenuList = (props) => {
                     return <PositionGroup
                         groupName={group.groupName}
                         subgroups={group.subgroups}
+                        onEditPosition={props.onEditPosition}
+                        onEditSubgroup={props.onEditSubgroup}
+                        isEdit={props.isEdit}
                     />
                 })
             }

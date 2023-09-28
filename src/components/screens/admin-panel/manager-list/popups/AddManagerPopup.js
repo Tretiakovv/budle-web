@@ -5,8 +5,12 @@ import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import optionList from "../../../../../data/OptionData";
 import Button from "../../../../../ui/atoms/buttons/button/Button";
+import {useState} from "react";
 
 const AddManagerPopup = (props) => {
+
+    const [selectedOption,selectOption] = useState({name:"", id: 0})
+
     return (
         <Popup
             onClick={props.onClose}
@@ -18,12 +22,16 @@ const AddManagerPopup = (props) => {
             />
             <div className={style.dataRow}>
                 <DropdownInput
+                    selectedOption={selectedOption}
+                    selectOption={(option) => selectOption(option)}
                     backgroundColor={"#EEF5F9"}
                     labelText={"Заведение"}
                     placeholder={"Выберите заведение"}
                     options={optionList}
                 />
                 <DropdownInput
+                    selectedOption={selectedOption}
+                    selectOption={(option) => selectOption(option)}
                     backgroundColor={"#EEF5F9"}
                     labelText={"Филиал"}
                     placeholder={"Выберите филиал"}

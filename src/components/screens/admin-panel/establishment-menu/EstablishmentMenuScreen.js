@@ -3,13 +3,16 @@ import style from "./EstablishmentMenu.module.css"
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
-import {FiSearch} from "react-icons/fi";
+import {FiEye, FiFile, FiPlus, FiSearch} from "react-icons/fi";
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import FilterRow from "../../../../ui/atoms/rows/filter-row/FilterRow";
 import MenuList from "../../../../ui/wrappers/menu-list/MenuList";
 import data from "../../../../data/MenuData";
+import {useState} from "react";
 
 const EstablishmentMenuScreen = () => {
+
+    const [isEdit, setEdit] = useState(false)
 
     return (
         <div className={mainStyle.layout}>
@@ -18,38 +21,92 @@ const EstablishmentMenuScreen = () => {
 
             <div className={mainStyle.content}>
 
-                <HeaderColumn header={"Меню заведения"}>
+                {
+                    isEdit ? <HeaderColumn header={"Редактирование заведения"}>
 
-                    <div className={style.headerButton}>
-                        <Button buttonText={`Редактировать меню`}/>
-                    </div>
+                        <div className={style.headerButton}>
+                            <Button
+                                buttonText={`Сохранить изменения`}
+                                onClick={() => setEdit(false)}
+                            />
+                        </div>
 
-                    <div className={style.headerInputRow}>
-                        <TextInput
-                            placeholder={"Аджикинежаль"}
+                        <div className={style.headerInputRow}>
+                            <Button
+                                buttonText={"Добавить элемент"}
+                                type={"secondary"}
+                                icon={
+                                    <FiPlus
+                                        size={"22px"}
+                                        className={"stroke-text-black"}
+                                    />
+                                }
+                            />
+                            <Button
+                                buttonText={"Предпросмотр"}
+                                type={"secondary"}
+                                icon={
+                                    <FiEye
+                                        size={"22px"}
+                                        className={"stroke-text-black"}
+                                    />
+                                }
+                            /><Button
+                            buttonText={"Импорт из Excel"}
+                            type={"secondary"}
                             icon={
-                                <FiSearch
+                                <FiFile
                                     size={"22px"}
-                                    className={"stroke-text-gray"}
+                                    className={"stroke-text-black"}
                                 />
                             }
                         />
-                    <TextInput
-                        placeholder={"ул. Советская 32"}
-                        icon={
-                            <FiSearch
-                                size={"22px"}
-                                className={"stroke-text-gray"}
+
+                        </div>
+
+                    </HeaderColumn> : <HeaderColumn header={"Меню заведения"}>
+
+                        <div className={style.headerButton}>
+                            <Button
+                                buttonText={`Редактировать меню`}
+                                onClick={() => setEdit(true)}
                             />
-                        }
-                    />
-                    </div>
+                        </div>
 
-                </HeaderColumn>
+                        <div className={style.headerInputRow}>
+                            <TextInput
+                                placeholder={"Аджикинежаль"}
+                                icon={
+                                    <FiSearch
+                                        size={"22px"}
+                                        className={"stroke-text-gray"}
+                                    />
+                                }
+                            />
+                            <TextInput
+                                placeholder={"ул. Советская 32"}
+                                icon={
+                                    <FiSearch
+                                        size={"22px"}
+                                        className={"stroke-text-gray"}
+                                    />
+                                }
+                            />
+                        </div>
 
-                <FilterRow />
+                    </HeaderColumn>
+                }
 
-                <MenuList data={data}/>
+                <FilterRow/>
+
+                <MenuList
+                    data={data}
+                    isEdit={isEdit}
+                    onEditPosition={() => {
+                    }}
+                    onEditSubgroup={() => {
+                    }}
+                />
 
             </div>
 
