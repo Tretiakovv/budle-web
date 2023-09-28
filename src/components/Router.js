@@ -3,7 +3,7 @@ import EstablishmentListScreen from "./screens/admin-panel/establishment-list/sc
 import ForgotPassword from "./screens/authoristation/forgot-password/ForgotPassword";
 import SignIn from "./screens/authoristation/sign-in/SignIn";
 import LogIn from "./screens/authoristation/log-in/LogIn";
-import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/EstablishmentMenuScreen";
+import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/screen/EstablishmentMenuScreen";
 import ManagerListScreen from "./screens/admin-panel/manager-list/screen/ManagerListScreen";
 import OrderListScreen from "./screens/admin-panel/order-list/OrderListScreen";
 import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/ProfileSettingsScreen";

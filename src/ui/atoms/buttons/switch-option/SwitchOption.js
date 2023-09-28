@@ -1,15 +1,19 @@
-import styles from "./SwitchOption.module.css"
+import style from "./SwitchOption.module.css"
 
-const SwitchOption = ({type, message, onClick, activeTab}) => {
+const SwitchOption = (props) => {
 
-    const secondStyle = type === "left" ? styles.leftTab : styles.rightTab;
-    const classNames = `${styles.tab} ${secondStyle}`
-    const selectedClassNames = activeTab === type ? `${styles.selected} ${classNames}` : classNames
+    const secondStyle = props.option.id === 0 ? style.leftTab : style.rightTab
+    const classNames = `${style.tab} ${secondStyle}`
+    const selectedClassNames = props.activeOption.id === props.option.id ?
+        `${style.selected} ${classNames}` : classNames
 
     return (
-        <button className={selectedClassNames} onClick={onClick}>
-            {message}
-        </button>
+        <div
+            className={selectedClassNames}
+            onClick={() => props.onSelect(props.option)}
+        >
+            {props.message}
+        </div>
     );
 }
 

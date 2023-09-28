@@ -6,8 +6,6 @@ import optionData from "../../../../data/OptionData";
 
 const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
 
-    console.log(props.selectedOption)
-
     const divRef = useRef(null)
 
     const [width, setWidth] = useState(0)

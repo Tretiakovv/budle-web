@@ -1,7 +1,8 @@
+import style from "./Authorisation.module.css";
+
 import SwitchButton from "../../moleculas/switch-button/SwitchButton";
 import Card from "../card/Card";
 import Form from "../form/Form";
-import style from "./Authorisation.module.css";
 import {useNavigate} from "react-router-dom";
 
 const Authorisation = (props) => {
@@ -12,11 +13,11 @@ const Authorisation = (props) => {
         <div className={`${style.outer} ${style.inner}`}>
             <img src={"business-budle-logo.svg"} alt={"Budle logo"}/>
             <SwitchButton
-                leftMessage={"Войти"}
-                leftClick={() => navigate('/log-in')}
-                rightMessage={"Зарегистрироваться"}
-                rightClick={() => navigate('/sign-in')}
-                defaultState={props.defaultState}
+                options={props.options}
+                activeOption={props.defaultState}
+                onSelect={(option) => {
+                    option.id === 0 ? navigate('/log-in') : navigate('/sign-in')
+                }}
             />
             <Card>
                 <Form>

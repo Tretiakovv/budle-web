@@ -2,10 +2,14 @@ import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import NumberInput from "../../../../ui/atoms/inputs/number-input/NumberInput";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
+import authOptions from "../../../../data/AuthData";
 
 const SignIn = () => {
     return (
-        <Authorisation defaultState={"right"}>
+        <Authorisation
+            options={authOptions}
+            defaultState={authOptions[1]}
+        >
             <TextInput labelText={"ФИО"} placeholder={"Иванов Иван Иванович"} type={"text"}/>
             <TextInput labelText={"Электронная почта"} placeholder={"example@gmail.com"} type={"еmail"}/>
             <NumberInput

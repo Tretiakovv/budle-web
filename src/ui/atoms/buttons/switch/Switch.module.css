@@ -1,0 +1,19 @@
+.switchRow {
+
+    @apply w-full flex flex-row gap-5 items-center;
+
+    .switch {
+
+        @apply h-10 w-[70px] rounded-full bg-background-light-blue cursor-pointer;
+
+        .circle {
+            @apply h-[30px] w-[30px] absolute mt-[5px] bg-white rounded-full z-10;
+        }
+
+    }
+
+}
+
+h3 {
+    @apply font-medium text-lg;
+}

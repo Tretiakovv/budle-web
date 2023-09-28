@@ -1,13 +1,13 @@
 .wrapper {
 
-    @apply h-full grid grid-cols-10 fixed w-screen z-10;
+    @apply h-full w-full grid grid-cols-10 absolute z-10;
 
     .content {
 
         @apply ml-[-20px] col-start-3 flex flex-col justify-center items-center col-span-full;
 
         .card {
-            @apply fixed flex flex-col gap-7 p-10 rounded-2xl bg-white z-20;
+            @apply absolute flex flex-col gap-7 p-10 rounded-2xl bg-white z-20;
         }
 
         .background {
