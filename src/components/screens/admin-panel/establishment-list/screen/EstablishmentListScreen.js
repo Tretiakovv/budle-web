@@ -7,7 +7,7 @@ import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn"
 import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
 import {FiSearch} from "react-icons/fi";
 import EstablishmentList from "../../../../../ui/wrappers/establishment-list/EstablishmentList";
-import establishmentData from "../../../../../data/EstablishmentData";
+import establishmentData from "../../../../../data/entity/EstablishmentData";
 import DeleteBranchPopup from "../popups/delete-branch/DeleteBranchPopup";
 import {useState} from "react";
 import AddEstablishmentPopup from "../popups/add-establishment/AddEstablishmentPopup";

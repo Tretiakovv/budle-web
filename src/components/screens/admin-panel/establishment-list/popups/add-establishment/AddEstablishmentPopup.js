@@ -3,7 +3,7 @@ import Popup from "../../../../../../ui/wrappers/popup/Popup";
 import {FiX} from "react-icons/fi";
 import TextInput from "../../../../../../ui/atoms/inputs/text-input/TextInput";
 import DropdownInput from "../../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
-import optionList from "../../../../../../data/OptionData";
+import optionList from "../../../../../../data/entity/OptionData";
 import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
 import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 

@@ -1,0 +1,19 @@
+.wrapper {
+
+    @apply col-span-2 flex flex-col gap-5;
+
+    .stackHeader {
+
+        @apply px-[10px] flex flex-row justify-between;
+
+        .headerData {
+            @apply text-text-gray font-medium text-lg;
+        }
+
+    }
+
+    .stackCol {
+        @apply flex flex-col gap-5;
+    }
+
+}

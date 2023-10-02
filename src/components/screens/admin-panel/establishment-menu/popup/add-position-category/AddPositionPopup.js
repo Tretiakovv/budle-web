@@ -9,7 +9,7 @@ import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 import Button from "../../../../../../ui/atoms/buttons/button/Button";
 import Switch from "../../../../../../ui/atoms/buttons/switch/Switch";
 import {useEffect, useState} from "react";
-import menuData from "../../../../../../data/MenuData";
+import menuData from "../../../../../../data/entity/MenuData";
 
 const AddPositionPopup = (props) => {
 

@@ -1,0 +1,9 @@
+.headerInputRow {
+
+    @apply col-span-8 gap-5 flex flex-row justify-center items-center;
+
+    .icon {
+        @apply stroke-text-black;
+    }
+
+}

@@ -1,6 +1,6 @@
 import style from "./FilterRow.module.css"
 import TextFilter from "../text-filter/TextFilter";
-import filterData from "../../../../data/FilterData";
+import filterData from "../../../../data/entity/FilterData";
 
 const FilterRow = () => {
     return (

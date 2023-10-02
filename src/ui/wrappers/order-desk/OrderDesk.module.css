@@ -1,0 +1,3 @@
+.wrapper {
+    @apply w-full grid grid-cols-8 gap-5 items-start;
+}

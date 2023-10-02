@@ -1,7 +1,7 @@
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
-import authOptions from "../../../../data/AuthData";
+import authOptions from "../../../../data/entity/AuthData";
 
 const LogIn = () => {
     return (

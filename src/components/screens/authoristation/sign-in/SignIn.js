@@ -2,7 +2,7 @@ import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
 import Button from "../../../../ui/atoms/buttons/button/Button";
 import NumberInput from "../../../../ui/atoms/inputs/number-input/NumberInput";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
-import authOptions from "../../../../data/AuthData";
+import authOptions from "../../../../data/entity/AuthData";
 
 const SignIn = () => {
     return (

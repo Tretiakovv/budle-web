@@ -7,7 +7,7 @@ import {FiEye, FiFile, FiPlus, FiSearch} from "react-icons/fi";
 import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
 import FilterRow from "../../../../../ui/atoms/rows/filter-row/FilterRow";
 import MenuList from "../../../../../ui/wrappers/menu-list/MenuList";
-import data from "../../../../../data/MenuData";
+import data from "../../../../../data/entity/MenuData";
 import {useState} from "react";
 import AddPositionPopup from "../popup/add-position-category/AddPositionPopup";
 import AddFromExcelPopup from "../popup/add-from-excel/AddFromExcelPopup";

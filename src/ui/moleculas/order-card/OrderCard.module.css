@@ -1,0 +1,45 @@
+.wrapper {
+
+    @apply w-full flex flex-col gap-5 justify-center bg-white rounded-2xl p-[30px];
+
+    .headerRow {
+
+        @apply flex flex-row items-center justify-between;
+
+        .header {
+            @apply font-semibold text-xl text-text-black;
+        }
+
+        .preorderTag {
+
+            @apply px-3 py-2 flex flex-row rounded-full justify-center
+            items-center bg-main-purple bg-opacity-20;
+
+            .tagHeader {
+                @apply text-base text-main-purple font-medium;
+            }
+
+        }
+
+    }
+
+    .infoCol {
+
+        @apply flex flex-col gap-3 justify-start;
+
+        .infoRow {
+
+            @apply flex flex-row justify-between items-center;
+
+            .infoHeader {
+                @apply font-medium text-text-gray text-lg;
+            }
+
+            .infoData {
+                @apply font-medium text-text-black text-lg;
+            }
+        }
+
+    }
+
+}
