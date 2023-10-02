@@ -1,7 +1,12 @@
 import style from "./Popup.module.css"
 import {useLayoutEffect, useRef, useState} from "react";
 
-const Popup = ({cardWidth = 735, ...props}) => {
+const Popup = ({
+                   cardWidth = 735,
+                    cardJustify = "center",
+                   ...props}) => {
+
+    const marginTop = cardJustify === "center" ? 0 : 40
 
     const ref = useRef(null)
     const [height, setHeight] = useState(0)
@@ -10,14 +15,19 @@ const Popup = ({cardWidth = 735, ...props}) => {
         setHeight(ref.current.offsetHeight)
     }, [])
 
+    const popupHeight = height < document.body.clientHeight ? "full" : height + 100
+
     return (
         <div
-            style={{height: height + 100}}
+            style={{height: popupHeight}}
             className={style.wrapper}
         >
-            <div className={style.content}>
+            <div style={{justifyContent: cardJustify}} className={style.content}>
                 <div
-                    style={{width: cardWidth}}
+                    style={{
+                        width: cardWidth,
+                        marginTop: marginTop
+                    }}
                     className={style.card}
                     ref={ref}
                 >

@@ -1,9 +1,9 @@
 import style from "./FileInput.module.css"
 
-const FileInput = () => {
+const FileInput = ({labelText = "Фотография"}) => {
     return (
         <div className={style.wrapper}>
-            <h4 className={style.labelText}>Фотография</h4>
+            <h4 className={style.labelText}>{labelText}</h4>
             <div className={style.fileInput}>
                 <p className={style.paragraph}>
                     <span className={style.highlight}>Выберите фотографию с диска </span>

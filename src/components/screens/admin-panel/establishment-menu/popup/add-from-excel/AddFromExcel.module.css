@@ -1,0 +1,13 @@
+.buttonRow {
+
+    @apply w-full grid grid-cols-2 gap-5 items-center;
+
+    .button {
+        @apply col-span-1;
+    }
+
+    .icon {
+        @apply stroke-text-black;
+    }
+
+}

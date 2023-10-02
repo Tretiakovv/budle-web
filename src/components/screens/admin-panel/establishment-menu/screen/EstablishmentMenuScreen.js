@@ -9,12 +9,14 @@ import FilterRow from "../../../../../ui/atoms/rows/filter-row/FilterRow";
 import MenuList from "../../../../../ui/wrappers/menu-list/MenuList";
 import data from "../../../../../data/MenuData";
 import {useState} from "react";
-import AddPositionPopup from "../popup/AddPositionPopup";
+import AddPositionPopup from "../popup/add-position-category/AddPositionPopup";
+import AddFromExcelPopup from "../popup/add-from-excel/AddFromExcelPopup";
 
 const EstablishmentMenuScreen = () => {
 
     const [isEdit, setEdit] = useState(false)
     const [addPositionPopupVisible, setPositionPopupVisible] = useState(false)
+    const [addFromExcelPopupVisible, setFromExcelPopupVisible] = useState(false)
 
     const contentPosition = addPositionPopupVisible ? "fixed" : "relative"
 
@@ -24,6 +26,12 @@ const EstablishmentMenuScreen = () => {
             {
                 addPositionPopupVisible ? <AddPositionPopup
                     onClose={() => setPositionPopupVisible(false)}
+                /> : null
+            }
+
+            {
+                addFromExcelPopupVisible ? <AddFromExcelPopup
+                    onClose={() => setFromExcelPopupVisible(false)}
                 /> : null
             }
 
@@ -76,6 +84,7 @@ const EstablishmentMenuScreen = () => {
                                         className={"stroke-text-black"}
                                     />
                                 }
+                                onClick={() => setFromExcelPopupVisible(true)}
                             />
 
                             </div>

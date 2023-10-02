@@ -2,7 +2,6 @@ import style from "./DropdwonInput.module.css"
 import {useLayoutEffect, useRef, useState} from "react";
 import ChevronIcon from "../../icons/chevron-icon/ChevronIcon";
 import DropdownOptionList from "../../../moleculas/option-list/DropdownOptionList";
-import optionData from "../../../../data/OptionData";
 
 const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
 
@@ -35,7 +34,7 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
             </div>
             {
                 isOpen ? <DropdownOptionList
-                    options={optionData}
+                    options={props.options}
                     onClick={props.selectOption}
                     selectedOption={props.selectedOption}
                     width={width}
