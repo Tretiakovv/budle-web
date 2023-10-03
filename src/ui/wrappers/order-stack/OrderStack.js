@@ -14,7 +14,10 @@ const OrderStack = (props) => {
             <div className={style.stackCol}>
                 {
                     filteredOrders.map(order => {
-                        return <OrderCard order={order}/>
+                        return <OrderCard
+                            order={order}
+                            onSelectOrder={props.onSelectOrder}
+                        />
                     })
                 }
             </div>

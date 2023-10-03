@@ -2,6 +2,10 @@
 
     @apply w-full flex flex-col gap-5 justify-center bg-white rounded-2xl p-[30px];
 
+    &:hover {
+        @apply cursor-pointer shadow-xl shadow-shadow-black;
+    }
+
     .headerRow {
 
         @apply flex flex-row items-center justify-between;

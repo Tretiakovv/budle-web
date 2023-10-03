@@ -10,14 +10,22 @@ import PauseEstablishmentPopup from "../popups/pause-establishment/PauseEstablis
 import {useState} from "react";
 import {FiPauseCircle} from "react-icons/fi";
 import OrderDesk from "../../../../../ui/wrappers/order-desk/OrderDesk";
+import SideOrderPopup from "../../../../../ui/moleculas/popups/side-order-popup/SideOrderPopup";
 
 const OrderListScreen = () => {
+
+    // states for header row
 
     const [selectedEstablishment, selectEstablishment] = useState({id: 0, name: ""})
     const [selectedBranch, selectBranch] = useState({id: 0, name: ""})
 
+    // states for popups
+
     const [isEstablishmentPausedPopupVisible, setEstablishmentPausedPopupVisible] = useState(false)
-    const contentPosition = isEstablishmentPausedPopupVisible ? "fixed" : "relative"
+    const [selectedOrderCard, selectOrderCard] = useState(null)
+
+    const contentPosition = isEstablishmentPausedPopupVisible|| selectedOrderCard!== null
+        ? "fixed" : "relative"
 
     return (
         <div>
@@ -25,6 +33,13 @@ const OrderListScreen = () => {
             {
                 isEstablishmentPausedPopupVisible ? <PauseEstablishmentPopup
                     onClose={() => setEstablishmentPausedPopupVisible(false)}/> : null
+            }
+
+            {
+                selectedOrderCard !== null ? <SideOrderPopup
+                    order={selectedOrderCard}
+                    onClosePopup={() => selectOrderCard(null)}
+                /> : null
             }
 
             <div
@@ -66,7 +81,7 @@ const OrderListScreen = () => {
 
                     </HeaderColumn>
 
-                    <OrderDesk />
+                    <OrderDesk onSelectOrder={(order) => selectOrderCard(order)}/>
 
                 </div>
 

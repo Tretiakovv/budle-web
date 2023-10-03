@@ -1,0 +1,97 @@
+.popupLayout {
+
+    @apply h-full w-full grid grid-cols-10 absolute z-10;
+
+    .sidebar {
+
+        @apply col-start-6 w-full h-full absolute flex flex-col py-[60px] px-10 bg-white gap-[30px];
+
+        .dataCol {
+
+            @apply flex flex-col gap-[30px] pb-[30px] border-b-2 border-background-blue;
+
+            .infoCol {
+                @apply flex flex-col gap-5;
+            }
+
+        }
+
+        .headerRow {
+
+            .xButton {
+
+                @apply absolute flex justify-center items-center w-[50px] h-[50px] rounded-full bg-white;
+
+                .xIcon {
+                    @apply stroke-text-black;
+                }
+
+                &:hover {
+                    @apply bg-background-light-blue cursor-pointer;
+                }
+
+            }
+
+            @apply flex flex-row justify-between items-center;
+
+            .header {
+                @apply font-semibold text-2xl text-text-black;
+            }
+
+            .infoHeader {
+                @apply font-medium text-lg text-text-gray;
+            }
+
+        }
+
+        .infoRow {
+
+            @apply flex flex-row justify-between items-center;
+
+            .infoHeader {
+                @apply font-medium text-lg text-text-gray;
+            }
+
+            .infoData {
+                @apply font-medium text-lg text-text-black;
+            }
+
+        }
+
+        .positionRow {
+
+            @apply flex flex-row justify-between items-center;
+
+            .nameAmountRow {
+
+                @apply flex flex-row gap-5 items-center;
+
+                .positionName {
+                    @apply font-medium text-lg text-text-black;
+                }
+
+                .positionAmount {
+                    @apply font-medium text-lg text-text-gray;
+                }
+
+                .positionPrice {
+                    @apply font-medium text-lg text-text-black;
+                }
+
+            }
+
+        }
+
+    }
+
+    .background {
+
+        @apply ml-[-20px] col-start-3 col-span-full h-screen bg-text-black bg-opacity-80;
+
+        &:hover {
+            @apply cursor-pointer;
+        }
+
+    }
+
+}

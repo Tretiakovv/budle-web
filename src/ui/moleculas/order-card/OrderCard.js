@@ -18,7 +18,10 @@ const OrderCard = (props) => {
     ]
 
     return (
-        <div className={style.wrapper}>
+        <div
+            className={style.wrapper}
+            onClick={() => props.onSelectOrder(order)}
+        >
 
             <div className={style.headerRow}>
                 <h4 className={style.header}>
