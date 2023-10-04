@@ -7,38 +7,32 @@ import Button from "../../../../../ui/atoms/buttons/button/Button";
 import options from "../../../../../data/entity/OptionData";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import PauseEstablishmentPopup from "../popups/pause-establishment/PauseEstablishmentPopup";
-import {useState} from "react";
 import {FiPauseCircle} from "react-icons/fi";
 import OrderDesk from "../../../../../ui/wrappers/order-desk/OrderDesk";
 import SideOrderPopup from "../../../../../ui/moleculas/popups/side-order-popup/SideOrderPopup";
+import {useOrderStore} from "../store/OrderStore";
+import {useEstablishmentStore} from "../store/EstablishmentStore";
 
 const OrderListScreen = () => {
 
-    // states for header row
+    const orderStore = useOrderStore()
+    const establishmentStore = useEstablishmentStore()
 
-    const [selectedEstablishment, selectEstablishment] = useState({id: 0, name: ""})
-    const [selectedBranch, selectBranch] = useState({id: 0, name: ""})
-
-    // states for popups
-
-    const [isEstablishmentPausedPopupVisible, setEstablishmentPausedPopupVisible] = useState(false)
-    const [selectedOrderCard, selectOrderCard] = useState(null)
-
-    const contentPosition = isEstablishmentPausedPopupVisible|| selectedOrderCard!== null
+    const contentPosition = establishmentStore.popupVisible || orderStore.selectedOrder !== null
         ? "fixed" : "relative"
 
     return (
         <div>
 
             {
-                isEstablishmentPausedPopupVisible ? <PauseEstablishmentPopup
-                    onClose={() => setEstablishmentPausedPopupVisible(false)}/> : null
+                establishmentStore.popupVisible ? <PauseEstablishmentPopup
+                    onClose={() => establishmentStore.setPopupVisible(false)}/> : null
             }
 
             {
-                selectedOrderCard !== null ? <SideOrderPopup
-                    order={selectedOrderCard}
-                    onClosePopup={() => selectOrderCard(null)}
+                orderStore.selectedOrder !== null ? <SideOrderPopup
+                    order={orderStore.selectedOrder}
+                    onClosePopup={() => orderStore.selectOrder(null)}
                 /> : null
             }
 
@@ -55,14 +49,14 @@ const OrderListScreen = () => {
 
                         <div className={style.headerInputRow}>
                             <DropdownInput
-                                selectedOption={selectedEstablishment}
-                                selectOption={(establishment) => selectEstablishment(establishment)}
+                                selectedOption={establishmentStore.selectedEstablishmentTag}
+                                selectOption={(tag) => establishmentStore.selectEstablishmentTag(tag)}
                                 placeholder={"Выберите заведение"}
                                 options={options}
                             />
                             <DropdownInput
-                                selectedOption={selectedBranch}
-                                selectOption={(branch) => selectBranch(branch)}
+                                selectedOption={establishmentStore.selectedBranchTag}
+                                selectOption={(tag) => establishmentStore.selectBranchTag(tag)}
                                 placeholder={"Выберите филиал"}
                                 options={options}
                             />
@@ -75,13 +69,16 @@ const OrderListScreen = () => {
                                         className={style.icon}
                                     />
                                 }
-                                onClick={() => setEstablishmentPausedPopupVisible(true)}
+                                onClick={() => establishmentStore.setPopupVisible(true)}
                             />
                         </div>
 
                     </HeaderColumn>
 
-                    <OrderDesk onSelectOrder={(order) => selectOrderCard(order)}/>
+                    <OrderDesk
+                        orders={orderStore.orders}
+                        onSelectOrder={(order) => orderStore.selectOrder(order)
+                    }/>
 
                 </div>
 

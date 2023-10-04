@@ -1,6 +1,5 @@
 import style from "./OrderDesk.module.css"
 import OrderStack from "../order-stack/OrderStack";
-import orderList from "../../../data/entity/OrderList";
 
 const OrderDesk = (props) => {
 
@@ -16,7 +15,7 @@ const OrderDesk = (props) => {
             {
                 orderStatusList.map(orderStatus => {
                     return <OrderStack
-                        orders={orderList}
+                        orders={props.orders}
                         orderStatus={orderStatus}
                         onSelectOrder={props.onSelectOrder}
                     />
