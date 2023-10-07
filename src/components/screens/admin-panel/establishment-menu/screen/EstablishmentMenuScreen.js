@@ -12,6 +12,7 @@ import AddFromExcelPopup from "../popup/add-from-excel/AddFromExcelPopup";
 import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import {useBranchMenuStore} from "../store/BranchMenuStore";
+import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
 
 const EstablishmentMenuScreen = () => {
 
@@ -132,14 +133,23 @@ const EstablishmentMenuScreen = () => {
                         </HeaderColumn>
                     }
 
-                    <FilterRow/>
+                    {
 
-                    <MenuList
-                        data={branchMenuStore.branchMenu}
-                        isEdit={isEdit}
-                        onEditPosition={() => {}}
-                        onEditSubgroup={() => {}}
-                    />
+                        establishmentFilterStore.selectedBranch.id === 0 ? <EmptyScreen
+                            header={"Вы не выбрали организацию и филиал"}
+                            message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
+                        /> : <div className={"flex flex-col gap-5"}>
+                            <FilterRow/>
+
+                            <MenuList
+                                data={branchMenuStore.branchMenu}
+                                isEdit={isEdit}
+                                onEditPosition={() => {}}
+                                onEditSubgroup={() => {}}
+                            />
+                        </div>
+
+                    }
 
                 </div>
 

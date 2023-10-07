@@ -4,7 +4,6 @@ import branchTagListData from "../../../../data/entity/BranchTagListData";
 
 export const useEstablishmentFilterStore = create((set) => ({
 
-
     establishmentTagData: establishmentTagListData,
     branchTagData: [],
 
@@ -15,9 +14,11 @@ export const useEstablishmentFilterStore = create((set) => ({
         selectedEstablishment: establishment,
         selectedBranch: {id: 0, name: ""}
     })),
+
     selectBranch: (branch) => set(() => ({
         selectedBranch: {id: branch.id, name: branch.name}
     })),
+
     filterBranches: () => set((state) => ({
         branchTagData: branchTagListData.filter(branch => {
             return branch.establishmentID === state.selectedEstablishment.id

@@ -1,24 +1,24 @@
 .layout {
 
-    @apply col-span-2 sticky flex flex-col justify-between items-center h-screen top-0 py-[50px] px-[20px] bg-white;
+    @apply col-span-2 sticky flex flex-col justify-between items-center h-screen top-0 py-10 bg-white;
 
     .group {
         @apply w-full flex flex-col items-center gap-10;
     }
 
     .bottomGroup {
-        @apply gap-5
+        @apply gap-5;
     }
 
     .divider {
-        @apply w-full border-[1px] border-background-blue
+        @apply w-full border-[1px] border-background-blue;
     }
 
     .bottomTabCol {
-        @apply w-full flex flex-col items-start
+        @apply w-full flex flex-col items-start;
     }
 
     .logo {
-        @apply h-[40px] w-[200px]
+        @apply h-[40px] w-[200px];
     }
 }

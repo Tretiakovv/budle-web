@@ -1,6 +1,6 @@
 .layout {
 
-    @apply w-full flex flex-row items-center justify-start gap-5;
+    @apply w-full flex flex-row items-center justify-start gap-5 pl-5;
 
     .box {
 

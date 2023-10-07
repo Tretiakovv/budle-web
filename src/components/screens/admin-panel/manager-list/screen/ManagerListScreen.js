@@ -5,16 +5,38 @@ import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn"
 import Button from "../../../../../ui/atoms/buttons/button/Button";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import EstablishmentList from "../../../../../ui/wrappers/establishment-list/EstablishmentList";
-import establishmentData from "../../../../../data/entity/EstablishmentData";
-import options from "../../../../../data/entity/EstablishmentTagListData";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddManagerPopup from "../popups/AddManagerPopup";
 import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";
 import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
+import {FiPlus} from "react-icons/fi";
+import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
+import {useEstablishmentStore} from "../../store/EstablishmentStore";
+import {useShallow} from "zustand/shallow";
 
 const ManagerListScreen = () => {
 
-    const [selectedOption, selectOption] = useState({name: "", id: 0})
+    const establishmentStore = useEstablishmentStore()
+
+    const [
+        selectedEstablishment,
+        onSelectEstablishment,
+        establishmentTagData
+    ] = useEstablishmentFilterStore(
+        useShallow((state) => ([
+            state.selectedEstablishment,
+            (tag) => state.selectEstablishment(tag),
+            state.establishmentTagData
+        ]))
+    )
+
+    useEffect(() => {
+        establishmentStore.getEstablishments()
+    }, [])
+
+    useEffect(() => {
+        establishmentStore.filterEstablishments(selectedEstablishment.name)
+    }, [selectedEstablishment.name])
 
     const [managerPopupVisible, setManagerPopupVisible] = useState(false)
     const [successPopupVisible, setSuccessPopupVisible] = useState(false)
@@ -52,27 +74,27 @@ const ManagerListScreen = () => {
 
                     <div className={style.headerButton}>
                         <Button
-                            icon={"plus.svg"}
+                            icon={<FiPlus size={"22px"} stroke={"white"}/>}
                             buttonText={"Добавить администратора"}
                             onClick={() => setManagerPopupVisible(true)}
                         />
                     </div>
                     <div className={style.headerDropdown}>
                         <DropdownInput
-                            selectedOption={selectedOption}
-                            selectOption={(option) => selectOption(option)}
+                            selectedOption={selectedEstablishment}
+                            selectOption={(tag) => onSelectEstablishment(tag)}
                             placeholder={"Выберите заведение"}
-                            options={options}
+                            options={establishmentTagData}
                         />
                     </div>
 
                 </HeaderColumn>
 
                 {
-                    selectedOption.id === 0 ? <EmptyScreen
+                    selectedEstablishment.id === 0 ? <EmptyScreen
                         header={"Вы не выбрали организацию"}
                         message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
-                    /> : <EstablishmentList data={establishmentData} isManager={true}/>
+                    /> : <EstablishmentList data={establishmentStore.establishmentList} isManager={true}/>
                 }
 
             </div>

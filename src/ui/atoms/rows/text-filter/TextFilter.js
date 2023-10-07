@@ -1,5 +1,4 @@
 import style from "./TextFilter.module.css"
-import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 import {useState} from "react";
 import ChevronIcon from "../../icons/chevron-icon/ChevronIcon";
 
