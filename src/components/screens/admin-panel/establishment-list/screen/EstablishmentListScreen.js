@@ -4,36 +4,41 @@ import style from "./EstablishmentList.module.css"
 import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
 import Button from "../../../../../ui/atoms/buttons/button/Button.js";
 import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn";
-import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
-import {FiSearch} from "react-icons/fi";
+import {FiPlus} from "react-icons/fi";
 import EstablishmentList from "../../../../../ui/wrappers/establishment-list/EstablishmentList";
-import establishmentData from "../../../../../data/entity/EstablishmentData";
 import DeleteBranchPopup from "../popups/delete-branch/DeleteBranchPopup";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddEstablishmentPopup from "../popups/add-establishment/AddEstablishmentPopup";
+import {useEstablishmentStore} from "../../store/EstablishmentStore";
+import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
+import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
+import {useShallow} from "zustand/shallow";
 
 const EstablishmentListScreen = () => {
 
-    const [addEstablishmentVisible, setVisible] = useState(false);
+    const establishmentStore = useEstablishmentStore()
 
-    const [branchToDelete, selectBranch] = useState(null)
-    const [establishmentCollection, setCollection] = useState(establishmentData)
+    const [
+        selectedEstablishment,
+        onSelectEstablishment,
+        establishmentTagData
+    ] = useEstablishmentFilterStore(
+        useShallow((state) => ([
+            state.selectedEstablishment,
+            (tag) => state.selectEstablishment(tag),
+            state.establishmentTagData
+        ]))
+    )
 
-    const updateCollection = () => {
+    const [addEstablishmentVisible, setVisible] = useState(false)
 
-        const filteredCollection = establishmentCollection.map(establishment => {
-            if (establishment.establishmentName === branchToDelete.establishmentName) {
-                const filteredBranches = establishment.branches.filter(branch =>
-                    branch.address !== branchToDelete.branch.address
-                )
-                return {...establishment, branches: filteredBranches}
-            } else return establishment
-        })
+    useEffect(() => {
+        establishmentStore.getEstablishments()
+    }, [])
 
-        setCollection(filteredCollection)
-        selectBranch(null)
-
-    }
+    useEffect(() => {
+        establishmentStore.filterEstablishments(selectedEstablishment.name)
+    }, [selectedEstablishment.name])
 
     return (
         <div className={mainStyle.layout}>
@@ -48,12 +53,14 @@ const EstablishmentListScreen = () => {
             }
 
             {
-                branchToDelete === null ? null :
+                establishmentStore.branchToDelete === null ? null :
                     <DeleteBranchPopup
-                        establishmentName={branchToDelete.establishmentName}
-                        branch={branchToDelete.branch}
-                        onClose={() => selectBranch(null)}
-                        onDelelte={() => updateCollection()}
+                        establishmentName={establishmentStore.branchToDelete.establishmentName}
+                        branch={establishmentStore.branchToDelete.branch}
+                        onClose={() => establishmentStore.selectBranch(null)}
+                        onDelelte={() => establishmentStore.deleteBranch(
+                            establishmentStore.branchToDelete
+                        )}
                     />
 
             }
@@ -66,29 +73,26 @@ const EstablishmentListScreen = () => {
                         <Button
                             buttonText={"Добавить заведение"}
                             onClick={() => setVisible(true)}
-                            icon={"plus.svg"}
+                            icon={<FiPlus size={"22px"} stroke={"white"} />}
                         />
                     </div>
 
                     <div className={style.headerInput}>
-                        <TextInput
-                            placeholder={"Все заведения"}
-                            icon={
-                                <FiSearch
-                                    size={"22px"}
-                                    className={"stroke-text-gray"}
-                                />
-                            }
+                        <DropdownInput
+                            selectedOption={selectedEstablishment}
+                            selectOption={(tag) => onSelectEstablishment(tag)}
+                            placeholder={"Выберите заведение"}
+                            options={establishmentTagData}
                         />
                     </div>
 
                 </HeaderColumn>
 
                 <EstablishmentList
-                    data={establishmentCollection}
+                    data={establishmentStore.establishmentList}
                     isManager={false}
                     onClick={(selectedBranch) => {
-                        selectBranch(selectedBranch)
+                        establishmentStore.selectBranch(selectedBranch)
                     }}
                 />
 
@@ -99,4 +103,4 @@ const EstablishmentListScreen = () => {
 }
 
 
-export default EstablishmentListScreen;
+export default EstablishmentListScreen

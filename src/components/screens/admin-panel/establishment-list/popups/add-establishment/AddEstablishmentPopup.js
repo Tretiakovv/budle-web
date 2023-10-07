@@ -8,6 +8,9 @@ import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
 import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 
 const AddEstablishmentPopup = (props) => {
+
+    const selectedOption = {id: 0, name: ""}
+
     return (
         <Popup
             onClick={props.onClick}
@@ -31,6 +34,7 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Категория"}
                     placeholder={"Выберите категорию заведения"}
+                    selectedOption={selectedOption}
                     options={establishmentTagList}
                 />
             </div>
@@ -39,12 +43,14 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Вид кухни"}
                     placeholder={"Выберите вид кухни заведения"}
+                    selectedOption={selectedOption}
                     options={establishmentTagList}
                 />
                 <DropdownInput
                     backgroundColor={"#EEF5F9"}
                     labelText={"Теги"}
                     placeholder={"Выберите теги заведения"}
+                    selectedOption={selectedOption}
                     options={establishmentTagList}
                 />
             </div>
@@ -67,12 +73,14 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Метро"}
                     placeholder={"Выберите ближайшее метро"}
+                    selectedOption={selectedOption}
                     options={establishmentTagList}
                 />
                 <DropdownInput
                     backgroundColor={"#EEF5F9"}
                     labelText={"Часовой пояс"}
                     placeholder={"Выберите часовой пояс"}
+                    selectedOption={selectedOption}
                     options={establishmentTagList}
                 />
             </div>

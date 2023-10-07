@@ -1,7 +1,7 @@
 
 const establishmentTagList = [
     {
-        name: "Горячий цех",
+        name: "Горячий Цех",
         id: 1
     },
     {
