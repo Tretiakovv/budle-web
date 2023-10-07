@@ -1,11 +1,13 @@
 import style from "./MenuList.module.css"
-
 import PositionGroup from "../posititon-group/PositionGroup";
+
 const MenuList = (props) => {
+
     return (
         <div className={style.list}>
             {
-                props.data.map(group => {
+                props.data === null ? null :
+                props.data.menu.map(group => {
                     return <PositionGroup
                         groupName={group.groupName}
                         subgroups={group.subgroups}

@@ -3,7 +3,7 @@ import Popup from "../../../../../../ui/wrappers/popup/Popup";
 import {FiX} from "react-icons/fi";
 import TextInput from "../../../../../../ui/atoms/inputs/text-input/TextInput";
 import DropdownInput from "../../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
-import optionList from "../../../../../../data/entity/OptionData";
+import establishmentTagList from "../../../../../../data/entity/EstablishmentTagListData";
 import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
 import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 
@@ -31,7 +31,7 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Категория"}
                     placeholder={"Выберите категорию заведения"}
-                    options={optionList}
+                    options={establishmentTagList}
                 />
             </div>
             <div className={style.dataRow}>
@@ -39,13 +39,13 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Вид кухни"}
                     placeholder={"Выберите вид кухни заведения"}
-                    options={optionList}
+                    options={establishmentTagList}
                 />
                 <DropdownInput
                     backgroundColor={"#EEF5F9"}
                     labelText={"Теги"}
                     placeholder={"Выберите теги заведения"}
-                    options={optionList}
+                    options={establishmentTagList}
                 />
             </div>
             <FileInput
@@ -67,13 +67,13 @@ const AddEstablishmentPopup = (props) => {
                     backgroundColor={"#EEF5F9"}
                     labelText={"Метро"}
                     placeholder={"Выберите ближайшее метро"}
-                    options={optionList}
+                    options={establishmentTagList}
                 />
                 <DropdownInput
                     backgroundColor={"#EEF5F9"}
                     labelText={"Часовой пояс"}
                     placeholder={"Выберите часовой пояс"}
-                    options={optionList}
+                    options={establishmentTagList}
                 />
             </div>
         </Popup>

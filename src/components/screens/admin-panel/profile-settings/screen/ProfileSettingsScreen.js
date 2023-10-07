@@ -1,18 +1,17 @@
-import mainStyle from "../../AdminPanel.module.css"
+import mainStyle from "../../../AdminPanel.module.css"
 import style from "./ProfileSettings.module.css"
 
-import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
-import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
-import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
-import Button from "../../../../ui/atoms/buttons/button/Button";
-import {useState} from "react";
-import SuccessPopup from "../../../../ui/moleculas/popups/success-popup/SuccessPopup";
+import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
+import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn";
+import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
+import Button from "../../../../../ui/atoms/buttons/button/Button";
+import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";
+import {useProfileStore} from "../store/ProfileStore";
 
 const ProfileSettingsScreen = () => {
 
     const color = "#EEF5F9"
-
-    const [popupVisible, setPopupVisible] = useState(false)
+    const profileStore = useProfileStore()
 
     return (
         <div className={mainStyle.layout}>
@@ -20,12 +19,12 @@ const ProfileSettingsScreen = () => {
             <Sidebar activeTab={2}/>
 
             {
-                popupVisible ? <SuccessPopup
+                profileStore.isPopupVisible ? <SuccessPopup
                     image={"rocket.png"}
                     header={"Данные успешно сохранены!"}
                     message={"Мы отправили Вам на почту письмо с новым паролем"}
                     buttonText={"Прекрасно!"}
-                    onClose={() => setPopupVisible(false)}
+                    onClose={() => profileStore.setPopupVisible(false)}
                 /> : null
             }
 
@@ -53,7 +52,7 @@ const ProfileSettingsScreen = () => {
                     <div className={style.settingsButtons}>
                         <Button
                             buttonText={"Сохранить изменения"}
-                            onClick={() => setPopupVisible(true)}
+                            onClick={() => profileStore.setPopupVisible(true)}
                         />
                         <Button buttonText={"Подтвердить номер телефона"} type={"secondary"}/>
                     </div>

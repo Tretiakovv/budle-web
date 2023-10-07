@@ -2,15 +2,16 @@ import mainStyle from "../../../AdminPanel.module.css"
 import style from "./EstablishmentMenu.module.css"
 import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../../ui/atoms/buttons/button/Button";
-import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
-import {FiEye, FiFile, FiPlus, FiSearch} from "react-icons/fi";
+import {FiEye, FiFile, FiPlus} from "react-icons/fi";
 import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
 import FilterRow from "../../../../../ui/atoms/rows/filter-row/FilterRow";
 import MenuList from "../../../../../ui/wrappers/menu-list/MenuList";
-import data from "../../../../../data/entity/MenuData";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddPositionPopup from "../popup/add-position-category/AddPositionPopup";
 import AddFromExcelPopup from "../popup/add-from-excel/AddFromExcelPopup";
+import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
+import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
+import {useBranchMenuStore} from "../store/BranchMenuStore";
 
 const EstablishmentMenuScreen = () => {
 
@@ -19,6 +20,13 @@ const EstablishmentMenuScreen = () => {
     const [addFromExcelPopupVisible, setFromExcelPopupVisible] = useState(false)
 
     const contentPosition = addPositionPopupVisible ? "fixed" : "relative"
+
+    const establishmentFilterStore = useEstablishmentFilterStore()
+    const branchMenuStore = useBranchMenuStore()
+
+    useEffect(() => {
+        establishmentFilterStore.filterBranches()
+    }, [establishmentFilterStore.selectedEstablishment])
 
     return (
         <div>
@@ -99,23 +107,25 @@ const EstablishmentMenuScreen = () => {
                             </div>
 
                             <div className={style.headerInputRow}>
-                                <TextInput
-                                    placeholder={"Аджикинежаль"}
-                                    icon={
-                                        <FiSearch
-                                            size={"22px"}
-                                            className={"stroke-text-gray"}
-                                        />
-                                    }
+                                <DropdownInput
+                                    selectedOption={establishmentFilterStore.selectedEstablishment}
+                                    selectOption={(tag) => {
+                                        establishmentFilterStore.selectEstablishment(tag)
+                                    }}
+                                    placeholder={"Выберите заведение"}
+                                    options={establishmentFilterStore.establishmentTagData}
                                 />
-                                <TextInput
-                                    placeholder={"ул. Советская 32"}
-                                    icon={
-                                        <FiSearch
-                                            size={"22px"}
-                                            className={"stroke-text-gray"}
-                                        />
-                                    }
+                                <DropdownInput
+                                    selectedOption={establishmentFilterStore.selectedBranch}
+                                    selectOption={(tag) => {
+                                        establishmentFilterStore.selectBranch(tag)
+                                        branchMenuStore.filterBranchMenu(
+                                            tag.establishmentID,
+                                            tag.id
+                                        )
+                                    }}
+                                    placeholder={"Выберите филиал"}
+                                    options={establishmentFilterStore.branchTagData}
                                 />
                             </div>
 
@@ -125,12 +135,10 @@ const EstablishmentMenuScreen = () => {
                     <FilterRow/>
 
                     <MenuList
-                        data={data}
+                        data={branchMenuStore.branchMenu}
                         isEdit={isEdit}
-                        onEditPosition={() => {
-                        }}
-                        onEditSubgroup={() => {
-                        }}
+                        onEditPosition={() => {}}
+                        onEditSubgroup={() => {}}
                     />
 
                 </div>

@@ -6,7 +6,7 @@ import LogIn from "./screens/authoristation/log-in/LogIn";
 import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/screen/EstablishmentMenuScreen";
 import ManagerListScreen from "./screens/admin-panel/manager-list/screen/ManagerListScreen";
 import OrderListScreen from "./screens/admin-panel/order-list/screen/OrderListScreen";
-import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/ProfileSettingsScreen";
+import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/screen/ProfileSettingsScreen";
 
 const Router = () => {
     return <BrowserRouter>

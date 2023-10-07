@@ -6,7 +6,7 @@ import Button from "../../../../../ui/atoms/buttons/button/Button";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import EstablishmentList from "../../../../../ui/wrappers/establishment-list/EstablishmentList";
 import establishmentData from "../../../../../data/entity/EstablishmentData";
-import options from "../../../../../data/entity/OptionData";
+import options from "../../../../../data/entity/EstablishmentTagListData";
 import {useState} from "react";
 import AddManagerPopup from "../popups/AddManagerPopup";
 import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";

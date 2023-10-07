@@ -1,5 +1,5 @@
 
-const optionList = [
+const establishmentTagList = [
     {
         name: "Горячий цех",
         id: 1
@@ -7,11 +7,7 @@ const optionList = [
     {
         name: "Аджикинежаль",
         id: 2
-    },
-    {
-        name: "FRANK by Баста",
-        id: 3
-    },
+    }
 ]
 
-export default optionList
+export default establishmentTagList
