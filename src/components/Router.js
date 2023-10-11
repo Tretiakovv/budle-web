@@ -20,11 +20,11 @@ const Router = () => {
             <Route element={<ProfileSettingsScreen/>} path={'/settings'}/>
 
             {/* Authorisation screens*/}
-            <Route element={<SignIn/>} path={'/sign-in'} />
-            <Route element={<LogIn/>} path={'/log-in'} />
-            <Route element={<ForgotPassword/>} path={'/forgot-password'} />
+            <Route element={<SignIn/>} path={'/sign-in'}/>
+            <Route element={<LogIn/>} path={'/log-in'}/>
+            <Route element={<ForgotPassword/>} path={'/forgot-password'}/>
 
-            <Route path='*' element={<div> Not found </div>}></Route>
+            <Route path='*' element={<div>Not found..</div>}></Route>
 
         </Routes>
     </BrowserRouter>

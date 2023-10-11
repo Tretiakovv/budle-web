@@ -29,17 +29,17 @@ const PositionSubgroup = (props) => {
             </div>
 
             {
-                iconState ? props.positions.map(position => {
+                iconState ? props.products.map(position => {
                     return <PositionRow
                         position={position}
                         onClick={props.onEditPosition}
                         isEdit={props.isEdit}
                     >
                         {position.name}
-                        {position.category}
+                        {"-"}
                         {position.price + " ₽"}
-                        {position.gram + " гр."}
-                        {position.inStock ? "Да" : "Нет"}
+                        {position.weightG + " гр."}
+                        {position.onSale ? "Да" : "Нет"}
                     </PositionRow>
                 }) : null
             }

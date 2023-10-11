@@ -5,6 +5,7 @@ export const useEstablishmentStore = create((set) => ({
 
     branchToDelete: null,
     establishmentList: [],
+    testEstablishments: [],
 
     addBranch: (branchToAdd) => set((state) => ({
         establishmentList: state.establishmentList.map(establishment => {

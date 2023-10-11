@@ -6,10 +6,10 @@ const PositionGroup = (props) => {
         <div className={style.card}>
             <h3 className={style.header}>{props.groupName}</h3>
             {
-                props.subgroups.map(subgroup => {
+                props.childCategories.map(subgroup => {
                     return <PositionSubgroup
-                        subgroupName={subgroup.subgroupName}
-                        positions={subgroup.positions}
+                        subgroupName={subgroup.name}
+                        products={subgroup.products}
                         onEditPosition={props.onEditPosition}
                         onEditSubgroup={props.onEditSubgroup}
                         isEdit={props.isEdit}

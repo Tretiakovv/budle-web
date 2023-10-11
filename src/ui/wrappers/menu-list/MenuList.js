@@ -2,15 +2,15 @@ import style from "./MenuList.module.css"
 import PositionGroup from "../posititon-group/PositionGroup";
 
 const MenuList = (props) => {
-
     return (
         <div className={style.list}>
             {
                 props.data === null ? null :
-                props.data.menu.map(group => {
+                    props.data.result === null ? null :
+                props.data.result.map(group => {
                     return <PositionGroup
-                        groupName={group.groupName}
-                        subgroups={group.subgroups}
+                        groupName={group.name}
+                        childCategories={group.childCategories}
                         onEditPosition={props.onEditPosition}
                         onEditSubgroup={props.onEditSubgroup}
                         isEdit={props.isEdit}

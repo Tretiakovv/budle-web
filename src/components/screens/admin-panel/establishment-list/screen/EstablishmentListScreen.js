@@ -73,7 +73,7 @@ const EstablishmentListScreen = () => {
                         <Button
                             buttonText={"Добавить заведение"}
                             onClick={() => setVisible(true)}
-                            icon={<FiPlus size={"22px"} stroke={"white"} />}
+                            icon={<FiPlus size={"22px"} stroke={"white"}/>}
                         />
                     </div>
 

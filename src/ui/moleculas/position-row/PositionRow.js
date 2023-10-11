@@ -4,8 +4,21 @@ import {FiMoreHorizontal} from "react-icons/fi";
 import EditMenuPopup from "../popups/edit-menu-popup/EditMenuPopup";
 import useMousePosition from "../../../hooks/UseMousePosition";
 import useScrollPosition from "../../../hooks/UseScrollPosition";
+import {useBranchMenuStore} from "../../../components/screens/admin-panel/establishment-menu/store/BranchMenuStore";
+import {useMutation} from "react-query";
+import {queryClient} from "../../../index";
 
 const PositionRow = (props) => {
+
+    const deleteQuery = useBranchMenuStore(
+        (state) => (
+            (productId) => (state.deletePosition(productId))
+        )
+    )
+
+    const deletePosition = useMutation((productId) => deleteQuery(productId), {
+        onSuccess: () => queryClient.invalidateQueries(["establishments"])
+    })
 
     const mousePosition = useMousePosition()
     const scrollPosition = useScrollPosition()
@@ -31,8 +44,9 @@ const PositionRow = (props) => {
             {
                 isPopup ? <EditMenuPopup
                     setOffset={(offset) => setOffset(offset)}
-                    onEdit={() => {}}
-                    onDelete={() => {}}
+                    onEdit={() => {
+                    }}
+                    onDelete={() => deletePosition.mutate(props.position.id)}
                     element={props.position}
                 /> : null
             }

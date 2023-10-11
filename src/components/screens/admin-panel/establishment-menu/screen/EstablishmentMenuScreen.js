@@ -13,6 +13,7 @@ import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore"
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import {useBranchMenuStore} from "../store/BranchMenuStore";
 import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
+import {useQuery} from "react-query";
 
 const EstablishmentMenuScreen = () => {
 
@@ -24,6 +25,13 @@ const EstablishmentMenuScreen = () => {
 
     const establishmentFilterStore = useEstablishmentFilterStore()
     const branchMenuStore = useBranchMenuStore()
+
+    const fetchEstablishments = useBranchMenuStore(state => state.fetchBranchMenu)
+
+    // result of the function ???
+    const response = useQuery("establishments", fetchEstablishments)
+
+    console.log(branchMenuStore.testBranchMenu)
 
     useEffect(() => {
         establishmentFilterStore.filterBranches()
@@ -135,14 +143,14 @@ const EstablishmentMenuScreen = () => {
 
                     {
 
-                        establishmentFilterStore.selectedBranch.id === 0 ? <EmptyScreen
+                        branchMenuStore.testBranchMenu === null ? <EmptyScreen
                             header={"Вы не выбрали организацию и филиал"}
                             message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
                         /> : <div className={"flex flex-col gap-5"}>
                             <FilterRow/>
 
                             <MenuList
-                                data={branchMenuStore.branchMenu}
+                                data={branchMenuStore.testBranchMenu}
                                 isEdit={isEdit}
                                 onEditPosition={() => {}}
                                 onEditSubgroup={() => {}}

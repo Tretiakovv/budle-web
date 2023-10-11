@@ -1,6 +1,16 @@
 import style from "./OrderCard.module.css"
+import {animated} from "@react-spring/web";
 
 const OrderCard = (props) => {
+
+    /*
+    const [{x, y}, api] = useSpring(() => ({x: 0, y: 0}))
+
+    const bindDrag = useDrag(({down, movement: [mx, my], tap, dragging}) => {
+        tap ? props.onSelectOrder(order) : api.start({x: down ? mx : 0, y: down ? my : 0})
+        props.setDragging(dragging)
+    }, {})
+     */
 
     const order = props.order
 
@@ -18,9 +28,8 @@ const OrderCard = (props) => {
     ]
 
     return (
-        <div
+        <animated.div
             className={style.wrapper}
-            onClick={() => props.onSelectOrder(order)}
         >
 
             <div className={style.headerRow}>
@@ -49,7 +58,7 @@ const OrderCard = (props) => {
                 }
             </div>
 
-        </div>
+        </animated.div>
     )
 }
 
