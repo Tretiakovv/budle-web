@@ -9,13 +9,17 @@ import PauseEstablishmentPopup from "../popups/pause-establishment/PauseEstablis
 import {FiPauseCircle} from "react-icons/fi";
 import OrderDesk from "../../../../../ui/wrappers/order-desk/OrderDesk";
 import SideOrderPopup from "../../../../../ui/moleculas/popups/side-order-popup/SideOrderPopup";
-import {useOrderStore} from "../store/OrderStore";
 import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
 import {useEffect, useState} from "react";
+import {useStore} from "../../../../../store/store";
+import {useShallow} from "zustand/shallow";
 
 const OrderListScreen = () => {
 
-    const orderStore = useOrderStore()
+    const [selectedOrder, selectOrder] = useStore(
+        useShallow(state => [state.selectedOrder, state.selectOrder])
+    )
+
     const establishmentFilterStore = useEstablishmentFilterStore()
     const [isPausePopupVisible, setPausePopupVisible] = useState(false)
 
@@ -23,7 +27,7 @@ const OrderListScreen = () => {
         establishmentFilterStore.filterBranches()
     }, [establishmentFilterStore.selectedEstablishment])
 
-    const contentPosition = isPausePopupVisible || orderStore.selectedOrder !== null
+    const contentPosition = isPausePopupVisible || selectedOrder !== null
         ? "fixed" : "relative"
 
     return (
@@ -35,9 +39,9 @@ const OrderListScreen = () => {
             }
 
             {
-                orderStore.selectedOrder !== null ? <SideOrderPopup
-                    order={orderStore.selectedOrder}
-                    onClosePopup={() => orderStore.selectOrder(null)}
+                selectedOrder !== null ? <SideOrderPopup
+                    order={selectedOrder}
+                    onClosePopup={() => selectOrder(null)}
                 /> : null
             }
 
@@ -80,10 +84,7 @@ const OrderListScreen = () => {
 
                     </HeaderColumn>
 
-                    <OrderDesk
-                        orders={orderStore.orders}
-                        onSelectOrder={(order) => orderStore.selectOrder(order)
-                    }/>
+                    <OrderDesk />
 
                 </div>
 

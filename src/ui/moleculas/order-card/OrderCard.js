@@ -1,18 +1,8 @@
 import style from "./OrderCard.module.css"
-import {animated} from "@react-spring/web";
+import {useStore} from "../../../store/store";
+import {useShallow} from "zustand/shallow";
 
-const OrderCard = (props) => {
-
-    /*
-    const [{x, y}, api] = useSpring(() => ({x: 0, y: 0}))
-
-    const bindDrag = useDrag(({down, movement: [mx, my], tap, dragging}) => {
-        tap ? props.onSelectOrder(order) : api.start({x: down ? mx : 0, y: down ? my : 0})
-        props.setDragging(dragging)
-    }, {})
-     */
-
-    const order = props.order
+const OrderCard = ({order, stack, setDragging}) => {
 
     const cardData = [
         {
@@ -27,9 +17,65 @@ const OrderCard = (props) => {
         },
     ]
 
+    const [orderDesk, setOrderDesk, selectOrder] = useStore(
+        useShallow(state => [state.orderDesk, state.setOrderDesk, state.selectOrder])
+    )
+
+    const [currentOrder, currentStack] = useStore(
+        useShallow(state => [state.currentOrder, state.currentStack])
+    )
+
+    const [setCurrentOrder, setCurrentStack] = useStore(
+        useShallow(state => [state.setCurrentOrder, state.setCurrentStack])
+    )
+
+    const handleDragOver = (e) => {
+        e.preventDefault()
+        setDragging(true)
+    }
+
+    const handleDragStart = (e, stack, order) => {
+        setCurrentStack(stack)
+        setCurrentOrder(order)
+    }
+
+    const handleDragEnd = (e) => {
+        setDragging(false)
+    }
+
+    const handleDragLeave = (e) => {
+        setDragging(false)
+    }
+
+    const handleDrop = (e, stack, order) => {
+
+        e.preventDefault()
+
+        const currentOrderIndex = currentStack.items.indexOf(currentOrder)
+        currentStack.items.splice(currentOrderIndex, 1)
+
+        const dropIndex = stack.items.indexOf(order)
+        stack.items.splice(dropIndex + 1, 0, currentOrder)
+
+        setOrderDesk(orderDesk.map((s) => {
+            return s.id === stack.id ? stack :
+                s.id === currentStack.id ? currentStack : s
+        }))
+
+        setDragging(false)
+
+    }
+
     return (
-        <animated.div
+        <div
             className={style.wrapper}
+            draggable={true}
+            onDragOver={(e) => handleDragOver(e)}
+            onDragStart={(e) => handleDragStart(e, stack, order)}
+            onDragEnd={(e) => handleDragEnd(e)}
+            onDragLeave={(e) => handleDragLeave(e)}
+            onDrop={(e) => handleDrop(e, stack, order)}
+            onClick={() => selectOrder(order)}
         >
 
             <div className={style.headerRow}>
@@ -58,7 +104,7 @@ const OrderCard = (props) => {
                 }
             </div>
 
-        </animated.div>
+        </div>
     )
 }
 

@@ -13,7 +13,7 @@
     }
 
     .stackCol {
-        @apply flex flex-col gap-5;
+        @apply h-screen flex flex-col gap-5;
     }
 
 }

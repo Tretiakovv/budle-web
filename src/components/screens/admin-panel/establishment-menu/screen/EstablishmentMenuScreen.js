@@ -152,8 +152,10 @@ const EstablishmentMenuScreen = () => {
                             <MenuList
                                 data={branchMenuStore.testBranchMenu}
                                 isEdit={isEdit}
-                                onEditPosition={() => {}}
-                                onEditSubgroup={() => {}}
+                                onEditPosition={() => {
+                                }}
+                                onEditSubgroup={() => {
+                                }}
                             />
                         </div>
 

@@ -8,10 +8,23 @@ import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
 import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
 import Button from "../../../../../../ui/atoms/buttons/button/Button";
 import Switch from "../../../../../../ui/atoms/buttons/switch/Switch";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import menuData from "../../../../../../data/entity/MenuData";
+import {useBranchMenuStore} from "../../store/BranchMenuStore";
+import {useMutation} from "react-query";
+import {queryClient} from "../../../../../../index";
 
 const AddPositionPopup = (props) => {
+
+    const addProduct = useBranchMenuStore((state) => (
+        (product) => state.addProduct(product)
+    ))
+
+    const addProductQuery = useMutation("addProduct", (product) => addProduct(product), {
+        onSuccess: () => queryClient.invalidateQueries(["establishments"])
+    })
+
+    const [text, setText] = useState("")
 
     const [subgroupNames, setSubgroupNames] = useState([])
     const [selectedOption, selectOption] = useState({name: "", id: 0})
@@ -26,29 +39,15 @@ const AddPositionPopup = (props) => {
 
     const [positionData, setPositionData] = useState(
         {
+            categoryId: 3,
+            establishmentId: 1,
+            onSale: false,
+            description: "",
             name: "",
             price: "",
-            gram: "",
-            category: "",
-            inStock: false
+            weightG: ""
         }
     )
-
-    useEffect(() => {
-        menuData.map(group => {
-            group.subgroups.map(subgroup => {
-                setSubgroupNames([
-                    ...subgroupNames,
-                    subgroupNames.push(
-                        {
-                            name: subgroup.subgroupName,
-                            id: subgroupNames.length + 1
-                        }
-                    )
-                ])
-            })
-        })
-    }, [])
 
     const addPositionToMenu = (newPosition) => {
         menuData.map(group => {
@@ -80,7 +79,7 @@ const AddPositionPopup = (props) => {
 
             {
                 activeOption.id === 0 ?
-                    <div>
+                    <div className={"flex flex-col gap-5"}>
                         <div className={style.dataRow}>
                             <TextInput
                                 labelText={"Название"}
@@ -106,7 +105,7 @@ const AddPositionPopup = (props) => {
                                 labelText={"Граммовка"}
                                 onChange={(text) => setPositionData({
                                     ...positionData,
-                                    gram: text
+                                    weightG: text
                                 })}
                                 placeholder={"Введите граммовку блюда"}
                                 color={"#EEF5F9"}
@@ -117,10 +116,6 @@ const AddPositionPopup = (props) => {
                                 placeholder={"Выберите категорию блюда"}
                                 selectedOption={selectedOption}
                                 selectOption={(option) => {
-                                    setPositionData({
-                                        ...positionData,
-                                        category: option.name
-                                    })
                                     selectOption(option)
                                 }}
                                 options={subgroupNames}
@@ -130,6 +125,14 @@ const AddPositionPopup = (props) => {
                         <TextArea
                             placeholder={"Придумайте интересное описание блюда." +
                                 " Идеальное количество символов — 100."}
+                            text={text}
+                            setText={(event) => {
+                                setText(event)
+                                setPositionData({
+                                    ...positionData,
+                                    description: text
+                                })
+                            }}
                         />
                         <Switch
                             labelText={"Продаётся"}
@@ -138,7 +141,7 @@ const AddPositionPopup = (props) => {
                                 setActiveSwitch(!isActiveSwitch)
                                 setPositionData({
                                     ...positionData,
-                                    inStock: !isActiveSwitch
+                                    onSale: !isActiveSwitch
                                 })
                             }}
                         />
@@ -176,7 +179,10 @@ const AddPositionPopup = (props) => {
             <div className={style.buttonRow}>
                 <Button
                     buttonText={"Добавить элемент"}
-                    onClick={() => addPositionToMenu(positionData)}
+                    onClick={() => {
+                        console.log(positionData)
+                        addProductQuery.mutate(positionData)}
+                    }
                 />
             </div>
 

@@ -15,13 +15,23 @@ export const useBranchMenuStore = create((set) => ({
     })),
 
     fetchBranchMenu: async () => {
-        const response = await axios.get("http://192.168.1.119:8080/menu?establishmentId=1")
+        const response = await axios.get("http://80.89.192.250:8080/menu?establishmentId=1")
         set({testBranchMenu: await response.data})
     },
 
     deletePosition: async (productId) => {
-        const response = await axios.delete(`http://192.168.1.119:8080/menu/product?productId=${productId}`)
+        const response = await axios.delete(`http://80.89.192.250:8080/menu/product?productId=${productId}`)
         if (response.status !== 200) console.log("DELETE ERROR")
+    },
+
+    addProduct: async (product) => {
+        const response = await axios.post(`http://80.89.192.250:8080/menu/product/`, {
+            product: {
+                ...product,
+                categoryId: 2
+            }
+        })
+        if (response.status !== 200) console.log("POST PRODUCT ERROR")
     }
 
 }))
