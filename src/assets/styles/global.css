@@ -8,7 +8,7 @@ body, html {
 }
 
 label {
-    @apply text-text-black text-lg font-normal
+    @apply text-text-black text-base font-normal
 }
 
 p {
@@ -16,7 +16,7 @@ p {
 }
 
 a {
-    @apply text-text-gray text-lg font-normal
+    @apply text-text-gray text-base font-normal
 }
 
 .modalOpen {

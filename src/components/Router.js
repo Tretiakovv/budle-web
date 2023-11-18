@@ -7,6 +7,7 @@ import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/sc
 import ManagerListScreen from "./screens/admin-panel/manager-list/screen/ManagerListScreen";
 import OrderListScreen from "./screens/admin-panel/order-list/screen/OrderListScreen";
 import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/screen/ProfileSettingsScreen";
+import MyComponent from "./TestPage";
 
 const Router = () => {
     return <BrowserRouter>
@@ -24,7 +25,7 @@ const Router = () => {
             <Route element={<LogIn/>} path={'/log-in'}/>
             <Route element={<ForgotPassword/>} path={'/forgot-password'}/>
 
-            <Route path='*' element={<div>Not found..</div>}></Route>
+            <Route path={'*'} element={<MyComponent/>} />
 
         </Routes>
     </BrowserRouter>

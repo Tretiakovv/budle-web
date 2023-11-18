@@ -6,6 +6,7 @@ const NumberInput = (props) => {
         <div className={"w-full"}>
             <label>{props.labelText}</label>
             <InputMask
+                name={props.name}
                 mask={props.mask}
                 placeholder={props.placeholder}
                 className={style.input}

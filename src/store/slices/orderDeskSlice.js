@@ -1,5 +1,6 @@
 import orderList from "../../data/entity/OrderList";
 import {OrderStatus} from "../../data/enum/OrderStatus";
+import {api} from "../../api/API";
 
 export const orderDeskSlice = (set) => ({
 
@@ -22,6 +23,17 @@ export const orderDeskSlice = (set) => ({
         })
         console.log(defaultOrderDesk)
         set({orderDesk: defaultOrderDesk})
+    },
+
+    changeOrderStatus: async (status, orderId) => {
+        api.post('/business/order', null, {
+            params: {
+                orderId: orderId,
+                status: status
+            }
+        })
+            .then(console.log)
+            .catch(console.log)
     },
 
     setOrderDesk: (newOrderDesk) => set({orderDesk: newOrderDesk}),

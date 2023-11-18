@@ -29,6 +29,8 @@ const OrderCard = ({order, stack, setDragging}) => {
         useShallow(state => [state.setCurrentOrder, state.setCurrentStack])
     )
 
+    const changeOrderStatus = useStore(state => state.changeOrderStatus)
+
     const handleDragOver = (e) => {
         e.preventDefault()
         setDragging(true)
@@ -61,6 +63,8 @@ const OrderCard = ({order, stack, setDragging}) => {
             return s.id === stack.id ? stack :
                 s.id === currentStack.id ? currentStack : s
         }))
+
+        changeOrderStatus(stack.id, order.orderId)
 
         setDragging(false)
 

@@ -1,2 +1,6 @@
+import axios from "axios";
 
-export const API = 1
+export const api = axios.create({
+    baseURL: "https://www.budle.ru",
+    withCredentials: true
+})

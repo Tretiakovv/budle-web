@@ -1,5 +1,5 @@
 .button {
-    @apply w-full h-fit py-5 rounded-xl text-white text-lg bg-black border-0;
+    @apply w-full h-fit py-5 rounded-xl text-white bg-black border-0;
 }
 
 button:hover {

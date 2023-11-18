@@ -1,6 +1,6 @@
 .tab {
 
-    @apply flex px-20 py-5 font-normal text-lg justify-center text-text-gray
+    @apply flex px-20 py-5 font-normal text-base justify-center text-text-gray
     items-center border-2 border-background-blue bg-opacity-0;
 
     &:hover {

@@ -4,7 +4,7 @@
 
 .input {
 
-  @apply flex w-full px-5 py-5 text-lg text-text-black rounded-xl border-0 bg-white;
+  @apply flex w-full px-5 py-[20px] text-base text-text-black rounded-xl border-0 bg-white;
 
   &:focus {
     @apply outline-0;

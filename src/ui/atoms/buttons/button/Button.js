@@ -2,6 +2,7 @@ import style from "./Button.module.css"
 
 const Button = ({
                     type = "primary",
+                    buttonType = "button",
                     ...props
                 }) => {
 
@@ -10,6 +11,7 @@ const Button = ({
 
     return (
         <button
+            type={buttonType}
             className={style.button}
             style={{backgroundColor: bgColor, color: textColor}}
             onClick={props.onClick}
