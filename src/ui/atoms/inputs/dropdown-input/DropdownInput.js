@@ -23,7 +23,10 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
     const gapStyle = props.labelText == null ? 0 : 12
 
     return (
-        <div style={{gap: gapStyle}} className={style.wrapper} ref={divRef}>
+        <div
+            style={{gap: gapStyle}} className={style.wrapper}
+            ref={divRef}
+        >
             <div className={style.labelText}>{props.labelText}</div>
             <div style={{backgroundColor: backgroundColor}} className={style.dropdown}>
                 <div style={{color: color}} className={style.placeholder}>{message}</div>

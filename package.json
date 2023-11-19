@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -10,11 +11,14 @@
     "@use-gesture/react": "^10.3.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.5.0",
+    "i": "^0.3.7",
     "lodash-move": "^1.1.1",
     "lodash.clamp": "^4.0.3",
+    "npm": "^10.2.4",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-icons": "^4.11.0",
     "react-input-mask": "^2.0.4",
     "react-query": "^3.39.3",
@@ -22,6 +26,7 @@
     "react-scripts": "5.0.1",
     "sas": "^3.0.4",
     "web-vitals": "^2.1.4",
+    "zod": "^3.22.4",
     "zustand": "^4.4.2"
   },
   "scripts": {

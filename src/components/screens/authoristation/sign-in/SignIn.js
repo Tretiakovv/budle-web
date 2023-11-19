@@ -6,7 +6,7 @@ import {useSignInScreen} from "./SignIn.hooks";
 
 const SignIn = () => {
 
-    const signInContext = useSignInScreen()
+    const {register, ...signInContext} = useSignInScreen()
 
     return (
         <Authorisation
@@ -16,24 +16,32 @@ const SignIn = () => {
             buttonText={"Зарегистрироваться"}
         >
             <TextInput
-                name={"name"}
+                errorMessage={signInContext.errors.username?.message}
+                register={register("username")}
                 labelText={"ФИО"}
                 placeholder={"Иванов Иван Иванович"}
                 type={"text"}
             />
             <TextInput
-                name={"email"}
+                errorMessage={signInContext.errors.email?.message}
+                register={register("email")}
                 labelText={"Электронная почта"}
                 placeholder={"example@gmail.com"}
                 type={"еmail"}
             />
             <NumberInput
-                name={"phoneNumber"}
+                errorMessage={signInContext.errors.phoneNumber?.message}
+                register={register("phoneNumber")}
                 labelText={"Номер телефона"}
                 mask={"+9 (999) 999-99-99"}
                 placeholder={"+7 (000) 000-00-00"}
             />
-
+            {
+                signInContext.isRegisterError &&
+                <div className={"font-medium"}>
+                    {signInContext.isRegisterError}
+                </div>
+            }
         </Authorisation>
     )
 }
