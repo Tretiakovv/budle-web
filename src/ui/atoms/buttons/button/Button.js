@@ -1,4 +1,7 @@
 import style from "./Button.module.css"
+import {Colors} from "../../../../theme/Colors";
+import {twMerge} from "tailwind-merge";
+import {cn} from "@nextui-org/react";
 
 const Button = ({
                     type = "primary",
@@ -6,14 +9,10 @@ const Button = ({
                     ...props
                 }) => {
 
-    const bgColor = type === "primary" ? "#000000" : "#DDE9F0"
-    const textColor = type === "primary" ? "#FFFFFF" : "#181818"
-
     return (
         <button
             type={buttonType}
-            className={style.button}
-            style={{backgroundColor: bgColor, color: textColor}}
+            className={cn("w-full h-fit py-5 rounded-xl text-white bg-black border-0", props.className)}
             onClick={props.onClick}
         >
             {

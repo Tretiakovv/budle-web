@@ -9,7 +9,6 @@ const EstablishmentGroup = (props) => {
                 {
                     props.branches.map(branch => {
                         return <BranchCard
-                            isManager={props.isManager}
                             branch={branch}
                             onClick={props.onClick}
                             establishmentName={props.establishmentName}

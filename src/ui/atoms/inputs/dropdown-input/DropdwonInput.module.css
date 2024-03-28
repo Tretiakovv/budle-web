@@ -3,7 +3,7 @@
     @apply flex flex-col w-full gap-3;
 
     .labelText {
-        @apply text-black text-lg;
+        @apply text-black;
     }
 
     .dropdown {
@@ -11,7 +11,7 @@
     }
 
     .placeholder {
-        @apply text-text-gray text-lg;
+        @apply text-text-gray;
     }
 
 }

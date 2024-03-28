@@ -2,132 +2,148 @@ import style from "./AddEstablishemnt.module.css"
 import Popup from "../../../../../../ui/wrappers/popup/Popup";
 import {FiX} from "react-icons/fi";
 import TextInput from "../../../../../../ui/atoms/inputs/text-input/TextInput";
-import DropdownInput from "../../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
-import establishmentTagList from "../../../../../../data/entity/EstablishmentTagListData";
-import FileInput from "../../../../../../ui/atoms/inputs/file-input/FileInput";
 import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
+import {useAddEstablishmentPopup} from "./AddEstablishmentPopup.hooks";
+import {Colors} from "../../../../../../theme/Colors";
+import Button from "../../../../../../ui/atoms/buttons/button/Button";
+import selectData from "../../../../../../data/entity/CreateEstablishmentData";
+import ControlledSelectInput from "../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
+import ControlledFileInput from "../../../../../../ui/atoms/inputs/file-input/ControlledFileInput";
 
-import {useForm} from "react-hook-form";
-import {z} from "zod"
-import {zodResolver} from "@hookform/resolvers/zod";
+const FormRow = (props) => {
+    return (
+        <div className={style.dataRow}>
+            {props.children}
+        </div>
+    )
+}
 
-const tagSchema = z.object({
-    name : z.string()
-})
+const PopupHeaderRow = (props) => {
+    return (
+        <FormRow>
+            <h2 className={style.header}>Добавить заведение</h2>
+            <FiX
+                size={"20px"}
+                className={style.xIcon}
+                onClick={props.onClick}
+            />
+        </FormRow>
+    )
+}
 
-const establishmentSchema = z.object({
-    name : z.string(),
-    category : z.string(),
-    cuisineCountry : z.string(),
-    tags : z.array(tagSchema),
-    image : z.string(),
-    description : z.string(),
-    address : z.string(),
-    subway : z.string(),
-    timezone : z.string(),
-})
-
-const AddEstablishmentPopup = (props) => {
-
-    const selectedOption = {id: 0, name: ""}
+const PopupForm = (props) => {
 
     const {
-        register, handleSubmit,
-        formState : {errors, isSubmitting},
-    } = useForm({
-        resolver : zodResolver(establishmentSchema)
-    })
-
-    const onSubmit = (data) => {
-        console.log(data)
-    }
+        register, errors,
+        control, ...context
+    } = useAddEstablishmentPopup()
 
     return (
-        <Popup
-            onClick={props.onClick}
-            cardWidth={980}
+        <form
+            className={"w-full flex flex-col gap-[20px]"}
+            onSubmit={(e) => {
+                context.handleSubmit(e)
+                props.onClick()
+            }}
         >
-            <div className={style.dataRow}>
-                <h2 className={style.header}>Добавить заведение</h2>
-                <FiX
-                    size={"20px"}
-                    className={style.xIcon}
-                    onClick={props.onClick}
-                />
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={style.dataRow}>
-                    <TextInput
-                        {...register("name")}
-                        labelText={"Название"}
-                        placeholder={"Введите название заведения"}
-                        color={"#EEF5F9"}
-                    />
-                    <DropdownInput
-                        {...register("category")}
-                        backgroundColor={"#EEF5F9"}
-                        labelText={"Категория"}
-                        placeholder={"Выберите категорию заведения"}
-                        selectedOption={selectedOption}
-                        options={establishmentTagList}
-                    />
-                </div>
-                <div className={style.dataRow}>
-                    <DropdownInput
-                        {...register("cuisineCountry")}
-                        backgroundColor={"#EEF5F9"}
-                        labelText={"Вид кухни"}
-                        placeholder={"Выберите вид кухни заведения"}
-                        selectedOption={selectedOption}
-                        options={establishmentTagList}
-                    />
-                    <DropdownInput
-                        {...register("tags")}
-                        backgroundColor={"#EEF5F9"}
-                        labelText={"Теги"}
-                        placeholder={"Выберите теги заведения"}
-                        selectedOption={selectedOption}
-                        options={establishmentTagList}
-                    />
-                </div>
-                <FileInput
-                    {...register("image")}
-                    labelText={"Фотография"}
-                    placeholder={"Выберите фотографию с диска или перетащите её в данное поле"}
-                />
-                <TextArea
-                    {...register("description")}
-                    placeholder={"" +
-                        "Придумайте завлекающее описание заведения.\n" +
-                        "Идеальная длина описания — 500 символов."}
-                />
+            <FormRow>
                 <TextInput
-                    {...register("address")}
-                    labelText={"Адрес заведения"}
-                    placeholder={"Введите адрес заведения"}
-                    color={"#EEF5F9"}
+                    register={register("name", {
+                        required: context.getMessage("name")
+                    })}
+                    errorMessage={errors.name?.message}
+                    labelText={"Название"}
+                    placeholder={"Введите название заведения"}
+                    color={Colors["background-light-blue"]}
                 />
-                <div className={style.dataRow}>
-                    <DropdownInput
-                        {...register("subway")}
-                        backgroundColor={"#EEF5F9"}
-                        labelText={"Метро"}
-                        placeholder={"Выберите ближайшее метро"}
-                        selectedOption={selectedOption}
-                        options={establishmentTagList}
-                    />
-                    <DropdownInput
-                        {...register("timezone")}
-                        backgroundColor={"#EEF5F9"}
-                        labelText={"Часовой пояс"}
-                        placeholder={"Выберите часовой пояс"}
-                        selectedOption={selectedOption}
-                        options={establishmentTagList}
-                    />
-                </div>
-            </form>
+                <ControlledSelectInput
+                    control={control}
+                    label={"Категория"}
+                    inputName={"category"}
+                    errMessage={errors.category?.message}
+                    options={context.createOptionsArray(selectData.category)}
+                    validatorMessage={context.getMessage("category")}
+                />
+            </FormRow>
+            <FormRow>
+                <ControlledSelectInput
+                    control={control}
+                    label={"Вид кухни"}
+                    inputName={"cuisine_country"}
+                    errMessage={errors.cuisine_country?.message}
+                    options={context.createOptionsArray(selectData.cuisineCountry)}
+                    validatorMessage={context.getMessage("cuisine_country")}
+                />
+                <ControlledSelectInput
+                    isMulti
+                    control={control}
+                    required={false}
+                    label={"Теги заведения"}
+                    inputName={"tags"}
+                    options={context.createOptionsArray(selectData.tags)}
+                />
+            </FormRow>
+            <ControlledFileInput
+                control={control}
+                inputName={"image"}
+                error={errors.image?.message}
+                validatorMessage={context.getMessage("image")}
+                label={"Фотография"}
+                placeholder={"Выберите фотографию с диска"}
+            />
+            <TextArea
+                register={register("description", {
+                    minLength : {
+                        value : 50,
+                        message : context.getMessage("description")
+                    }
+                })}
+                errorMessage={errors.description?.message}
+                placeholder={"" +
+                    "Придумайте завлекающее описание заведения.\n" +
+                    "Идеальная длина описания — 500 символов."}
+            />
+            <TextInput
+                register={register("address", {
+                    required: context.getMessage("address")
+                })}
+                errorMessage={errors.address?.message}
+                labelText={"Адрес заведения"}
+                placeholder={"Введите адрес заведения"}
+                color={Colors["background-light-blue"]}
+            />
+            <FormRow>
+                <ControlledSelectInput
+                    control={control}
+                    label={"Метро"}
+                    inputName={"subway"}
+                    required={false}
+                    options={context.createOptionsArray(selectData.subway)}
+                    validatorMessage={context.getMessage("subway")}
+                />
+                <ControlledSelectInput
+                    control={control}
+                    label={"Часовой пояс"}
+                    inputName={"timezone"}
+                    errMessage={errors.timezone?.message}
+                    options={context.createOptionsArray(selectData.timezone)}
+                    validatorMessage={context.getMessage("timezone")}
+                />
+            </FormRow>
+            <Button
+                buttonType={"submit"}
+                buttonText={"Добавить заведение"}
+                className={"w-[440px]"}
+            />
+        </form>
+    )
+}
 
+const AddEstablishmentPopup = (props) => {
+    return (
+        <Popup onClick={props.onClick} cardWidth={980}>
+            <PopupHeaderRow {...props} />
+            <PopupForm {...props} />
         </Popup>
     )
 }

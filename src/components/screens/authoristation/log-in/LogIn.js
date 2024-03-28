@@ -2,6 +2,7 @@ import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
 import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 import authOptions from "../../../../data/entity/AuthData";
 import {useLogInScreen} from "./LogIn.hooks";
+import {useForm} from "react-hook-form";
 
 const LogIn = () => {
 

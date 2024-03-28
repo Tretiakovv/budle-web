@@ -12,85 +12,115 @@ import SideOrderPopup from "../../../../../ui/moleculas/popups/side-order-popup/
 import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
 import {useEffect, useState} from "react";
 import {useStore} from "../../../../../store/store";
-import {useShallow} from "zustand/shallow";
+import {useShallow} from "zustand/react/shallow";
+import {useQuery} from "react-query";
+import {mapEstablishmentsToOptions} from "../../../../../utils/mapEstablishmentsToOptions";
+import {useSearchParams} from "react-router-dom";
 
 const OrderListScreen = () => {
+
+    const [isPausePopupVisible, setPausePopupVisible] = useState(false)
+    const [activeEstOption, setActiveEstOption] = useState({id : 0, name : ""})
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const [selectedOrder, selectOrder] = useStore(
         useShallow(state => [state.selectedOrder, state.selectOrder])
     )
 
-    const establishmentFilterStore = useEstablishmentFilterStore()
-    const [isPausePopupVisible, setPausePopupVisible] = useState(false)
+    const [establishments, getEstablishments] = useStore(
+        useShallow(state => [state.establishmentList, state.getEstablishmentList])
+    )
+
+    const options = mapEstablishmentsToOptions(establishments)
+
+    const getEstablishmentsQuery = useQuery({
+        queryKey : ["get", "establishmentList"],
+        queryFn : () => getEstablishments(),
+    })
+
+    const handleChangeOption = (option) => {
+        setSearchParams(prev => {
+            prev.set("establishmentId", option.id)
+            return prev
+        })
+        setActiveEstOption(option)
+    }
+
+    const contentPosition = isPausePopupVisible || selectedOrder !== null ? "fixed" : "relative"
 
     useEffect(() => {
-        establishmentFilterStore.filterBranches()
-    }, [establishmentFilterStore.selectedEstablishment])
+        setSearchParams(prev => {
+            prev.set("establishmentId", null)
+            return prev
+        })
+    }, [])
 
-    const contentPosition = isPausePopupVisible || selectedOrder !== null
-        ? "fixed" : "relative"
+    if (getEstablishmentsQuery.isLoading) {
+        return (
+            <div>
+                Establishments is loading..
+            </div>
+        )
+    }
 
-    return (
-        <div>
+    if (getEstablishmentsQuery.isSuccess) {
+        return (
+            <div>
 
-            {
-                isPausePopupVisible ? <PauseEstablishmentPopup
-                    onClose={() => setPausePopupVisible(false)}/> : null
-            }
+                {
+                    isPausePopupVisible ? <PauseEstablishmentPopup
+                        onClose={() => setPausePopupVisible(false)}/> : null
+                }
 
-            {
-                selectedOrder !== null ? <SideOrderPopup
-                    order={selectedOrder}
-                    onClosePopup={() => selectOrder(null)}
-                /> : null
-            }
+                {
+                    selectedOrder !== null ? <SideOrderPopup
+                        order={selectedOrder}
+                        onClosePopup={() => selectOrder(null)}
+                    /> : null
+                }
 
-            <div
-                style={{position: contentPosition}}
-                className={mainStyle.layout}
-            >
+                <div
+                    style={{position: contentPosition}}
+                    className={mainStyle.layout}
+                >
 
-                <Sidebar activeTab={5}/>
+                    <Sidebar activeTab={5}/>
 
-                <div className={mainStyle.content}>
+                    <div className={mainStyle.content}>
 
-                    <HeaderColumn header={"Редактирование заведения"}>
+                        <HeaderColumn header={"Список заказов"}>
 
-                        <div className={style.headerInputRow}>
-                            <DropdownInput
-                                selectedOption={establishmentFilterStore.selectedEstablishment}
-                                selectOption={(tag) => establishmentFilterStore.selectEstablishment(tag)}
-                                placeholder={"Выберите заведение"}
-                                options={establishmentFilterStore.establishmentTagData}
-                            />
-                            <DropdownInput
-                                selectedOption={establishmentFilterStore.selectedBranch}
-                                selectOption={(tag) => establishmentFilterStore.selectBranch(tag)}
-                                placeholder={"Выберите филиал"}
-                                options={establishmentFilterStore.branchTagData}
-                            />
-                            <Button
-                                buttonText={"Приостановить работу"}
-                                type={"secondary"}
-                                icon={
-                                    <FiPauseCircle
-                                        size={"22px"}
-                                        className={style.icon}
-                                    />
-                                }
-                                onClick={() => setPausePopupVisible(true)}
-                            />
-                        </div>
+                            <div className={style.headerInputRow}>
+                                <DropdownInput
+                                    selectedOption={activeEstOption}
+                                    selectOption={handleChangeOption}
+                                    placeholder={"Выберите заведение"}
+                                    options={options}
+                                />
+                                <Button
+                                    buttonText={"Приостановить работу"}
+                                    type={"secondary"}
+                                    icon={
+                                        <FiPauseCircle
+                                            size={"22px"}
+                                            className={style.icon}
+                                        />
+                                    }
+                                    onClick={() => setPausePopupVisible(true)}
+                                />
+                            </div>
 
-                    </HeaderColumn>
+                        </HeaderColumn>
 
-                    <OrderDesk />
+                        <OrderDesk />
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default OrderListScreen

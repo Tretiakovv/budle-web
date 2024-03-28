@@ -4,46 +4,63 @@ import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
 import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../../ui/atoms/buttons/button/Button";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
-import EstablishmentList from "../../../../../ui/wrappers/establishment-list/EstablishmentList";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AddManagerPopup from "../popups/AddManagerPopup";
 import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";
 import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
 import {FiPlus} from "react-icons/fi";
-import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
-import {useEstablishmentStore} from "../../store/EstablishmentStore";
-import {useShallow} from "zustand/shallow";
+import {useStore} from "../../../../../store/store";
+import {useShallow} from "zustand/react/shallow";
+import {useQuery} from "react-query";
+import WorkerCard from "../../../../../ui/moleculas/worker-card/WorkerCard";
+import DeleteWorkerPopup from "../popups/DeleteWorkerPopup";
 
 const ManagerListScreen = () => {
 
-    const establishmentStore = useEstablishmentStore()
-
-    const [
-        selectedEstablishment,
-        onSelectEstablishment,
-        establishmentTagData
-    ] = useEstablishmentFilterStore(
-        useShallow((state) => ([
-            state.selectedEstablishment,
-            (tag) => state.selectEstablishment(tag),
-            state.establishmentTagData
-        ]))
-    )
-
-    useEffect(() => {
-        establishmentStore.getEstablishments()
-    }, [])
-
-    useEffect(() => {
-        establishmentStore.filterEstablishments(selectedEstablishment.name)
-    }, [selectedEstablishment.name])
-
+    const [isDeletePopupVisible, setDeletePopupVisible] = useState(null)
     const [managerPopupVisible, setManagerPopupVisible] = useState(false)
     const [successPopupVisible, setSuccessPopupVisible] = useState(false)
+
+    const [workers, getWorkers] = useStore(useShallow(
+        state => [state.workers, state.getWorkers])
+    )
+
+    const [establishments, getEstablishments] = useStore(
+        useShallow(state => [state.establishmentList, state.getEstablishmentList])
+    )
+
+    const [options, setOptions] = useState([])
+    const [activeOption, setActiveOption] = useState({id: 0, name: ""})
+
+    const mapEstablishmentsToOptions = () => {
+        return establishments.map(establishment => {
+            return {id: establishment.id, name: establishment.name}
+        })
+    }
+
+    const getEstablishmentsQuery = useQuery({
+        queryKey: ["get", "establishmentList"],
+        queryFn: () => getEstablishments(),
+        onSuccess: () => setOptions(mapEstablishmentsToOptions)
+    })
+
+    const getWorkersQuery = useQuery({
+        queryKey: ["get", "workers", activeOption.id],
+        queryFn: () => getWorkers(activeOption.id),
+        onSuccess: () => console.log("WORKERS")
+    })
 
     const onSubmitManagerPopup = () => {
         setManagerPopupVisible(false)
         setSuccessPopupVisible(true)
+    }
+
+    if (getEstablishmentsQuery.isLoading || getWorkersQuery.isLoading) {
+        return (
+            <div>
+                Manager list is loading..
+            </div>
+        )
     }
 
     return (
@@ -52,10 +69,18 @@ const ManagerListScreen = () => {
             <Sidebar activeTab={3}/>
 
             {
-                managerPopupVisible ? <AddManagerPopup
+                isDeletePopupVisible && <DeleteWorkerPopup
+                    worker={isDeletePopupVisible}
+                    establishmentId={activeOption.id}
+                    onClose={() => setDeletePopupVisible(null)}
+                />
+            }
+
+            {
+                managerPopupVisible && <AddManagerPopup
                     onClose={() => setManagerPopupVisible(false)}
                     onSubmit={() => onSubmitManagerPopup()}
-                /> : null
+                />
             }
 
             {
@@ -81,20 +106,27 @@ const ManagerListScreen = () => {
                     </div>
                     <div className={style.headerDropdown}>
                         <DropdownInput
-                            selectedOption={selectedEstablishment}
-                            selectOption={(tag) => onSelectEstablishment(tag)}
+                            selectedOption={activeOption}
+                            selectOption={setActiveOption}
                             placeholder={"Выберите заведение"}
-                            options={establishmentTagData}
+                            options={options}
                         />
                     </div>
 
                 </HeaderColumn>
 
                 {
-                    selectedEstablishment.id === 0 ? <EmptyScreen
+                    activeOption.id === 0 || workers === null ? <EmptyScreen
                         header={"Вы не выбрали организацию"}
                         message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
-                    /> : <EstablishmentList data={establishmentStore.establishmentList} isManager={true}/>
+                    /> : <div className={"w-full grid grid-cols-12 gap-[10px]"}>
+                        {
+                            workers.map((worker) => <WorkerCard
+                                worker={worker}
+                                onDelete={() => setDeletePopupVisible(worker)}
+                            />)
+                        }
+                    </div>
                 }
 
             </div>

@@ -2,8 +2,12 @@ import orderList from "../../data/entity/OrderList";
 import {OrderStatus} from "../../data/enum/OrderStatus";
 import {api} from "../../api/API";
 
-export const orderDeskSlice = (set) => ({
+export const orderDeskSlice = (set, get) => ({
 
+    selectedEstablishmentId : 0,
+    setSelectedEstablishmentId : (id) => set({selectedEstablishmentId: id}),
+
+    orders : [],
     orderDesk: [],
 
     currentOrder: null,
@@ -13,27 +17,26 @@ export const orderDeskSlice = (set) => ({
     setCurrentOrder: (order) => set({currentOrder: order}),
     setCurrentStack: (stack) => set({currentStack: stack}),
 
-    initOrderDesk: () => {
-        const defaultOrderDesk = Object.keys(OrderStatus).map((key, index) => {
-            return {
-                id: index,
-                name: OrderStatus[key],
-                items: orderList.filter((order) => order.status === index)
-            }
-        })
-        console.log(defaultOrderDesk)
-        set({orderDesk: defaultOrderDesk})
+    getOrders : async (id) => {
+        if (id === null) return
+        api.get("/business/orders", {params : {establishmentId : id}})
+            .then(response => set({orders : response.data.result}))
+            .catch(error => console.log(error))
     },
 
-    changeOrderStatus: async (status, orderId) => {
+    changeOrderStatus: async (orderId, establishmentId, status) => {
+
+        console.log(orderId, establishmentId, status)
+
         api.post('/business/order', null, {
             params: {
                 orderId: orderId,
+                establishmentId : establishmentId,
                 status: status
             }
         })
-            .then(console.log)
-            .catch(console.log)
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error))
     },
 
     setOrderDesk: (newOrderDesk) => set({orderDesk: newOrderDesk}),

@@ -1,11 +1,82 @@
 import style from "./OrderStack.module.css"
 import OrderCard from "../../moleculas/order-card/OrderCard";
 import {useState} from "react";
+import {useStore} from "../../../store/store";
+import {useShallow} from "zustand/react/shallow";
 
-const OrderStack = ({stack}) => {
+const OrderStack = ({stack, establishmentId}) => {
 
     const [isDragging, setDragging] = useState(false)
     const stackColor = isDragging ? "#D4EAFF" : "#EEF5F9"
+
+    const [orderDesk, setOrderDesk, selectOrder] = useStore(
+        useShallow(state => [state.orderDesk, state.setOrderDesk, state.selectOrder])
+    )
+
+    const [currentOrder, currentStack] = useStore(
+        useShallow(state => [state.currentOrder, state.currentStack])
+    )
+
+    const changeOrderStatus = useStore(state => state.changeOrderStatus)
+
+    const handleDragOver = (e) => {
+        e.preventDefault()
+        setDragging(true)
+    }
+
+    const handleDragStart = (e, stack, order) => {
+        setCurrentStack(stack)
+        setCurrentOrder(order)
+    }
+
+    const handleDragEnd = (e) => {
+        setDragging(false)
+    }
+
+    const handleDragLeave = (e) => {
+        setDragging(false)
+    }
+
+    const handleDrop = (e, stack, order) => {
+
+        e.preventDefault()
+
+        const currentOrderIndex = currentStack.items.indexOf(currentOrder)
+        currentStack.items.splice(currentOrderIndex, 1)
+
+        const dropIndex = stack.items.indexOf(order)
+        stack.items.splice(dropIndex + 1, 0, currentOrder)
+
+        setOrderDesk(orderDesk.map((s) => {
+            return s.id === stack.id ? stack :
+                s.id === currentStack.id ? currentStack : s
+        }))
+
+        changeOrderStatus(order.id, establishmentId, stack.id)
+
+        setDragging(false)
+
+    }
+
+    const [setCurrentOrder, setCurrentStack] = useStore(
+        useShallow(state => [state.setCurrentOrder, state.setCurrentStack])
+    )
+
+    const dropCardHandler = (e, stack) => {
+
+        stack.items.push(currentOrder)
+
+        const currentOrderIndex = currentStack.items.indexOf(currentOrder)
+        currentStack.items.splice(currentOrderIndex, 1)
+
+        setOrderDesk(orderDesk.map((s) => {
+            return s.id === stack.id ? stack :
+                s.id === currentStack.id ? currentStack : s
+        }))
+
+        changeOrderStatus(currentOrder.id, establishmentId, stack.id)
+
+    }
 
     return (
         <div className={style.wrapper}>
@@ -14,6 +85,8 @@ const OrderStack = ({stack}) => {
                 <h4 className={style.headerData}>{stack.items.length}</h4>
             </div>
             <div
+                onDragOver={handleDragOver}
+                onDrop={(e) => dropCardHandler(e, stack)}
                 style={{backgroundColor: stackColor}}
                 className={style.stackCol}
             >
@@ -22,7 +95,12 @@ const OrderStack = ({stack}) => {
                         <OrderCard
                             stack={stack}
                             order={order}
-                            setDragging={(isDragging) => setDragging(isDragging)}
+                            onDragOver={handleDragOver}
+                            onDragStart={(e) => handleDragStart(e, stack, order)}
+                            onDragEnd={handleDragEnd}
+                            onDragLeave={handleDragLeave}
+                            onDrop={(e) => handleDrop(e, stack, order)}
+                            selectOrder={() => selectOrder(order)}
                         />
                     ))
                 }

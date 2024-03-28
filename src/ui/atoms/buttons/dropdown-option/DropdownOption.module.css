@@ -3,7 +3,7 @@
     @apply p-5 flex flex-row justify-between items-center;
 
     .option {
-        @apply font-normal text-lg text-black;
+        @apply font-normal text-base text-black;
     }
 
     &:hover {

@@ -10,7 +10,7 @@ export const useSignInScreen = () => {
     const registerUser = useStore(state => state.registerUser)
 
     const signInSchema = z.object({
-        username: z.string().min(1, "Имя пользователя не может быть пустым"),
+        name: z.string().min(1, "Имя пользователя не может быть пустым"),
         email: z.string().min(1, "Почта не может быть пустой").email("Почта введена неверно"),
         phoneNumber: z.string().min(1, "Номер телефона не может быть пустым")
     })

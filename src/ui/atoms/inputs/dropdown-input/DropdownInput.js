@@ -2,30 +2,25 @@ import style from "./DropdwonInput.module.css"
 import {useLayoutEffect, useRef, useState} from "react";
 import ChevronIcon from "../../icons/chevron-icon/ChevronIcon";
 import DropdownOptionList from "../../../moleculas/option-list/DropdownOptionList";
+import {Colors} from "../../../../theme/Colors";
+import {useSizeRef} from "../../../../hooks/UseSizeRef";
+import {cn} from "@nextui-org/react";
 
 const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
 
-    const divRef = useRef(null)
-
-    const [width, setWidth] = useState(0)
-    const [height, setHeight] = useState(0)
-
-    useLayoutEffect(() => {
-        setWidth(divRef.current.offsetWidth)
-        setHeight(divRef.current.offsetHeight)
-    })
-
+    const sizeRef = useSizeRef()
     const [isOpen, setOpen] = useState(false)
 
-    const color = props.selectedOption.id !== 0 ? "#181818" : "#B6C1CE"
-    const message = props.selectedOption.id !== 0 ? props.selectedOption.name : props.placeholder
+    const color = props.selectedOption.id > 0 ? Colors["text-black"] : Colors["text-gray"]
+    const message = props.selectedOption.id > 0  ? props.selectedOption.name : props.placeholder
 
     const gapStyle = props.labelText == null ? 0 : 12
 
     return (
         <div
-            style={{gap: gapStyle}} className={style.wrapper}
-            ref={divRef}
+            {...props.register}
+            style={{gap: gapStyle}} className={cn(props.className,style.wrapper)}
+            ref={sizeRef.ref}
         >
             <div className={style.labelText}>{props.labelText}</div>
             <div style={{backgroundColor: backgroundColor}} className={style.dropdown}>
@@ -35,13 +30,16 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
                     setState={() => setOpen(!isOpen)}
                 />
             </div>
+            <div className={"mt-[5px] text-message-wrong font-medium"}>
+                {props.errorMessage}
+            </div>
             {
                 isOpen ? <DropdownOptionList
                     options={props.options}
                     onClick={props.selectOption}
                     selectedOption={props.selectedOption}
-                    width={width}
-                    height={height}
+                    width={sizeRef.width}
+                    height={sizeRef.height}
                 /> : null
             }
         </div>

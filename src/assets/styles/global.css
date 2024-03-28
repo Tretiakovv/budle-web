@@ -22,3 +22,17 @@ a {
 .modalOpen {
     @apply overflow-hidden;
 }
+
+select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+select option {
+    -webkit-appearance: none;
+    @apply bg-orange-500;
+}
+
+input:focus {
+    @apply outline-none;
+}

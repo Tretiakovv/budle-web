@@ -1,6 +1,6 @@
 .layout {
 
-    @apply w-full h-fit p-5 flex flex-row justify-between items-center
+    @apply col-span-6 p-10 flex bg-white flex-row justify-between items-center
     border-2 border-background-blue rounded-[10px];
 
     .leftRow {
@@ -11,7 +11,7 @@
         }
 
         & h5 {
-            @apply w-fit text-text-gray text-lg font-normal;
+            @apply w-fit text-text-gray text-base font-normal;
         }
     }
 

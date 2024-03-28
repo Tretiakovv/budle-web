@@ -1,4 +1,4 @@
-import {FiFile, FiHome, FiLayers, FiSettings, FiUsers} from "react-icons/fi";
+import {FiFile, FiHeadphones, FiHome, FiLayers, FiSettings, FiUsers} from "react-icons/fi";
 
 export const sidebarTagListData = [
     {
@@ -30,5 +30,11 @@ export const sidebarTagListData = [
         name: "Список заказов",
         route: "/order-list",
         icon: <FiLayers size={"22px"}/>
+    },
+    {
+        id: 6,
+        name: "Поддержка",
+        route: "/support",
+        icon: <FiHeadphones size={"22px"}/>
     },
 ]

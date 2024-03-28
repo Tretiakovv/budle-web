@@ -7,25 +7,26 @@ import EstablishmentMenuScreen from "./screens/admin-panel/establishment-menu/sc
 import ManagerListScreen from "./screens/admin-panel/manager-list/screen/ManagerListScreen";
 import OrderListScreen from "./screens/admin-panel/order-list/screen/OrderListScreen";
 import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/screen/ProfileSettingsScreen";
-import MyComponent from "./TestPage";
+import SupportScreen from "./screens/admin-panel/support/SupportScreen";
+import SupportChatScreen from "./screens/admin-panel/support-chat/SupportChatScreen";
 
 const Router = () => {
     return <BrowserRouter>
         <Routes>
 
             {/* Admin-panel screens */}
-            <Route element={<EstablishmentListScreen/>} path={'/establishment-list'}/>
+            <Route element={<EstablishmentListScreen/>} path={'*'}/>
             <Route element={<EstablishmentMenuScreen/>} path={'/establishment-menu'}/>
             <Route element={<ManagerListScreen/>} path={'/manager-list'}/>
             <Route element={<OrderListScreen/>} path={'/order-list'}/>
             <Route element={<ProfileSettingsScreen/>} path={'/settings'}/>
+            <Route element={<SupportScreen/>} path={'/support'}/>
+            <Route element={<SupportChatScreen/>} path={'/support/chat'}/>
 
             {/* Authorisation screens*/}
             <Route element={<SignIn/>} path={'/sign-in'}/>
             <Route element={<LogIn/>} path={'/log-in'}/>
             <Route element={<ForgotPassword/>} path={'/forgot-password'}/>
-
-            <Route path={'*'} element={<MyComponent/>} />
 
         </Routes>
     </BrowserRouter>
