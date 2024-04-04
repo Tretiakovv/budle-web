@@ -9,7 +9,7 @@ import OrderChat from "../../../../ui/wrappers/OrderChat";
 const SupportChatScreen = () => {
 
     const [searchParams] = useSearchParams()
-    const orderId = searchParams.get("id")
+    const orderId = searchParams.get("orderId")
 
     const handleShowOrderInformation = () => console.log("Information")
     const handleCloseOrder = () => console.log("Closed")

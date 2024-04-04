@@ -2,9 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import dayjs from "dayjs";
 import {FiSend} from "react-icons/fi";
 
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
+import {Client} from "@stomp/stompjs"
 import {cn} from "../../utils/cn";
+import {useUnit} from "effector-react";
+import {$chatHistory, getChatHistoryEvent, getUserInformationEvent} from "../../models/chat/model";
+
 const UserMessage = (props) => {
 
     const wrapperCV = [
@@ -26,7 +28,7 @@ const UserMessage = (props) => {
                 </h1>
                 <div className={"w-full flex flex-row justify-end"}>
                     <h1 className={"text-text-gray text-sm"}>
-                        {props.sentAt}
+                        {props.timestamp}
                     </h1>
                 </div>
             </section>
@@ -66,49 +68,89 @@ const ChatInput = (props) => {
 
 }
 
-const OrderChat = () => {
+const OrderChat = ({orderId}) => {
+
+    const [history, getHistory, getUserId]
+        = useUnit([$chatHistory, getChatHistoryEvent, getUserInformationEvent])
 
     const chatRef = useRef()
     const [message, setMessage] = useState("")
     const [messages, updateMessages] = useState([])
+    const [client, setClient] = useState(null)
 
     const handleChange = () => {
+
         if (message.trim() === "") return
         const chatMessage = {
-            sentAt: dayjs(Date.now()).format("HH:mm"),
-            type: messages.length % 2 === 0 ? "incoming" : "outgoing",
+            type: "incoming",
+            timestamp: dayjs(Date.now()).format("HH:mm"),
             message: message,
         }
+
         updateMessages(state => [...state, chatMessage])
         setMessage("")
+
+        if (client) client.publish({
+            destination: `/business/send/${orderId}`,
+            body: JSON.stringify({
+                orderId: orderId,
+                userId: 1,
+                message: message
+            }),
+        })
+
     }
+
+    useEffect(() => {
+        if (chatRef && chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight
+        }
+    }, [chatRef, messages]);
+
+    useEffect(() => {
+        getUserId()
+        getHistory(orderId)
+    }, [])
+
+    useEffect(() => {
+        updateMessages(history)
+    }, [history])
+
+    useEffect(() => {
+
+        const client = new Client()
+
+        const onConnect = () => client.subscribe(`/topic/${orderId}`, (message) => {
+            const content = JSON.parse(message.body).message
+            const newMessage = {
+                message: content,
+                type: "outgoing",
+                timestamp: dayjs(Date.now()).format("HH:mm")
+            }
+            updateMessages(messages => [...messages, newMessage])
+        })
+
+        const onDebug = (msg) => console.log(new Date(), msg)
+
+        client.configure({
+            brokerURL: 'wss://budle.ru/business/chat',
+            onConnect: onConnect,
+            debug: onDebug
+        })
+
+        client.activate()
+        setClient(client)
+
+        return () => {
+            client.deactivate()
+        }
+
+    }, [])
 
     const chatCV = [
         "rounded-xl border-2 border-background-light-blue",
         "w-full h-[50vh] flex flex-col gap-4 p-5 overflow-y-auto"
     ]
-
-    const [stompClient, setStompClient] = useState(null);
-
-    useEffect(() => {
-
-        const socket = new SockJS('https://budle.ru/business/chat');
-        const client = Stomp.over(socket);
-
-        client.connect({}, () => {
-            client.subscribe('/topic/greetings', (message) => {
-                console.log(message)
-            });
-        });
-
-        setStompClient(client)
-
-        return () => {
-            client.disconnect()
-        }
-
-    }, []);
-
 
     return (
         <React.Fragment>

@@ -1,5 +1,8 @@
 import {cn} from "../../utils/cn";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {useStore} from "../../store/store";
+import {useShallow} from "zustand/react/shallow";
+import {useQuery} from "react-query";
 
 const TableRowWrapper = ({children, onClick}) => {
 
@@ -65,19 +68,39 @@ const TableRow = ({order, onClick}) => {
     )
 }
 
-const SupportTable = ({orders}) => {
+const SupportTable = () => {
+
+    const [searchParams, _] = useSearchParams()
+    const establishmentId = searchParams.get("establishmentId")
+
+    const [orders, getOrders] = useStore(
+        useShallow(state => [state.orders, state.getOrders])
+    )
+
+    const getOrdersQuery = useQuery({
+        queryKey: ["get", "orders", establishmentId],
+        queryFn: () => getOrders(establishmentId),
+        refetchInterval: 1000 * 5
+    })
 
     const navigate = useNavigate()
+    const handleClick = (id) => navigate(`/support/chat?orderId=${id}`)
 
-    const handleClick = (index) => navigate(`/support/chat?id=${index}`)
+    if (getOrdersQuery.isLoading) {
+        return (
+            <div>
+                Orders is loading..
+            </div>
+        )
+    }
 
-    return (
+    if (getOrdersQuery.isSuccess) return (
         <section className={"col-span-full bg-white flex flex-col rounded-3xl mb-7"}>
             <TableHeader/>
             {orders.map((order, orderKey) => (
                 <TableRow
                     order={order} key={orderKey}
-                    onClick={() => handleClick(orderKey)}
+                    onClick={() => handleClick(order.id)}
                 />
             ))}
         </section>
