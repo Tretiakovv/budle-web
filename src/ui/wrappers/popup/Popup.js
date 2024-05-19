@@ -1,45 +1,37 @@
-import style from "./Popup.module.css"
-import {useLayoutEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const Popup = ({
+                   fullscreen = false,
                    cardWidth = 735,
-                    cardJustify = "center",
-                   ...props}) => {
+                   cardJustify = "center",
+                   ...props
+               }) => {
 
     const marginTop = cardJustify === "center" ? 0 : 40
-
     const ref = useRef(null)
     const [height, setHeight] = useState(0)
 
-    useLayoutEffect(() => {
-        setHeight(ref.current.offsetHeight)
-    }, [])
-
-    const popupHeight = height < document.body.clientHeight ? "full" : height + 100
+    useEffect(() => {
+        setHeight(ref.current?.clientHeight)
+    }, [ref])
 
     return (
         <div
-            style={{height: popupHeight}}
-            className={style.wrapper}
+            onClick={props.onClick}
+            style={{justifyContent: cardJustify, height : fullscreen ? '100vh' : height + 80}}
+            className={"absolute z-10 flex flex-col justify-center h-full w-full items-center bg-text-black bg-opacity-80"}
         >
-            <div style={{justifyContent: cardJustify}} className={style.content}>
-                <div
-                    style={{
-                        width: cardWidth,
-                        marginTop: marginTop
-                    }}
-                    className={style.card}
-                    ref={ref}
-                >
-                    {props.children}
-                </div>
-                <div
-                    className={style.background}
-                    onClick={props.onClick}
-                />
+            <div
+                ref={ref}
+                onClick={e => e.stopPropagation()}
+                className={'flex flex-col gap-7 p-10 rounded-2xl bg-white z-20'}
+                style={{width: cardWidth, marginTop: marginTop}}
+            >
+                {props.children}
             </div>
         </div>
     )
+
 }
 
 export default Popup

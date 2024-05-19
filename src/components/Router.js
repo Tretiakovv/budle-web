@@ -9,6 +9,7 @@ import OrderListScreen from "./screens/admin-panel/order-list/screen/OrderListSc
 import ProfileSettingsScreen from "./screens/admin-panel/profile-settings/screen/ProfileSettingsScreen";
 import SupportScreen from "./screens/admin-panel/support/SupportScreen";
 import SupportChatScreen from "./screens/admin-panel/support-chat/SupportChatScreen";
+import NewEstablishmentScreen from "./screens/admin-panel/new-establishment/NewEstablishmentScreen";
 
 const Router = () => {
     return <BrowserRouter>
@@ -16,6 +17,7 @@ const Router = () => {
 
             {/* Admin-panel screens */}
             <Route element={<EstablishmentListScreen/>} path={'*'}/>
+            <Route element={<NewEstablishmentScreen/>} path={'/establishment/new'}/>
             <Route element={<EstablishmentMenuScreen/>} path={'/establishment-menu'}/>
             <Route element={<ManagerListScreen/>} path={'/manager-list'}/>
             <Route element={<OrderListScreen/>} path={'/order-list'}/>

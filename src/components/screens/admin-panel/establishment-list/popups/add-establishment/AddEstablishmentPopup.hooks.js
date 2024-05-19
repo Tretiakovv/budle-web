@@ -1,8 +1,13 @@
 import {useForm} from "react-hook-form";
 import {useStore} from "../../../../../../store/store";
 import {useMutation, useQueryClient} from "react-query";
+import {useUnit} from "effector-react";
+import {createEstablishmentFx} from "../../../../../../models/new-establishment/model";
+import {useState} from "react";
 
 export const useAddEstablishmentPopup = () => {
+
+    const [isSuccess, setSuccess] = useState(undefined)
 
     const messageMap = {
         "name": "имя пользователя",
@@ -23,99 +28,17 @@ export const useAddEstablishmentPopup = () => {
         return arr.map(item => new Object({value: item, label: item}))
     }
 
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-                if ((encoded.length % 4) > 0) {
-                    encoded += '='.repeat(4 - (encoded.length % 4));
-                }
-                resolve(encoded);
-            };
-            reader.onerror = error => reject(error);
-        });
-    }
-
-    const {
-        register, handleSubmit, control,
-        formState: {errors}
-    } = useForm({
-        mode: "all",
+    const methods = useForm({
+        mode: "onSubmit",
         defaultValues: {
-            name: "",
-            category: "",
-            tags: [],
-            image: "",
-            description: "",
-            hasMap: false,
-            hasCardPayment: false,
-            address: "",
-            subway: "",
             price: 500,
-            rating: 4.3,
-            workingHours: [],
-            photosInput: [],
-            cuisineCountry: "",
+            rating: 4.3
         }
     })
-
-    const updateData = (data) => {
-
-        const newData = {}
-
-        for (const [key, value] of Object.entries(data)) {
-            newData[key] = value
-            if (value instanceof Array) {
-                if (value.length !== 0) {
-                    for (const item of value) {
-                        newData[key][value.indexOf(item)] = {name: item["value"]}
-                    }
-                }
-            } else if (value instanceof Object) {
-                newData[key] = value["value"]
-            }
-        }
-
-        delete newData["timezone"]
-        return newData
-
-    }
-
-    const queryClient = useQueryClient()
-
-    const addEstablishment = useStore(state => state.addEstablishment)
-
-    const addEstablishmentMutation = useMutation({
-        mutationKey: ["post", "establishment"],
-        mutationFn: (data) => addEstablishment(data),
-        onMutate: () => queryClient.invalidateQueries({queryKey: ["get", "establishmentList"]})
-    })
-
-    const onSubmit = (data) => {
-
-        data["cuisineCountry"] = data["cuisine_country"]
-        delete data["cuisine_country"]
-
-        getBase64(data["image"]).then((base64) => {
-
-            data["image"] = base64
-            const validData = updateData(data)
-            validData["workingHours"] = [
-                {days: ["Пн", "Вт", "Ср", "Чт"], startTime: "12:00", endTime: "23:00"},
-                {days : ["Пт", "Сб", "Вс"], startTime : "13:00", endTime: "22:00"}
-            ]
-            addEstablishmentMutation.mutate(validData)
-
-        })
-
-    }
 
     return {
-        handleSubmit: handleSubmit(onSubmit),
-        register, control, errors, getMessage,
-        createOptionsArray
+        methods, getMessage, createOptionsArray,
+        isSuccess
     }
 
 }

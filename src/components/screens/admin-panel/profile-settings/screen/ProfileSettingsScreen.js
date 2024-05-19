@@ -7,11 +7,20 @@ import TextInput from "../../../../../ui/atoms/inputs/text-input/TextInput";
 import Button from "../../../../../ui/atoms/buttons/button/Button";
 import SuccessPopup from "../../../../../ui/moleculas/popups/success-popup/SuccessPopup";
 import {useProfileStore} from "../store/ProfileStore";
+import {useUnit} from "effector-react";
+import {$me, getMeFx} from "../../../../../models/auth/auth";
+import {useEffect} from "react";
 
 const ProfileSettingsScreen = () => {
 
+    const [me, getMe] = useUnit([$me, getMeFx])
+
     const color = "#EEF5F9"
     const profileStore = useProfileStore()
+
+    useEffect(() => {
+        getMe()
+    }, []);
 
     return (
         <div className={mainStyle.layout}>
@@ -32,32 +41,31 @@ const ProfileSettingsScreen = () => {
 
                 <HeaderColumn header={"Настройки"}/>
 
-                <div className={style.settings}>
+                {
+                    me && <div className={style.settings}>
 
-                    <div className={style.settingsInput}>
-                        <TextInput
-                            labelText={"ФИО"}
-                            placeholder={"Третьяков Артём Александрович"}
-                            color={color}/>
-                        <TextInput
-                            labelText={"Электронная почта"}
-                            placeholder={"tretiakovvvvv@gmail.com"}
-                            color={color}/>
-                        <TextInput
-                            labelText={"Номер телефона"}
-                            placeholder={"+7 (913) 939-11-94"}
-                            color={color}/>
-                    </div>
+                        <div className={style.settingsInput}>
+                            <TextInput
+                                labelText={"ФИО"}
+                                placeholder={`${me.middleName} ${me.firstName} ${me.lastName}`}
+                                color={color}/>
+                            <TextInput
+                                labelText={"Электронная почта"}
+                                placeholder={me.email}
+                                color={color}/>
+                            <TextInput
+                                labelText={"Номер телефона"}
+                                placeholder={me.phoneNumber}
+                                color={color}/>
+                        </div>
 
-                    <div className={style.settingsButtons}>
                         <Button
                             buttonText={"Сохранить изменения"}
                             onClick={() => profileStore.setPopupVisible(true)}
                         />
-                        <Button buttonText={"Подтвердить номер телефона"} type={"secondary"}/>
-                    </div>
 
-                </div>
+                    </div>
+                }
 
             </div>
 

@@ -1,170 +1,106 @@
-import mainStyle from "../../../AdminPanel.module.css"
-import style from "./EstablishmentMenu.module.css"
 import HeaderColumn from "../../../../../ui/wrappers/header-column/HeaderColumn";
 import Button from "../../../../../ui/atoms/buttons/button/Button";
 import {FiEye, FiFile, FiPlus} from "react-icons/fi";
-import Sidebar from "../../../../../ui/wrappers/sidebar/SIdebar";
 import FilterRow from "../../../../../ui/atoms/rows/filter-row/FilterRow";
-import MenuList from "../../../../../ui/wrappers/menu-list/MenuList";
 import {useEffect, useState} from "react";
 import AddPositionPopup from "../popup/add-position-category/AddPositionPopup";
 import AddFromExcelPopup from "../popup/add-from-excel/AddFromExcelPopup";
-import {useEstablishmentFilterStore} from "../../store/EstablishmentFilterStore";
 import DropdownInput from "../../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
-import {useBranchMenuStore} from "../store/BranchMenuStore";
-import EmptyScreen from "../../../../../ui/wrappers/empty-screen/EmptyScreen";
-import {useQuery} from "react-query";
+import {useUnit} from "effector-react";
+import {getEstablishmentsFx} from "../../../../../models/establishment-list/model";
+import AdminPanelWrapper from "../../../../../ui/wrappers/AdminPanelWrapper";
+import {
+    $activeEstablishmentOption,
+    $editMode,
+    $establishmentOptions,
+    changeActiveOptionEvent, getMenuFx,
+    toggleEditModeEvent
+} from "../../../../../models/menu/model";
 
-const EstablishmentMenuScreen = () => {
+const EstablishmentMenuHeader = () => {
 
-    const [isEdit, setEdit] = useState(false)
-    const [addPositionPopupVisible, setPositionPopupVisible] = useState(false)
-    const [addFromExcelPopupVisible, setFromExcelPopupVisible] = useState(false)
+    const [editMode, toggleEditMode] = useUnit([$editMode, toggleEditModeEvent])
+    const [getEstablishments, options] = useUnit([getEstablishmentsFx, $establishmentOptions])
+    const [activeOption, setActiveOption, getMenu] = useUnit([$activeEstablishmentOption, changeActiveOptionEvent, getMenuFx])
 
-    const contentPosition = addPositionPopupVisible ? "fixed" : "relative"
-
-    const establishmentFilterStore = useEstablishmentFilterStore()
-    const branchMenuStore = useBranchMenuStore()
-
-    const fetchEstablishments = useBranchMenuStore(state => state.fetchBranchMenu)
-
-    // result of the function ???
-    const response = useQuery("establishments", fetchEstablishments)
-
-    console.log(branchMenuStore.testBranchMenu)
+    const [positionPopupVisible, setPositionPopupVisible] = useState(false)
+    const [excelPopupVisible, setExcelPopupVisible] = useState(false)
 
     useEffect(() => {
-        establishmentFilterStore.filterBranches()
-    }, [establishmentFilterStore.selectedEstablishment])
+        if (activeOption) {
+            getMenu(activeOption.id)
+        }
+    }, [activeOption])
 
-    return (
-        <div>
+    useEffect(() => {
+        getEstablishments()
+    }, [])
 
-            {
-                addPositionPopupVisible ? <AddPositionPopup
+    if (editMode) {
+        return (
+            <HeaderColumn header={"Редактирование заведения"}>
+                {positionPopupVisible && <AddPositionPopup
                     onClose={() => setPositionPopupVisible(false)}
-                /> : null
-            }
-
-            {
-                addFromExcelPopupVisible ? <AddFromExcelPopup
-                    onClose={() => setFromExcelPopupVisible(false)}
-                /> : null
-            }
-
-            <div
-                style={{position: contentPosition}}
-                className={mainStyle.layout}
-            >
-
-                <Sidebar activeTab={4}/>
-
-                <div className={mainStyle.content}>
-
-                    {
-                        isEdit ? <HeaderColumn header={"Редактирование заведения"}>
-
-                            <div className={style.headerButton}>
-                                <Button
-                                    buttonText={`Сохранить изменения`}
-                                    onClick={() => setEdit(false)}
-                                />
-                            </div>
-
-                            <div className={style.headerInputRow}>
-                                <Button
-                                    buttonText={"Добавить элемент"}
-                                    type={"secondary"}
-                                    icon={
-                                        <FiPlus
-                                            size={"22px"}
-                                            className={"stroke-text-black"}
-                                        />
-                                    }
-                                    onClick={() => setPositionPopupVisible(true)}
-                                />
-                                <Button
-                                    buttonText={"Предпросмотр"}
-                                    type={"secondary"}
-                                    icon={
-                                        <FiEye
-                                            size={"22px"}
-                                            className={"stroke-text-black"}
-                                        />
-                                    }
-                                /><Button
-                                buttonText={"Импорт из Excel"}
-                                type={"secondary"}
-                                icon={
-                                    <FiFile
-                                        size={"22px"}
-                                        className={"stroke-text-black"}
-                                    />
-                                }
-                                onClick={() => setFromExcelPopupVisible(true)}
-                            />
-
-                            </div>
-
-                        </HeaderColumn> : <HeaderColumn header={"Меню заведения"}>
-
-                            <div className={style.headerButton}>
-                                <Button
-                                    buttonText={`Редактировать меню`}
-                                    onClick={() => setEdit(true)}
-                                />
-                            </div>
-
-                            <div className={style.headerInputRow}>
-                                <DropdownInput
-                                    selectedOption={establishmentFilterStore.selectedEstablishment}
-                                    selectOption={(tag) => {
-                                        establishmentFilterStore.selectEstablishment(tag)
-                                    }}
-                                    placeholder={"Выберите заведение"}
-                                    options={establishmentFilterStore.establishmentTagData}
-                                />
-                                <DropdownInput
-                                    selectedOption={establishmentFilterStore.selectedBranch}
-                                    selectOption={(tag) => {
-                                        establishmentFilterStore.selectBranch(tag)
-                                        branchMenuStore.filterBranchMenu(
-                                            tag.establishmentID,
-                                            tag.id
-                                        )
-                                    }}
-                                    placeholder={"Выберите филиал"}
-                                    options={establishmentFilterStore.branchTagData}
-                                />
-                            </div>
-
-                        </HeaderColumn>
-                    }
-
-                    {
-
-                        branchMenuStore.testBranchMenu === null ? <EmptyScreen
-                            header={"Вы не выбрали организацию и филиал"}
-                            message={"Выберите организацию и мы покажем Вам список всех менеджеров в ней"}
-                        /> : <div className={"flex flex-col gap-5"}>
-                            <FilterRow/>
-
-                            <MenuList
-                                data={branchMenuStore.testBranchMenu}
-                                isEdit={isEdit}
-                                onEditPosition={() => {
-                                }}
-                                onEditSubgroup={() => {
-                                }}
-                            />
-                        </div>
-
-                    }
-
+                />}
+                {excelPopupVisible && <AddFromExcelPopup
+                    onClose={() => setExcelPopupVisible(false)}
+                />}
+                <Button
+                    className={'col-span-2'}
+                    buttonText={`Сохранить изменения`}
+                    onClick={toggleEditMode}
+                />
+                <div className={'col-span-6 gap-5 flex flex-row justify-center items-center'}>
+                    <Button
+                        buttonText={"Добавить элемент"}
+                        type={"secondary"}
+                        icon={<FiPlus size={"22px"}/>}
+                        onClick={() => setPositionPopupVisible(true)}
+                    />
+                    <Button
+                        buttonText={"Предпросмотр"}
+                        icon={<FiEye size={"22px"}/>}
+                        type={"secondary"}
+                    />
+                    <Button
+                        buttonText={"Импорт из Excel"}
+                        icon={<FiFile size={"22px"}/>}
+                        onClick={() => setExcelPopupVisible(true)}
+                        type={"secondary"}
+                    />
                 </div>
+            </HeaderColumn>
+        )
+    }
 
+    if (options && activeOption) return (
+        <HeaderColumn header={"Меню заведения"}>
+            <div className={'col-span-2'}>
+                <Button
+                    buttonText={'Редактировать меню'}
+                    onClick={toggleEditMode}
+                />
             </div>
-        </div>
+            <DropdownInput
+                className={'col-span-6'}
+                selectedOption={activeOption}
+                selectOption={setActiveOption}
+                placeholder={"Выберите заведение"}
+                options={options}
+            />
+        </HeaderColumn>
+    )
+
+}
+
+const EstablishmentMenuScreen = () => {
+    return (
+        <AdminPanelWrapper>
+            <div className={"flex flex-col gap-5"}>
+                <EstablishmentMenuHeader/>
+                <FilterRow/>
+            </div>
+        </AdminPanelWrapper>
     )
 }
 

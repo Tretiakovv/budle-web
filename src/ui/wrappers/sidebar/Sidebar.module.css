@@ -15,7 +15,7 @@
     }
 
     .bottomTabCol {
-        @apply w-full flex flex-col items-start;
+        @apply w-full flex flex-col items-start bg-white;
     }
 
     .logo {

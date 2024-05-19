@@ -5,8 +5,8 @@ import {cn} from "../../../utils/cn";
 const BranchCard = (props) => {
 
     const wrapperCV = [
-        "hover:border-2 text-xl hover:border-main-purple transition hover:duration-200",
-        "hover:cursor-pointer hover:text-main-purple", style.layout
+        "group hover:border-2 text-xl hover:border-main-purple transition hover:duration-200",
+        "hover:cursor-pointer", style.layout
     ]
 
     return (
@@ -15,7 +15,17 @@ const BranchCard = (props) => {
                 {props.establishment.name}
                 <h5>{props.establishment.category}</h5>
             </div>
-            <FiEdit className={style.editIcon}/>
+            <div className={'flex flex-row items-center gap-4'}>
+                <FiEdit
+                    onClick={() => props.onEdit(props.establishment.id)}
+                    className={'hover:text-main-blue transition duration-200'}
+                />
+                <FiTrash2
+                    onClick={() => props.onDelete(props.establishment)}
+                    className={'text-red-500 hover:text-red-700 transition duration-200'}
+                />
+            </div>
+
         </div>
     )
 }

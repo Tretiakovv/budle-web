@@ -4,11 +4,9 @@ import BranchCard from "../../moleculas/branch-card/BranchCard";
 const EstablishmentList = (props) => {
     return (
         <div className={style.wrapper}>
-            {
-                props.data.map(establishment => (
-                    <BranchCard establishment={establishment}/>
-                ))
-            }
+            {props.data.map(establishment => (
+                <BranchCard onDelete={props.onDelete} establishment={establishment}/>
+            ))}
         </div>
     )
 }

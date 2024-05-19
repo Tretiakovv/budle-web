@@ -1,47 +1,64 @@
 import Authorisation from "../../../../ui/wrappers/authorisation/Authorisation";
-import NumberInput from "../../../../ui/atoms/inputs/number-input/NumberInput";
-import TextInput from "../../../../ui/atoms/inputs/text-input/TextInput";
 import authOptions from "../../../../data/entity/AuthData";
-import {useSignInScreen} from "./SignIn.hooks";
+import {useUnit} from "effector-react";
+import {registerUserFx} from "../../../../models/auth/auth";
+import {useState} from "react";
+import {FormProvider, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {RegisterSchema} from "../../../../schemas";
+import ControlledTextInput from "../../../../ui/atoms/inputs/text-input/ControlledTextInput";
+import {useNavigate} from "react-router-dom";
 
 const SignIn = () => {
 
-    const {register, errors, ...signInContext} = useSignInScreen()
+    const navigate = useNavigate()
+
+    const register = useUnit(registerUserFx)
+    const [error, setError] = useState('')
+
+    const methods = useForm({
+        resolver: zodResolver(RegisterSchema),
+        mode: 'onSubmit'
+    })
+
+    const {formState : {errors}} = methods
+
+    const onSubmit = (fieldValues) => {
+        register(fieldValues)
+            .then(_ => navigate('/log-in'))
+            .catch(setError)
+    }
 
     return (
         <Authorisation
             options={authOptions}
             defaultState={authOptions[1]}
-            onSubmit={signInContext.handleSubmit}
+            onSubmit={methods.handleSubmit(onSubmit)}
             buttonText={"Зарегистрироваться"}
         >
-            <TextInput
-                errorMessage={errors.name?.message}
-                register={register("name")}
-                labelText={"ФИО"}
-                placeholder={"Иванов Иван Иванович"}
-                type={"text"}
-            />
-            <TextInput
-                errorMessage={errors.email?.message}
-                register={register("email")}
-                labelText={"Электронная почта"}
-                placeholder={"example@gmail.com"}
-                type={"еmail"}
-            />
-            <NumberInput
-                errorMessage={errors.phoneNumber?.message}
-                register={register("phoneNumber")}
-                labelText={"Номер телефона"}
-                mask={"+9 (999) 999-99-99"}
-                placeholder={"+7 (000) 000-00-00"}
-            />
-            {
-                signInContext.isRegisterError &&
-                <div className={"font-medium"}>
-                    {signInContext.isRegisterError}
+            <FormProvider {...methods}>
+                <ControlledTextInput
+                    placeholder={"Иванов Иван Иванович"}
+                    errorMessage={errors.name?.message}
+                    name={'name'} labelText={"ФИО"}
+                />
+                <ControlledTextInput
+                    errorMessage={errors.email?.message}
+                    placeholder={"example@gmail.com"}
+                    labelText={"Электронная почта"}
+                    name={'email'}
+                />
+                <ControlledTextInput
+                    errorMessage={errors.phoneNumber?.message}
+                    placeholder={"+7 (000) 000-00-00"}
+                    labelText={"Номер телефона"}
+                    mask={"+9 (999) 999-99-99"}
+                    name={'phoneNumber'}
+                />
+                <div className={"text-message-wrong font-medium"}>
+                    {error}
                 </div>
-            }
+            </FormProvider>
         </Authorisation>
     )
 }

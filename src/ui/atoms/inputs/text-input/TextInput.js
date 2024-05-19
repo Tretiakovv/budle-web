@@ -3,7 +3,9 @@ import style from "../TextInput.module.css"
 const TextInput = ({
                        labelText = "", type = "text",
                        placeholder = "", color = "white",
-                       onChange = () => {}, register, errorMessage,
+                       onChange = () => {
+                       },
+                       register, errorMessage,
                        ...props
                    }) => {
 

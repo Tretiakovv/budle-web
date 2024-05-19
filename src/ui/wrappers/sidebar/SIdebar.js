@@ -2,12 +2,13 @@ import style from "./Sidebar.module.css"
 import Tab from "../../atoms/tab/Tab";
 import TabColumn from "../../moleculas/tab-column/tab-column/TabColumn";
 import {FiColumns, FiLogOut} from "react-icons/fi";
+import BudleBusinessLogo from "../../atoms/svg/BudleBusinessLogo";
 
 const Sidebar = ({activeTab}) => {
     return (
         <div className={style.layout}>
             <div className={style.group}>
-                <img className={style.logo} src={"business-budle-logo.svg"} alt={"Budle logo"}/>
+                <BudleBusinessLogo/>
                 <TabColumn activeTab={activeTab}/>
             </div>
             <div className={`${style.group} ${style.bottomGroup}`}>
