@@ -19,7 +19,7 @@ const Popup = ({
         <div
             onClick={props.onClick}
             style={{justifyContent: cardJustify, height : fullscreen ? '100vh' : height + 80}}
-            className={"absolute z-10 flex flex-col justify-center h-full w-full items-center bg-text-black bg-opacity-80"}
+            className={"left-0 top-0 absolute flex flex-col justify-center h-full w-full items-center bg-text-black bg-opacity-80"}
         >
             <div
                 ref={ref}

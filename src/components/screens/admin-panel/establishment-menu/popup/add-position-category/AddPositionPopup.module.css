@@ -1,7 +1,3 @@
-.dataRow {
-    @apply w-full flex flex-row justify-between gap-5 items-center;
-}
-
 .buttonRow {
 
     @apply grid grid-cols-2 items-center;

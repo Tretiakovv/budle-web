@@ -3,5 +3,5 @@
 }
 
 .card {
-    @apply w-full py-10 grid grid-cols-8 bg-white rounded-3xl gap-10;
+    @apply w-full py-10 grid grid-cols-8 bg-white rounded-2xl gap-10;
 }
