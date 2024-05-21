@@ -68,7 +68,6 @@ const EditCategoryForm = (props) => {
             />
         </FormProvider>
     )
-
 }
 
 const EditCategoryPopup = (props) => {
