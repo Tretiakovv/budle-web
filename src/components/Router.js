@@ -17,7 +17,7 @@ const Router = () => {
         <Routes>
 
             {/* Admin-panel screens */}
-            <Route element={<EstablishmentListScreen/>} path={'*'}/>
+            <Route element={<EstablishmentListScreen/>} path={'/establishment-list'}/>
             <Route element={<NewEstablishmentScreen/>} path={'/establishment/new'}/>
             <Route element={<EditEstablishmentScreen/>} path={'/establishment/edit'}/>
             <Route element={<EstablishmentMenuScreen/>} path={'/establishment-menu'}/>
@@ -28,8 +28,8 @@ const Router = () => {
             <Route element={<SupportChatScreen/>} path={'/support/chat'}/>
 
             {/* Authorisation screens*/}
+            <Route element={<LogIn/>} path={'*'}/>
             <Route element={<SignIn/>} path={'/sign-in'}/>
-            <Route element={<LogIn/>} path={'/log-in'}/>
             <Route element={<ForgotPassword/>} path={'/forgot-password'}/>
 
         </Routes>
