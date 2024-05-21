@@ -9,8 +9,6 @@ import PopupHeader from "../../../../../ui/atoms/rows/popup-header/PopupHeader";
 
 const DeleteWorkerPopup = (props) => {
 
-    console.log(props)
-
     const queryClient = useQueryClient()
 
     const [inputText, setInputText] = useState("")
