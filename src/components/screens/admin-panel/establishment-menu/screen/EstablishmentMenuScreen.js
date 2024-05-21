@@ -16,9 +16,18 @@ import {
     getMenuFx
 } from "../../../../../models/menu/model";
 import MenuList from "../../../../../ui/wrappers/menu-list/MenuList";
+import {
+    $categoryToEdit,
+    $productToEdit,
+    setCategoryToEditEvent, setProductToEditEvent
+} from "../../../../../models/menu/edit_delete_menu/model";
+import EditCategoryPopup from "../popup/add-position-category/edit/EditCategoryPopup";
+import EditProductPopup from "../popup/add-position-category/edit/EditProductPopup";
 
 const EstablishmentMenuHeader = () => {
 
+    const [setCategoryToEdit, setProductToEdit] = useUnit([setCategoryToEditEvent, setProductToEditEvent])
+    const [categoryToEdit, productToEdit] = useUnit([$categoryToEdit, $productToEdit])
     const [getEstablishments, options] = useUnit([getEstablishmentsFx, $establishmentOptions])
     const [activeOption, setActiveOption] = useUnit([$activeEstablishmentOption, changeActiveOptionEvent])
 
@@ -30,9 +39,9 @@ const EstablishmentMenuHeader = () => {
 
     if (options && activeOption) return (
         <HeaderColumn header={"Меню заведения"}>
-            {positionPopupVisible && <AddPositionPopup
-                onClose={() => setPositionPopupVisible(false)}
-            />}
+            {positionPopupVisible && <AddPositionPopup onClose={() => setPositionPopupVisible(false)}/>}
+            {categoryToEdit && <EditCategoryPopup onClose={() => setCategoryToEdit(null)}/>}
+            {productToEdit && <EditProductPopup onClose={() => setProductToEdit(null)}/>}
             <Button
                 className={'col-span-2'}
                 buttonText={"Добавить элемент"}

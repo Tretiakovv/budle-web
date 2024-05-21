@@ -31,12 +31,10 @@ const EstablishmentListScreen = () => {
 
     return (
         <div className={mainStyle.layout}>
-            {
-                itemToDelete && <DeleteBranchPopup
-                    establishment={itemToDelete}
-                    onClose={() => setItemToDelete(null)}
-                />
-            }
+            {itemToDelete && <DeleteBranchPopup
+                establishment={itemToDelete}
+                onClose={() => setItemToDelete(null)}
+            />}
             <Sidebar activeTab={1}/>
             <div className={mainStyle.content}>
                 <HeaderColumn header={"Список заведений"}>
@@ -57,6 +55,7 @@ const EstablishmentListScreen = () => {
                 </HeaderColumn>
                 {establishments &&
                     <EstablishmentList
+                        onEdit={(id) =>  navigate(`/establishment/edit?establishmentId=${id}`)}
                         onDelete={setItemToDelete}
                         data={establishments}
                     />

@@ -1,7 +1,7 @@
 import {createEffect, createEvent, createStore, sample} from "effector";
 import {getEstablishmentsFx} from "../establishment-list/model";
 import {api} from "../../api/API";
-import {deleteCategoryFx, deleteProductFx} from "./edit_delete_menu/model";
+import {deleteCategoryFx, deleteProductFx, editCategoryFx, editProductFx} from "./edit_delete_menu/model";
 
 const getMenu = async (establishmentId) => {
     return api.get('/establishment/menu', {params: {establishmentId}})
@@ -60,7 +60,8 @@ $editMode.on(toggleEditModeEvent, (state) => !state)
 sample({
     clock: [
         createCategoryFx.doneData, createProductFx.doneData,
-        deleteProductFx.doneData, deleteCategoryFx.doneData
+        deleteProductFx.doneData, deleteCategoryFx.doneData,
+        editCategoryFx.doneData, editProductFx.doneData
     ],
     source: $activeEstablishmentOption,
     fn: source => source.id,

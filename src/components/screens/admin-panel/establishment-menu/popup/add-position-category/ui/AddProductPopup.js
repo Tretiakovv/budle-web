@@ -1,19 +1,19 @@
 import React, {useEffect, useRef} from 'react';
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FormProvider, useForm} from "react-hook-form";
-import ControlledTextInput from "../../../../../../ui/atoms/inputs/text-input/ControlledTextInput";
-import Button from "../../../../../../ui/atoms/buttons/button/Button";
-import {CreateProductSchema} from "../../../../../../schemas/menu/CreateProductSchema";
+import ControlledTextInput from "../../../../../../../ui/atoms/inputs/text-input/ControlledTextInput";
+import Button from "../../../../../../../ui/atoms/buttons/button/Button";
+import {CreateProductSchema} from "../../../../../../../schemas/menu/CreateProductSchema";
 import {useUnit} from "effector-react";
-import Toast from "../../../../../../ui/moleculas/toast/Toast";
-import ControlledSelectInput from "../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
-import TextArea from "../../../../../../ui/atoms/inputs/text-area/TextArea";
-import ControlledSwitch from "../../../../../../ui/atoms/buttons/switch/ControlledSwitch";
+import Toast from "../../../../../../../ui/moleculas/toast/Toast";
+import ControlledSelectInput from "../../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
+import TextArea from "../../../../../../../ui/atoms/inputs/text-area/TextArea";
+import ControlledSwitch from "../../../../../../../ui/atoms/buttons/switch/ControlledSwitch";
 import {
     $activeEstablishmentOption,
     $selectedMenuCategories,
     createProductFx
-} from "../../../../../../models/menu/model";
+} from "../../../../../../../models/menu/model";
 
 const textarea = 'Придумайте интересное описание блюда. Идеальное количество символов — 100.'
 

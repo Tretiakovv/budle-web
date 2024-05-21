@@ -1,10 +1,11 @@
 import style from "./DropdwonInput.module.css"
-import {useLayoutEffect, useRef, useState} from "react";
+import {useState} from "react";
 import ChevronIcon from "../../icons/chevron-icon/ChevronIcon";
 import DropdownOptionList from "../../../moleculas/option-list/DropdownOptionList";
 import {Colors} from "../../../../theme/Colors";
 import {useSizeRef} from "../../../../hooks/UseSizeRef";
 import {cn} from "@nextui-org/react";
+import {useOnClickOutside} from "usehooks-ts";
 
 const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
 
@@ -12,14 +13,17 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
     const [isOpen, setOpen] = useState(false)
 
     const color = props.selectedOption.id > 0 ? Colors["text-black"] : Colors["text-gray"]
-    const message = props.selectedOption.id > 0  ? props.selectedOption.name : props.placeholder
+    const message = props.selectedOption.id > 0 ? props.selectedOption.name : props.placeholder
 
     const gapStyle = props.labelText == null ? 0 : 12
+
+    useOnClickOutside(sizeRef.ref, () => setOpen(false))
 
     return (
         <div
             {...props.register}
-            style={{gap: gapStyle}} className={cn(props.className,style.wrapper)}
+            style={{gap: gapStyle}} className={cn(props.className, style.wrapper)}
+            onClick={() => setOpen(true)}
             ref={sizeRef.ref}
         >
             <div className={style.labelText}>{props.labelText}</div>

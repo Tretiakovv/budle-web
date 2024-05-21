@@ -6,12 +6,13 @@ import {useUnit} from "effector-react";
 import {$activeEstablishmentOption} from "../../../models/menu/model";
 import {useRef} from "react";
 import Toast from "../../moleculas/toast/Toast";
-import {deleteCategoryFx} from "../../../models/menu/edit_delete_menu/model";
+import {deleteCategoryFx, setCategoryToEditEvent} from "../../../models/menu/edit_delete_menu/model";
 
 const PositionGroup = (props) => {
 
     const ref = useRef(null)
 
+    const setCategoryToEdit = useUnit(setCategoryToEditEvent)
     const establishment = useUnit($activeEstablishmentOption)
     const deleteSection = useUnit(deleteCategoryFx)
 
@@ -37,7 +38,7 @@ const PositionGroup = (props) => {
         .then(showSuccess)
         .catch(showFailure)
 
-    const handleEdit = () => console.log("AAAA")
+    const handleEdit = () => setCategoryToEdit(props.group)
 
     return (
         <div className={style.card}>
@@ -55,6 +56,7 @@ const PositionGroup = (props) => {
             </div>
             {props.childCategories.map(subgroup => {
                 return <PositionSubgroup
+                    subgroup={subgroup}
                     categoryId={subgroup.id}
                     subgroupName={subgroup.name}
                     products={subgroup.products}

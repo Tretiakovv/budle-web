@@ -5,7 +5,7 @@ const EstablishmentList = (props) => {
     return (
         <div className={style.wrapper}>
             {props.data.map(establishment => (
-                <BranchCard onDelete={props.onDelete} establishment={establishment}/>
+                <BranchCard {...props} establishment={establishment}/>
             ))}
         </div>
     )

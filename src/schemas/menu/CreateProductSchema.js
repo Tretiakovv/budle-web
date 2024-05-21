@@ -10,3 +10,12 @@ export const CreateProductSchema = z.object({
     categoryId: SelectSchema,
     isOnSale: BooleanSchema
 })
+
+export const EditProductSchema = z.object({
+    productId: RequiredFieldSchema,
+    name: RequiredFieldSchema,
+    price: RequiredFieldSchema,
+    weightG: RequiredFieldSchema,
+    description: RequiredFieldSchema,
+    isOnSale: BooleanSchema
+})
