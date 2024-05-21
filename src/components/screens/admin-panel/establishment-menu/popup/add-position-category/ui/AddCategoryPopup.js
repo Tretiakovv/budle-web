@@ -1,13 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import ControlledTextInput from "../../../../../../ui/atoms/inputs/text-input/ControlledTextInput";
-import Button from "../../../../../../ui/atoms/buttons/button/Button";
-import ControlledSelectInput from "../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
+import ControlledTextInput from "../../../../../../../ui/atoms/inputs/text-input/ControlledTextInput";
+import Button from "../../../../../../../ui/atoms/buttons/button/Button";
+import ControlledSelectInput from "../../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
 import {useUnit} from "effector-react";
-import Toast from "../../../../../../ui/moleculas/toast/Toast";
-import {$activeEstablishmentOption, $selectedMenuItems, createCategoryFx} from "../../../../../../models/menu/model";
-import {CreateCategorySchema} from "../../../../../../schemas/menu/CreateCategorySchema";
+import Toast from "../../../../../../../ui/moleculas/toast/Toast";
+import {$activeEstablishmentOption, $selectedMenuItems, createCategoryFx} from "../../../../../../../models/menu/model";
+import {CreateCategorySchema} from "../../../../../../../schemas/menu/CreateCategorySchema";
 
 const AddCategoryPopup = (props) => {
 

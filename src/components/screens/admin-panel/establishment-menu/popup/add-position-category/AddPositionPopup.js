@@ -2,8 +2,8 @@ import Popup from "../../../../../../ui/wrappers/popup/Popup";
 import PopupHeader from "../../../../../../ui/atoms/rows/popup-header/PopupHeader";
 import SwitchButton from "../../../../../../ui/moleculas/switch-button/SwitchButton";
 import {useState} from "react";
-import AddProductPopup from "./AddProductPopup";
-import AddCategoryPopup from "./AddCategoryPopup";
+import AddProductPopup from "./ui/AddProductPopup";
+import AddCategoryPopup from "./ui/AddCategoryPopup";
 
 const switchOptions = [
     {id: 0, message: "Блюдо"},

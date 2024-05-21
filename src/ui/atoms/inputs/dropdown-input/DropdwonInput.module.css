@@ -1,6 +1,6 @@
 .wrapper {
 
-    @apply flex flex-col w-full gap-3;
+    @apply flex flex-col w-full gap-3 cursor-pointer;
 
     .labelText {
         @apply text-black;

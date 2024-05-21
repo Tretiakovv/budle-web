@@ -9,7 +9,7 @@ import {useMutation} from "react-query";
 import {queryClient} from "../../../index";
 import {useUnit} from "effector-react";
 import {$activeEstablishmentOption} from "../../../models/menu/model";
-import {deleteCategoryFx, deleteProductFx} from "../../../models/menu/edit_delete_menu/model";
+import {deleteCategoryFx, deleteProductFx, setProductToEditEvent} from "../../../models/menu/edit_delete_menu/model";
 import Toast from "../toast/Toast";
 import Tooltip from "../tooltip/Tooltip";
 
@@ -17,6 +17,7 @@ const PositionRow = (props) => {
 
     const ref = useRef(null)
 
+    const setProductToEdit = useUnit(setProductToEditEvent)
     const establishment = useUnit($activeEstablishmentOption)
     const deleteSection = useUnit(deleteProductFx)
 
@@ -42,7 +43,7 @@ const PositionRow = (props) => {
         .then(showSuccess)
         .catch(showFailure)
 
-    const handleEdit = () => console.log("AAAA")
+    const handleEdit = () => setProductToEdit(props.position)
 
     const children = Children.map(props.children, (child) => {
         return <div className={style.child}>{child}</div>

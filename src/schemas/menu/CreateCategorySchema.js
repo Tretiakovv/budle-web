@@ -6,3 +6,8 @@ export const CreateCategorySchema = z.object({
     parentCategoryId: SelectSchema.or(z.null()),
     establishmentId: RequiredFieldSchema
 })
+
+export const EditCategorySchema = z.object({
+    id : RequiredFieldSchema,
+    name : RequiredFieldSchema
+})
