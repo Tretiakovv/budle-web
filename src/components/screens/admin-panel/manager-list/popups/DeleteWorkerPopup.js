@@ -6,35 +6,30 @@ import Button from "../../../../../ui/atoms/buttons/button/Button";
 import {useStore} from "../../../../../store/store";
 import {useMutation, useQueryClient} from "react-query";
 import PopupHeader from "../../../../../ui/atoms/rows/popup-header/PopupHeader";
+import {useUnit} from "effector-react";
+import {$managerScreenActiveOption, $workerToDelete, deleteWorkerFx} from "../../../../../models/workers/model";
 
 const DeleteWorkerPopup = (props) => {
 
-    const queryClient = useQueryClient()
-
+    const establishment = useUnit($managerScreenActiveOption)
+    const [workerToDelete, deleteWorker] = useUnit([$workerToDelete, deleteWorkerFx])
     const [inputText, setInputText] = useState("")
-
-    const removeWorker = useStore(state => state.removeWorker)
-
-    const removeWorkerMutation = useMutation({
-        mutationKey : ["delete", "worker", props.establishmentId, props.worker.id],
-        mutationFn : () => removeWorker(props.establishmentId, props.worker.id),
-        onMutate : () => queryClient.invalidateQueries(["get", "workers", props.establishmentId])
-    })
 
     const handleDelete = () => {
         if (inputText === "ПОДТВЕРЖДАЮ") {
-            removeWorkerMutation.mutate()
+            deleteWorker({establishmentId: establishment.id, workerId: workerToDelete.id})
             props.onClose()
         }
     }
 
     return (
         <Popup
+            fullscreen
             onClick={props.onClose}
             cardWidth={700}
         >
             <PopupHeader
-                header={props.worker.firstName + " " + props.worker.middleName}
+                header={`${workerToDelete.firstName} ${workerToDelete.middleName}`}
                 onClick={props.onClose}
             />
             <div className={"w-full text-xl font-medium flex flex-col"}>

@@ -10,12 +10,14 @@ import {getEstablishmentsFx} from "../../../../../models/establishment-list/mode
 import {
     $managerScreenActiveOption,
     $managerScreenOptions,
-    $workers,
+    $workers, $workerToDelete,
     getAllWorkersFx,
-    setManagerScreenActiveOption
+    setManagerScreenActiveOption,
+    setWorkerToDeleteEvent
 } from "../../../../../models/workers/model";
 import AdminPanelWrapper from "../../../../../ui/wrappers/AdminPanelWrapper";
 import AddWorkerPopup from "../popups/AddWorkerPopup";
+import DeleteWorkerPopup from "../popups/DeleteWorkerPopup";
 
 const ManagerListScreen = () => {
 
@@ -23,22 +25,17 @@ const ManagerListScreen = () => {
     const [options, getEstablishments] = useUnit([$managerScreenOptions, getEstablishmentsFx])
     const [activeOption, setActiveOption] = useUnit([$managerScreenActiveOption, setManagerScreenActiveOption])
 
-    const [isDeletePopupVisible, setDeletePopupVisible] = useState(null)
+    const [workerToDelete, setWorkerToDelete] = useUnit([$workerToDelete, setWorkerToDeleteEvent])
     const [managerPopupVisible, setManagerPopupVisible] = useState(false)
-
-    const onSubmitManagerPopup = () => {
-        setManagerPopupVisible(false)
-        setSuccessPopupVisible(true)
-    }
 
     useEffect(() => {
         getEstablishments()
-        getWorkers()
     }, []);
 
     if (options && activeOption) return (
         <AdminPanelWrapper>
             {managerPopupVisible && <AddWorkerPopup onClose={() => setManagerPopupVisible(false)}/>}
+            {workerToDelete && <DeleteWorkerPopup onClose={() => setWorkerToDelete(null)}/>}
             <HeaderColumn header={"Список администраторов"}>
                 <div className={style.headerButton}>
                     <Button
@@ -57,7 +54,7 @@ const ManagerListScreen = () => {
             </HeaderColumn>
             <div className={"w-full grid grid-cols-12 gap-[10px]"}>
                 {workers?.map((worker) => <WorkerCard
-                    onDelete={() => setDeletePopupVisible(worker)}
+                    onDelete={() => setWorkerToDelete(worker)}
                     worker={worker}
                 />)}
             </div>

@@ -1,6 +1,7 @@
 import {api} from "../../api/API";
 import {createEffect, createEvent, createStore, sample} from "effector";
 import {getEstablishmentsFx} from "../establishment-list/model";
+import {$activeOrdersOption} from "../orders/model";
 
 const inviteWorkerByToken = async (data) => {
     return api.put('/business/worker/invite', null, {
@@ -37,12 +38,27 @@ const getAllWorkers = async () => {
         .then(data => data.result)
 }
 
+const getWorkersByEstablishmentId = async (id) => {
+    return api.get('/business/worker', {
+        params: {
+            establishmentId: id
+        }
+    })
+        .then(data => data.result)
+}
+
+export const getWorkersByEstablishmentIdFx = createEffect(getWorkersByEstablishmentId)
 export const inviteWorkerByTokenFx = createEffect(inviteWorkerByToken)
 export const addExistingWorkerFx = createEffect(addExistingWorker)
 export const deleteWorkerFx = createEffect(deleteWorker)
 export const getAllWorkersFx = createEffect(getAllWorkers)
 
 export const $workersOptions = createStore([])
+export const setWorkerToDeleteEvent = createEvent()
+export const $workerToDelete = createStore(null)
+
+$workerToDelete.on(setWorkerToDeleteEvent, (_, worker) => worker)
+
 $workersOptions.on(getAllWorkersFx.doneData, (_, workers) => workers.map(w => ({
     label: `${w.middleName} ${w.firstName} ${w.lastName}`,
     value: w.id
@@ -62,9 +78,18 @@ $managerScreenOptions.on(getEstablishmentsFx.doneData, (_, options) => options.m
     name: o.name, id: o.id, value: o.id, label: o.name
 })))
 
-$workers.on(getAllWorkersFx.doneData, (_, workers) => workers)
+$workers.on(getWorkersByEstablishmentIdFx.doneData, (_, workers) => workers)
+
+sample({
+    clock: $managerScreenActiveOption,
+    filter: option => option !== null,
+    fn: option => option.id,
+    target: getWorkersByEstablishmentIdFx
+})
 
 sample({
     clock: [deleteWorkerFx.doneData, inviteWorkerByTokenFx.doneData, addExistingWorkerFx.doneData],
-    target: getAllWorkersFx
+    source: $managerScreenActiveOption,
+    fn: (source) => source.id,
+    target: getWorkersByEstablishmentIdFx
 })

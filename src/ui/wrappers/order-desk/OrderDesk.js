@@ -1,10 +1,10 @@
-import style from "./OrderDesk.module.css"
 import OrderStack from "../order-stack/OrderStack";
 import {useStore} from "../../../store/store";
 import {useShallow} from "zustand/react/shallow";
-import {useQuery} from "react-query";
 import {OrderStatus} from "../../../data/enum/OrderStatus";
-import {useSearchParams} from "react-router-dom";
+import {useUnit} from "effector-react";
+import {$activeOrdersOption, $orders, getOrdersFx} from "../../../models/orders/model";
+import {useEffect} from "react";
 
 const OrderDesk = () => {
 
@@ -12,12 +12,8 @@ const OrderDesk = () => {
         useShallow(state => [state.orderDesk, state.setOrderDesk])
     )
 
-    const [searchParams, setSearchParams] = useSearchParams()
-    const establishmentId = searchParams.get("establishmentId")
-
-    const [orders, getOrders] = useStore(
-        useShallow(state => [state.orders, state.getOrders])
-    )
+    const selectedEstablishment = useUnit($activeOrdersOption)
+    const [orders, getOrders] = useUnit([$orders, getOrdersFx])
 
     const initOrderDesk = (orders) => {
         return Object.keys(OrderStatus).map((key) => {
@@ -29,35 +25,22 @@ const OrderDesk = () => {
         })
     }
 
-    const getOrdersQuery = useQuery({
-        queryKey : ["get", "orders", establishmentId],
-        queryFn : () => getOrders(establishmentId),
-        onSuccess : () => {
-            if (orders && establishmentId) {
-                setOrderDesk(initOrderDesk(orders))
-            }
-        },
-        refetchInterval : 1000 * 5
-    })
+    useEffect(() => {
+        if (!orders.length) {
+            getOrders(selectedEstablishment.id)
+        } else {
+            setOrderDesk(initOrderDesk(orders))
+        }
+    }, [orders]);
 
-    if (getOrdersQuery.isLoading) {
-        return (
-            <div>
-                Orders is loading..
-            </div>
-        )
-    }
-
-    if (getOrdersQuery.isSuccess) {
-        return (
-            <div className={style.wrapper}>
-                {orderDesk && orderDesk.map(stack => <OrderStack
-                    establishmentId={establishmentId}
-                    stack={stack}
-                />)}
-            </div>
-        )
-    }
+    return (
+        <div className={'w-full grid grid-cols-8 gap-5 items-start'}>
+            {orderDesk.map(stack => <OrderStack
+                establishmentId={selectedEstablishment.id}
+                stack={stack}
+            />)}
+        </div>
+    )
 
 }
 

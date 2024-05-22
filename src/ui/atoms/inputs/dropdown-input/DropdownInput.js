@@ -23,7 +23,7 @@ const DropdownInput = ({backgroundColor = "#FFFFFF", ...props}) => {
         <div
             {...props.register}
             style={{gap: gapStyle}} className={cn(props.className, style.wrapper)}
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen(!isOpen)}
             ref={sizeRef.ref}
         >
             <div className={style.labelText}>{props.labelText}</div>

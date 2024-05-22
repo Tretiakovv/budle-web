@@ -3,6 +3,8 @@ import OrderCard from "../../moleculas/order-card/OrderCard";
 import {useState} from "react";
 import {useStore} from "../../../store/store";
 import {useShallow} from "zustand/react/shallow";
+import {useUnit} from "effector-react";
+import {changeOrderStatusFx} from "../../../models/orders/model";
 
 const OrderStack = ({stack, establishmentId}) => {
 
@@ -13,11 +15,15 @@ const OrderStack = ({stack, establishmentId}) => {
         useShallow(state => [state.orderDesk, state.setOrderDesk, state.selectOrder])
     )
 
+    const [setCurrentOrder, setCurrentStack] = useStore(
+        useShallow(state => [state.setCurrentOrder, state.setCurrentStack])
+    )
+
     const [currentOrder, currentStack] = useStore(
         useShallow(state => [state.currentOrder, state.currentStack])
     )
 
-    const changeOrderStatus = useStore(state => state.changeOrderStatus)
+    const changeOrderStatus = useUnit(changeOrderStatusFx)
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -52,15 +58,15 @@ const OrderStack = ({stack, establishmentId}) => {
                 s.id === currentStack.id ? currentStack : s
         }))
 
-        changeOrderStatus(order.id, establishmentId, stack.id)
+        changeOrderStatus({
+            orderId: order.id,
+            establishmentId: establishmentId,
+            status: stack.id
+        })
 
         setDragging(false)
 
     }
-
-    const [setCurrentOrder, setCurrentStack] = useStore(
-        useShallow(state => [state.setCurrentOrder, state.setCurrentStack])
-    )
 
     const dropCardHandler = (e, stack) => {
 
@@ -74,7 +80,11 @@ const OrderStack = ({stack, establishmentId}) => {
                 s.id === currentStack.id ? currentStack : s
         }))
 
-        changeOrderStatus(currentOrder.id, establishmentId, stack.id)
+        changeOrderStatus({
+            orderId: order.id,
+            establishmentId: establishmentId,
+            status: stack.id
+        })
 
     }
 
@@ -90,20 +100,17 @@ const OrderStack = ({stack, establishmentId}) => {
                 style={{backgroundColor: stackColor}}
                 className={style.stackCol}
             >
-                {
-                    stack.items.map((order) => (
-                        <OrderCard
-                            stack={stack}
-                            order={order}
-                            onDragOver={handleDragOver}
-                            onDragStart={(e) => handleDragStart(e, stack, order)}
-                            onDragEnd={handleDragEnd}
-                            onDragLeave={handleDragLeave}
-                            onDrop={(e) => handleDrop(e, stack, order)}
-                            selectOrder={() => selectOrder(order)}
-                        />
-                    ))
-                }
+                {stack.items.map((order) => (
+                    <OrderCard
+                        onDragStart={(e) => handleDragStart(e, stack, order)}
+                        onDrop={(e) => handleDrop(e, stack, order)}
+                        selectOrder={() => selectOrder(order)}
+                        onDragLeave={handleDragLeave}
+                        stack={stack} order={order}
+                        onDragOver={handleDragOver}
+                        onDragEnd={handleDragEnd}
+                    />
+                ))}
             </div>
         </div>
     )
