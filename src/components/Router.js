@@ -11,6 +11,8 @@ import SupportScreen from "./screens/admin-panel/support/SupportScreen";
 import SupportChatScreen from "./screens/admin-panel/support-chat/SupportChatScreen";
 import NewEstablishmentScreen from "./screens/admin-panel/new-establishment/NewEstablishmentScreen";
 import EditEstablishmentScreen from "./screens/admin-panel/edit-establishment/EditEstablishmentScreen";
+import ReviewsListScreen from "./screens/admin-panel/reviews-list/ReviewsListScreen";
+import ReviewScreen from "./screens/admin-panel/review/ReviewScreen";
 
 const Router = () => {
     return <BrowserRouter>
@@ -21,6 +23,8 @@ const Router = () => {
             <Route element={<NewEstablishmentScreen/>} path={'/establishment/new'}/>
             <Route element={<EditEstablishmentScreen/>} path={'/establishment/edit'}/>
             <Route element={<EstablishmentMenuScreen/>} path={'/establishment-menu'}/>
+            <Route element={<ReviewsListScreen/>} path={'/reviews'}/>
+            <Route element={<ReviewScreen/>} path={'/reviews/review'}/>
             <Route element={<ManagerListScreen/>} path={'/manager-list'}/>
             <Route element={<OrderListScreen/>} path={'/order-list'}/>
             <Route element={<ProfileSettingsScreen/>} path={'/settings'}/>

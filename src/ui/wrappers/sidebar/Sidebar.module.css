@@ -3,7 +3,7 @@
     @apply col-span-2 sticky flex flex-col justify-between items-center h-screen top-0 py-10 bg-white;
 
     .group {
-        @apply w-full flex flex-col items-center gap-10;
+        @apply w-full flex flex-col items-center gap-4;
     }
 
     .bottomGroup {
