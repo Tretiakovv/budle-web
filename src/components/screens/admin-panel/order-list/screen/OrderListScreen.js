@@ -10,14 +10,17 @@ import {useUnit} from "effector-react";
 import {$activeOrdersOption, $orderScreenOptions, setActiveOrdersOption} from "../../../../../models/orders/model";
 import {getEstablishmentsFx} from "../../../../../models/establishment-list/model";
 import AdminPanelWrapper from "../../../../../ui/wrappers/AdminPanelWrapper";
+import {useStore} from "../../../../../store/store";
+import {useShallow} from "zustand/react/shallow";
 
 const OrderListScreen = () => {
 
     const [options, activeOption, setActiveOption] = useUnit([$orderScreenOptions, $activeOrdersOption, setActiveOrdersOption])
     const getEstablishments = useUnit(getEstablishmentsFx)
 
-    const [isPausePopupVisible, setPausePopupVisible] = useState(false)
-    const [selectedOrder, selectOrder] = useState(null)
+    const [selectedOrder, selectOrder] = useStore(useShallow(
+        state => [state.selectedOrder, state.selectOrder])
+    )
 
     useEffect(() => {
         getEstablishments()
@@ -25,13 +28,6 @@ const OrderListScreen = () => {
 
     if (options && activeOption) return (
         <div>
-            {isPausePopupVisible && <PauseEstablishmentPopup
-                onClose={() => setPausePopupVisible(false)}
-            />}
-            {selectedOrder && <SideOrderPopup
-                onClosePopup={() => selectOrder(null)}
-                order={selectedOrder}
-            />}
             <AdminPanelWrapper>
                 <HeaderColumn header={"Список заказов"}>
                     <div className={'col-span-8 gap-5 flex flex-row justify-center items-center'}>

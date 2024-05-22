@@ -9,7 +9,6 @@ import {changeOrderStatusFx} from "../../../models/orders/model";
 const OrderStack = ({stack, establishmentId}) => {
 
     const [isDragging, setDragging] = useState(false)
-    const stackColor = isDragging ? "#D4EAFF" : "#EEF5F9"
 
     const [orderDesk, setOrderDesk, selectOrder] = useStore(
         useShallow(state => [state.orderDesk, state.setOrderDesk, state.selectOrder])
@@ -81,7 +80,7 @@ const OrderStack = ({stack, establishmentId}) => {
         }))
 
         changeOrderStatus({
-            orderId: order.id,
+            orderId: currentOrder.id,
             establishmentId: establishmentId,
             status: stack.id
         })
@@ -97,7 +96,6 @@ const OrderStack = ({stack, establishmentId}) => {
             <div
                 onDragOver={handleDragOver}
                 onDrop={(e) => dropCardHandler(e, stack)}
-                style={{backgroundColor: stackColor}}
                 className={style.stackCol}
             >
                 {stack.items.map((order) => (

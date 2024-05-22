@@ -34,9 +34,9 @@ const SideOrderPopup = (props) => {
 
     const popupHeight = height < window.innerHeight ? window.innerHeight : height
 
-    const calculatedSum = order.menu.reduce((acc, position) => acc + position.price, 0)
+    const calculatedSum = order.menu?.reduce((acc, position) => acc + position.price, 0)
 
-    return(
+    return (
         <div style={{height: popupHeight}} className={style.popupLayout}>
 
             <div className={style.sidebar} ref={ref}>
@@ -56,20 +56,18 @@ const SideOrderPopup = (props) => {
                     </div>
 
                     <div className={style.infoCol}>
-                        {
-                            cardData.map(element => {
-                                return (
-                                    <div className={style.infoRow}>
-                                        <h4 className={style.infoHeader}>
-                                            {element.header}
-                                        </h4>
-                                        <h4 className={style.infoData}>
-                                            {element.data}
-                                        </h4>
-                                    </div>
-                                )
-                            })
-                        }
+                        {cardData.map(element => {
+                            return (
+                                <div className={style.infoRow}>
+                                    <h4 className={style.infoHeader}>
+                                        {element.header}
+                                    </h4>
+                                    <h4 className={style.infoData}>
+                                        {element.data}
+                                    </h4>
+                                </div>
+                            )
+                        })}
                     </div>
 
                 </div>
@@ -105,7 +103,6 @@ const SideOrderPopup = (props) => {
                                                 {`${position.price} ₽`}
                                             </h4>
                                         </div>
-
 
 
                                     </div>

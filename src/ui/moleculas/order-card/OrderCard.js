@@ -17,11 +17,14 @@ const OrderCard = ({order, stack, setDragging, ...props}) => {
 
     return (
         <div
-            className={style.wrapper}
-            draggable={true}
-            onClick={props.selectOrder}
-            onDrop={props.onDrop}
             {...props}
+            draggable={true}
+            className={style.wrapper}
+            onDrop={props.onDrop}
+            onClick={(e) => {
+                e.stopPropagation();
+                props.selectOrder();
+            }}
         >
 
             <div className={style.headerRow}>
