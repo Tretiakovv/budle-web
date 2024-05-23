@@ -94,7 +94,7 @@ const ReviewChat = () => {
         setAnswerMessage('')
     }
 
-    return (
+    if (currentReview) return (
         <div className={'relative col-span-full h-full flex flex-col gap-7 py-7 rounded-xl bg-white'}>
             <ReviewHeader review={currentReview}/>
             <ReviewMessage text={currentReview.text}/>

@@ -3,7 +3,7 @@ import {createEffect, createStore, sample} from "effector";
 import {createEstablishmentFx} from "../new-establishment/model";
 
 const getEstablishments = async (name) => {
-    return api.get('/business/establishments', {params : {name}})
+    return api.get('/business/establishment/all', {params : {name}})
         .then(data => data.result)
 }
 

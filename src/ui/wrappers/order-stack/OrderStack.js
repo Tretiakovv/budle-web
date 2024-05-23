@@ -1,10 +1,11 @@
 import style from "./OrderStack.module.css"
 import OrderCard from "../../moleculas/order-card/OrderCard";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {useStore} from "../../../store/store";
 import {useShallow} from "zustand/react/shallow";
 import {useUnit} from "effector-react";
 import {changeOrderStatusFx} from "../../../models/orders/model";
+import Toast from "../../moleculas/toast/Toast";
 
 const OrderStack = ({stack, establishmentId}) => {
 
@@ -23,6 +24,16 @@ const OrderStack = ({stack, establishmentId}) => {
     )
 
     const changeOrderStatus = useUnit(changeOrderStatusFx)
+
+    const ref = useRef(null)
+
+    const showFailure = (message) => {
+        ref.current.show({
+            severity: 'error',
+            message : "Все плохо",
+            detail: message,
+        });
+    };
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -62,6 +73,7 @@ const OrderStack = ({stack, establishmentId}) => {
             establishmentId: establishmentId,
             status: stack.id
         })
+            .catch(showFailure)
 
         setDragging(false)
 
@@ -89,6 +101,7 @@ const OrderStack = ({stack, establishmentId}) => {
 
     return (
         <div className={style.wrapper}>
+            <Toast ref={ref}/>
             <div className={style.stackHeader}>
                 <h4 className={style.headerData}>{stack.name}</h4>
                 <h4 className={style.headerData}>{stack.items.length}</h4>

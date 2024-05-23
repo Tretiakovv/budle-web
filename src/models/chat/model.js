@@ -6,10 +6,7 @@ import dayjs from "dayjs";
 
 const getChatHistory = async (orderId: number) => {
     return api.get("/business/chat/history", {params: {orderId: orderId}})
-        .then(response => response.data.result)
-        .catch(error => {
-            throw Error(error.response.data.message)
-        })
+        .then(response => response.result)
 }
 
 const getChatHistoryFx = createEffect(getChatHistory)
@@ -37,7 +34,7 @@ const mapHistoryToMessages = (history) => {
 
 const getUserInformation = async () => {
     return api.get("/business/me")
-        .then(response => response.data.result)
+        .then(response => response.result)
 }
 
 const getUserInformationFx = createEffect(getUserInformation)

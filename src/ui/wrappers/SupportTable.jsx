@@ -1,8 +1,8 @@
 import {cn} from "../../utils/cn";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {useStore} from "../../store/store";
-import {useShallow} from "zustand/react/shallow";
-import {useQuery} from "react-query";
+import {useUnit} from "effector-react";
+import {$orders} from "../../models/orders/model";
+import dayjs from "dayjs";
 
 const TableRowWrapper = ({children, onClick}) => {
 
@@ -59,48 +59,33 @@ const OrderStatus = ({orderStatus}) => {
 const TableRow = ({order, onClick}) => {
     return (
         <TableRowWrapper onClick={onClick}>
-            {Object.values(order).map((item, key, array) => {
-                return key !== array.length - 1
-                    ? <h1 className={"min-w-[150px]"} key={key}>{item}</h1>
-                    : <OrderStatus orderStatus={item}/>
-            })}
+            <h1 className={"min-w-[150px]"}>Бронь {order.id}</h1>
+            <h1 className={"min-w-[150px]"}>{dayjs(Date.now()).format('DD.MM.YYYY')}</h1>
+            <h1 className={"min-w-[150px]"}>Столик 12</h1>
+            <h1 className={"min-w-[150px]"}>{order.guestCount}</h1>
+            <h1 className={"min-w-[150px]"}>{order.guestName}</h1>
+            <h1 className={"min-w-[150px]"}>{dayjs(Date.now()).format('DD.MM.YYYY')}</h1>
+            <OrderStatus orderStatus={order.status}/>
         </TableRowWrapper>
     )
 }
 
 const SupportTable = () => {
 
-    const [searchParams, _] = useSearchParams()
-    const establishmentId = searchParams.get("establishmentId")
-
-    const [orders, getOrders] = useStore(
-        useShallow(state => [state.orders, state.getOrders])
-    )
-
-    const getOrdersQuery = useQuery({
-        queryKey: ["get", "orders", establishmentId],
-        queryFn: () => getOrders(establishmentId),
-        refetchInterval: 1000 * 5
-    })
+    const orders = useUnit($orders)
 
     const navigate = useNavigate()
     const handleClick = (id) => navigate(`/support/chat?orderId=${id}`)
 
-    if (getOrdersQuery.isLoading) {
-        return (
-            <div>
-                Orders is loading..
-            </div>
-        )
-    }
+    console.log(orders)
 
-    if (getOrdersQuery.isSuccess) return (
+    return (
         <section className={"col-span-full bg-white flex flex-col rounded-3xl mb-7"}>
             <TableHeader/>
             {orders.map((order, orderKey) => (
                 <TableRow
-                    order={order} key={orderKey}
                     onClick={() => handleClick(order.id)}
+                    order={order} key={orderKey}
                 />
             ))}
         </section>

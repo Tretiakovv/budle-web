@@ -9,7 +9,7 @@ const registerUser = async (formData) => {
 const loginUser = async (formData) => {
     return api.post('/business/login/jwt', formData)
         .then(response => {
-            localStorage.setItem("ACCESS_TOKEN", response.result.accessToken)
+            sessionStorage.setItem("ACCESS_TOKEN", response.result.accessToken)
             return response.data
         })
 }

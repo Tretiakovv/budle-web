@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import mainStyle from "../../AdminPanel.module.css";
 import Sidebar from "../../../../ui/wrappers/sidebar/SIdebar";
 import HeaderColumn from "../../../../ui/wrappers/header-column/HeaderColumn";
@@ -9,55 +9,42 @@ import {mapEstablishmentsToOptions} from "../../../../utils/mapEstablishmentsToO
 import {useQuery} from "react-query";
 import DropdownInput from "../../../../ui/atoms/inputs/dropdown-input/DropdownInput";
 import {useSearchParams} from "react-router-dom";
+import {useUnit} from "effector-react";
+import {$activeOrdersOption, $orderScreenOptions, setActiveOrdersOption} from "../../../../models/orders/model";
+import {getEstablishmentsFx} from "../../../../models/establishment-list/model";
+import AdminPanelWrapper from "../../../../ui/wrappers/AdminPanelWrapper";
 
 const SupportScreen = () => {
 
-    const [activeEstOption, setActiveEstOption] = useState({id : 0, name : ""})
+    const getEstablishments = useUnit(getEstablishmentsFx)
+    const [options, activeOption, setActiveOption] = useUnit([$orderScreenOptions, $activeOrdersOption, setActiveOrdersOption])
     const [_, setSearchParams] = useSearchParams()
-
-    const [establishments, getEstablishments] = useStore(
-        useShallow(state => [state.establishmentList, state.getEstablishmentList])
-    )
-
-    const options = mapEstablishmentsToOptions(establishments)
-
-    const getEstablishmentsQuery = useQuery({
-        queryKey : ["get", "establishmentList"],
-        queryFn : () => getEstablishments(),
-    })
 
     const handleChangeOption = (option) => {
         setSearchParams(prev => {
             prev.set("establishmentId", option.id)
             return prev
         })
-        setActiveEstOption(option)
+        setActiveOption(option)
     }
 
-    if (getEstablishmentsQuery.isLoading) {
-        return (
-            <div>
-                Establishments is loading..
-            </div>
-        )
-    }
+    useEffect(() => {
+        getEstablishments()
+    }, []);
 
-    if (getEstablishmentsQuery.isSuccess) return (
-        <div className={mainStyle.layout}>
-            <Sidebar activeTab={6}/>
-            <div className={mainStyle.content}>
-                <HeaderColumn header={"Поддержка"}>
-                    <DropdownInput
-                        className={"col-span-2"}
-                        selectedOption={activeEstOption}
-                        selectOption={handleChangeOption}
-                        placeholder={"Выберите заведение"}
-                        options={options}
-                    />
-                </HeaderColumn>
-                <SupportTable/>
-            </div>
-        </div>
+    if (options && activeOption) return (
+        <AdminPanelWrapper>
+            <HeaderColumn header={"Поддержка"}>
+                <DropdownInput
+                    className={"col-span-2"}
+                    selectedOption={activeOption}
+                    selectOption={handleChangeOption}
+                    placeholder={"Выберите заведение"}
+                    options={options}
+                />
+            </HeaderColumn>
+            <SupportTable/>
+        </AdminPanelWrapper>
     );
 
 };

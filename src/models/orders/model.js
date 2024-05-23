@@ -44,7 +44,7 @@ sample({
 })
 
 sample({
-    clock: changeOrderStatusFx.doneData,
+    clock: [changeOrderStatusFx.doneData, changeOrderStatusFx.failData],
     source : $activeOrdersOption,
     fn : option => option.id,
     target: getOrdersFx

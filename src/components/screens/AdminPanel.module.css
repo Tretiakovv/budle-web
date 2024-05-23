@@ -1,5 +1,5 @@
 .layout {
-    @apply h-screen grid grid-cols-10 gap-[20px] bg-background-blue overflow-y-hidden;
+    @apply h-screen grid grid-cols-10 gap-[20px] bg-background-blue;
 }
 
 .content {

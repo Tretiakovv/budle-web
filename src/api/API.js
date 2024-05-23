@@ -15,7 +15,7 @@ const handleResponseError = async (error) => {
         const response = await axios.post(
             `${BASEURL}/business/refresh`,
             null, {withCredentials: true})
-        localStorage.setItem("ACCESS_TOKEN", response.data.result.accessToken)
+        sessionStorage.setItem("ACCESS_TOKEN", response.data.result.accessToken)
         return api(originalRequest)
     } else {
         const message = error.response.data.exception.message
@@ -30,13 +30,13 @@ const handleResponseFulfilled = async (config) => {
 }
 
 api.interceptors.request.use(config => {
-    const accessToken = localStorage.getItem("ACCESS_TOKEN")
+    const accessToken = sessionStorage.getItem("ACCESS_TOKEN")
     if (typeof accessToken === 'string') {
         const token = jwtDecode(accessToken)
         if (Date.now() <= token.exp * 1000) {
             config.headers.Authorization = `Bearer ${accessToken}`
         } else {
-            localStorage.removeItem("ACCESS_TOKEN")
+            sessionStorage.removeItem("ACCESS_TOKEN")
         }
     }
     return config
