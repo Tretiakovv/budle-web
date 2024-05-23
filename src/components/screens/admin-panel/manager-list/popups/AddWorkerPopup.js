@@ -22,7 +22,7 @@ const AddWorkerPopup = (props) => {
             fullscreen
         >
             <PopupHeader
-                header={"Добавить элемент"}
+                header={"Добавить сотрудника"}
                 onClick={props.onClose}
             />
             <SwitchButton

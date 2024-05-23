@@ -10,14 +10,15 @@ import {getEstablishmentsFx} from "../../../../../models/establishment-list/mode
 import {
     $managerScreenActiveOption,
     $managerScreenOptions,
-    $workers, $workerToDelete,
+    $workers, $workerToDelete, $workerToEdit,
     getAllWorkersFx,
     setManagerScreenActiveOption,
-    setWorkerToDeleteEvent
+    setWorkerToDeleteEvent, setWorkerToEditEvent
 } from "../../../../../models/workers/model";
 import AdminPanelWrapper from "../../../../../ui/wrappers/AdminPanelWrapper";
 import AddWorkerPopup from "../popups/AddWorkerPopup";
 import DeleteWorkerPopup from "../popups/DeleteWorkerPopup";
+import EditWorkerPopup from "../popups/EditWorkerPopup";
 
 const ManagerListScreen = () => {
 
@@ -27,6 +28,7 @@ const ManagerListScreen = () => {
 
     const [workerToDelete, setWorkerToDelete] = useUnit([$workerToDelete, setWorkerToDeleteEvent])
     const [managerPopupVisible, setManagerPopupVisible] = useState(false)
+    const [workerToEdit, setWorkerToEdit] = useUnit([$workerToEdit, setWorkerToEditEvent])
 
     useEffect(() => {
         getEstablishments()
@@ -34,6 +36,7 @@ const ManagerListScreen = () => {
 
     if (options && activeOption) return (
         <AdminPanelWrapper>
+            {workerToEdit && <EditWorkerPopup onClose={() => setWorkerToEdit(null)}/>}
             {managerPopupVisible && <AddWorkerPopup onClose={() => setManagerPopupVisible(false)}/>}
             {workerToDelete && <DeleteWorkerPopup onClose={() => setWorkerToDelete(null)}/>}
             <HeaderColumn header={"Список администраторов"}>
@@ -55,6 +58,7 @@ const ManagerListScreen = () => {
             <div className={"w-full grid grid-cols-12 gap-[10px]"}>
                 {workers?.map((worker) => <WorkerCard
                     onDelete={() => setWorkerToDelete(worker)}
+                    onEdit={() => setWorkerToEdit(worker)}
                     worker={worker}
                 />)}
             </div>

@@ -1,25 +1,19 @@
 import {api} from "../../api/API";
 import {createEffect, createEvent, createStore, sample} from "effector";
 import {getEstablishmentsFx} from "../establishment-list/model";
-import {$activeOrdersOption} from "../orders/model";
 
 const inviteWorkerByToken = async (data) => {
-    return api.put('/business/worker/invite', null, {
-        params: {
-            establishmentId: data.establishmentId,
-            token: data.token
-        }
-    })
+    return api.put('/business/worker/invite', data)
         .then(data => data.result)
 }
 
 const addExistingWorker = async (data) => {
-    return api.put('/business/worker', null, {
-        params: {
-            establishmentId: data.establishmentId,
-            workerId: data.workerId
-        }
-    })
+    return api.put('/business/worker', data)
+        .then(data => data.result)
+}
+
+const editWorker = async (data) => {
+    return api.put('/business/option', data)
         .then(data => data.result)
 }
 
@@ -38,6 +32,16 @@ const getAllWorkers = async () => {
         .then(data => data.result)
 }
 
+const getWorkerOptions = async (data) => {
+    return api.get('/business/option', {
+        params : {
+            establishmentId : data.establishmentId,
+            workerId : data.workerId
+        }
+    })
+        .then(data => data.result)
+}
+
 const getWorkersByEstablishmentId = async (id) => {
     return api.get('/business/worker', {
         params: {
@@ -47,17 +51,35 @@ const getWorkersByEstablishmentId = async (id) => {
         .then(data => data.result)
 }
 
+const getOptions = async () => {
+    return api.get('/business/option/all')
+        .then(data => data.result)
+}
+
+export const getOptionsFx = createEffect(getOptions)
+export const $checkboxOptions = createStore([])
+
+$checkboxOptions.on(getOptionsFx.doneData, (_, options) => options)
+
 export const getWorkersByEstablishmentIdFx = createEffect(getWorkersByEstablishmentId)
 export const inviteWorkerByTokenFx = createEffect(inviteWorkerByToken)
 export const addExistingWorkerFx = createEffect(addExistingWorker)
 export const deleteWorkerFx = createEffect(deleteWorker)
 export const getAllWorkersFx = createEffect(getAllWorkers)
+export const editWorkerFx = createEffect(editWorker)
+export const getWorkerOptionsFx = createEffect(getWorkerOptions)
+
+export const $selectedWorkerOptions = createStore([])
+$selectedWorkerOptions.on(getWorkerOptionsFx.doneData, (_, options) => options)
 
 export const $workersOptions = createStore([])
 export const setWorkerToDeleteEvent = createEvent()
+export const setWorkerToEditEvent = createEvent()
 export const $workerToDelete = createStore(null)
+export const $workerToEdit = createStore(null)
 
 $workerToDelete.on(setWorkerToDeleteEvent, (_, worker) => worker)
+$workerToEdit.on(setWorkerToEditEvent, (_, worker) => worker)
 
 $workersOptions.on(getAllWorkersFx.doneData, (_, workers) => workers.map(w => ({
     label: `${w.middleName} ${w.firstName} ${w.lastName}`,

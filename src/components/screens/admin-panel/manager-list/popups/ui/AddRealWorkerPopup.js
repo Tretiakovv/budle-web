@@ -1,17 +1,25 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useUnit} from "effector-react";
-import {$managerScreenOptions, $workersOptions, addExistingWorkerFx} from "../../../../../../models/workers/model";
+import {
+    $checkboxOptions,
+    $managerScreenOptions,
+    $workersOptions,
+    addExistingWorkerFx, getAllWorkersFx, getOptionsFx
+} from "../../../../../../models/workers/model";
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {AddRealWorkerSchema} from "../../../../../../schemas/workers/CreateWorkerSchema";
 import Toast from "../../../../../../ui/moleculas/toast/Toast";
 import ControlledSelectInput from "../../../../../../ui/atoms/inputs/select-input/ControlledSelectInput";
 import Button from "../../../../../../ui/atoms/buttons/button/Button";
+import ControlledCheckboxGroup from "../../../../../../ui/atoms/checkbox/ControlledCheckboxGroup";
+import {createAccessEnum} from "../../../../../../utils/getAccessEnum";
 
 const AddRealWorkerPopup = (props) => {
 
     const successRef = useRef(null)
-    const establishmentOptions = useUnit($managerScreenOptions)
+    const [establishmentOptions, getAllWorkers] = useUnit([$managerScreenOptions, getAllWorkersFx])
+    const [checkboxOptions, getOptions] = useUnit([$checkboxOptions, getOptionsFx])
     const [workerOptions, addWorker] = useUnit([$workersOptions, addExistingWorkerFx])
 
     const methods = useForm({
@@ -35,9 +43,14 @@ const AddRealWorkerPopup = (props) => {
     };
 
     const onSubmit = (data) => {
+        const checkedOptions = checkboxOptions.map((item, index) => ({
+            option: createAccessEnum(item.optionName),
+            isEnabled: data.options[index]
+        }))
         const request = {
-            establishmentId: data.establishmentId.value,
-            workerId: data.workerId.value
+            options: checkedOptions,
+            workerId: data.workerId.value,
+            establishmentId: data.establishmentId.value
         }
         addWorker(request)
             .then(_ => {
@@ -47,10 +60,19 @@ const AddRealWorkerPopup = (props) => {
             .catch(showFailure)
     }
 
+    useEffect(() => {
+        methods.reset({options: checkboxOptions.map(i => i.isAvailable)})
+    }, [checkboxOptions]);
+
+    useEffect(() => {
+        getAllWorkers()
+        getOptions()
+    }, []);
+
     return (
         <FormProvider {...methods}>
             <Toast ref={successRef}/>
-            <div className={'w-full flex flex-row justify-between gap-5 items-center'}>
+            <div className={'w-full flex flex-row justify-between gap-5 items-center border-y-2 border-gray-100 py-5'}>
                 <ControlledSelectInput
                     isClearable={true}
                     label={"Сотрудник"}
@@ -68,9 +90,13 @@ const AddRealWorkerPopup = (props) => {
                     options={establishmentOptions}
                 />
             </div>
+            <ControlledCheckboxGroup
+                options={checkboxOptions}
+                name={'options'}
+            />
             <Button
                 onClick={methods.handleSubmit(onSubmit)}
-                buttonText={"Добавить элемент"}
+                buttonText={"Добавить сотрудника"}
             />
         </FormProvider>
     )
