@@ -216,16 +216,6 @@ const PopupForm = (props) => {
                     color={Colors["background-light-blue"]}
                     labelText={"Адрес заведения"}
                 />
-                <FormRow>
-                    <ControlledSelectInput
-                        control={context.methods.control}
-                        label={"Метро"}
-                        inputName={"subway"}
-                        required={false}
-                        options={context.createOptionsArray(selectData.subway)}
-                        validatorMessage={context.getMessage("subway")}
-                    />
-                </FormRow>
                 <DayInputRow/>
                 <Button
                     buttonType={"submit"}

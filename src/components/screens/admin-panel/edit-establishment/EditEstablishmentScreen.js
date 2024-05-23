@@ -82,7 +82,6 @@ const EditEstablishmentForm = () => {
             cuisineCountry: data.cuisine_country.value,
             image: data.photosInput[0],
             photosInput: data.photosInput.slice(1).map(image => ({image: image})),
-            subway: data.subway.value,
             tags: data.tags.map(tag => ({name: tag.value})),
             category: data.category.value,
             workingHours: data.workingHours.map(w => ({
@@ -179,16 +178,6 @@ const EditEstablishmentForm = () => {
                     />
                 </FormRow>
                 <DayInputRow/>
-                <FormRow>
-                    <ControlledSelectInput
-                        control={context.methods.control}
-                        label={"Метро"}
-                        inputName={"subway"}
-                        required={false}
-                        options={context.createOptionsArray(selectData.subway)}
-                        validatorMessage={context.getMessage("subway")}
-                    />
-                </FormRow>
                 <FormRow>
                     <ControlledTextInput
                         name={'address'}

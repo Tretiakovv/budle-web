@@ -4,7 +4,7 @@ import ControlledCheckboxGroup from "../../../../../ui/atoms/checkbox/Controlled
 import React, {useEffect, useRef} from "react";
 import {useUnit} from "effector-react";
 import {
-    $checkboxOptions,
+    $checkboxOptions, $managerScreenActiveOption,
     $selectedWorkerOptions,
     $workerToEdit,
     editWorkerFx,
@@ -25,7 +25,7 @@ const EditWorkerPopup = (props) => {
     const successRef = useRef(null)
 
     const [selectedWorkerOptions, getWorkerOptions] = useUnit([$selectedWorkerOptions, getWorkerOptionsFx])
-    const [establishment, editWorker] = useUnit([$activeEstablishmentOption, editWorkerFx])
+    const [establishment, editWorker] = useUnit([$managerScreenActiveOption, editWorkerFx])
     const [workerToEdit, getAllWorkers] = useUnit([$workerToEdit, getAllWorkersFx])
     const [checkboxOptions, getOptions] = useUnit([$checkboxOptions, getOptionsFx])
 
